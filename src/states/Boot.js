@@ -11,7 +11,7 @@ export default class extends Phaser.State {
   preload () {
     WebFont.load({
       google: {
-        families: ['Eater', 'Nosifer']
+        families: ['Griffy', 'Nosifer']
       },
       active: this.fontsLoaded
     })

@@ -16,23 +16,23 @@ export default class extends Phaser.State {
     banner.font = 'Nosifer'
     banner.padding.set(10, 16)
     banner.fontSize = 90
-    banner.fill = '#d00'
+    banner.fill = '#e00'
     banner.smoothed = true
     banner.anchor.setTo(0.5)
 
     let startText = this.add.text(this.world.centerX, this.game.height - 80, 'Click to start');
     startText.inputEnabled = true;
     startText.events.onInputDown.add(this.actionOnClick, this);
-    startText.font = 'Nosifer'
+    startText.font = 'Griffy'
     startText.padding.set(10, 16)
     startText.fontSize = 50
-    startText.fill = '#d00'
+    startText.fill = '#a00'
     startText.smoothed = true
     startText.anchor.setTo(0.5)
 
     this.head = new Head({
       game: this.game,
-      x: this.world.centerX,
+      x: -100,
       y: this.world.centerY,
       asset: 'head'
     })
@@ -46,16 +46,17 @@ export default class extends Phaser.State {
       }
     }
     this.game.add.existing(this.head)
-    
-    this.emitter = game.add.emitter(1000,100,1000);
-    this.emitter.setScale(0.01, .25, 0.01, .25, 3000, Phaser.Easing.Quintic.Out);
+    this.emitter = game.add.emitter();
+    this.emitter.setScale(0.1, .25, 0.1, .25, 2000, Phaser.Easing.Exponential.Out);
     this.emitter.makeParticles('blood1');
     this.emitter.lifespan = 500;
-
+    emitter.emitX = 0;
+    
   }
 
   update(){
-    this.emitter.emitParticle(this.head.x, this.head.y);
+    let angle = (this.head.angle + 50) * 0.017453292;
+    this.emitter.emitParticle(this.head.x + 60 * Math.cos(angle), this.head.y + 60 * Math.sin(angle));
   }
 
   actionOnClick() {
