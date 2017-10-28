@@ -12,23 +12,22 @@ export default class extends Phaser.State {
   }
 
   create() {
-    let banner = this.add.text(this.world.centerX, 80, 'HEAD');
-    banner.font = 'Nosifer'
-    banner.padding.set(10, 16)
-    banner.fontSize = 90
-    banner.fill = '#e00'
-    banner.smoothed = true
-    banner.anchor.setTo(0.5)
+    this.banner = this.add.text(this.world.centerX, 80, 'HEAD');
+    this.banner.font = 'Nosifer'
+    this.banner.padding.set(10, 16)
+    this.banner.fontSize = 90
+    this.banner.fill = '#e00'
+    this.banner.smoothed = true
+    this.banner.anchor.setTo(0.5)
 
-    let startText = this.add.text(this.world.centerX, this.game.height - 80, 'Click to start');
-    startText.inputEnabled = true;
-    startText.events.onInputDown.add(this.actionOnClick, this);
-    startText.font = 'Griffy'
-    startText.padding.set(10, 16)
-    startText.fontSize = 50
-    startText.fill = '#a00'
-    startText.smoothed = true
-    startText.anchor.setTo(0.5)
+    this.startText = this.add.text(this.world.centerX, this.game.height - 80, 'Click to start');
+    this.startText.inputEnabled = true;
+    this.startText.font = 'Griffy'
+    this.startText.fontSize = 50
+    this.startText.fill = '#e00'
+    this.startText.smoothed = true
+    this.startText.alpha = 0;
+    this.startText.anchor.setTo(0.5)
 
     this.head = new Head({
       game: this.game,
@@ -46,21 +45,23 @@ export default class extends Phaser.State {
       }
     }
     this.game.add.existing(this.head)
+    this.game.input.onDown.add(this.startGame, this);
     this.emitter = game.add.emitter();
-    this.emitter.setScale(0.1, .25, 0.1, .25, 2000, Phaser.Easing.Exponential.Out);
+    this.emitter.setScale(0.1, .4, 0.1, .4, 2000, Phaser.Easing.Exponential.Out);
     this.emitter.makeParticles('blood1');
     this.emitter.lifespan = 500;
-    emitter.emitX = 0;
-    
   }
 
   update(){
     let angle = (this.head.angle + 50) * 0.017453292;
     this.emitter.emitParticle(this.head.x + 60 * Math.cos(angle), this.head.y + 60 * Math.sin(angle));
+    if(this.head.x > this.game.width){
+      game.add.tween(this.startText).to( { alpha: 1 }, 3000, "Linear", true);
+    }
   }
 
-  actionOnClick() {
-    console.log('clicked');
+  startGame() {
+    console.log('Starting game state');
     this.state.start('Game');
   }
 }

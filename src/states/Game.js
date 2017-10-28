@@ -1,34 +1,64 @@
 /* globals __DEV__ */
 import Phaser from 'phaser'
-import Mushroom from '../sprites/Mushroom'
+import Head from '../sprites/Head'
 
 export default class extends Phaser.State {
   init () {}
   preload () {}
 
   create () {
-    const bannerText = 'Game state'
-    let banner = this.add.text(this.world.centerX, this.game.height - 80, bannerText)
-    banner.font = 'Nosifer'
-    banner.padding.set(10, 16)
-    banner.fontSize = 30
-    banner.fill = '#d00'
-    banner.smoothed = false
-    banner.anchor.setTo(0.5)
+    this.drawGround();
+    this.game.physics.startSystem(Phaser.Physics.ARCADE);
+    this.game.physics.arcade.gravity.y = 250;
 
-    this.mushroom = new Mushroom({
+    this.head = new Head({
       game: this.game,
       x: this.world.centerX,
-      y: this.world.centerY,
-      asset: 'mushroom'
+      y: this.world.height * .7,
+      asset: 'head'
     })
+    this.game.physics.enable(this.head, Phaser.Physics.ARCADE);
+    this.head.body.bounce.y = .5;
+    this.head.body.collideWorldBounds = true;
+    this.head.body.velocity.y = -400;
+    this.head.anchor.setTo(0.5, 0.5);
+    this.head.update = function(){
+      this.roll();
 
-    this.game.add.existing(this.mushroom)
+    }
+    this.game.add.existing(this.head)
+    this.emitter = game.add.emitter();
+    this.emitter.setScale(0.1, .3, 0.1, .3, 2000, Phaser.Easing.Exponential.Out);
+    this.emitter.makeParticles('blood1');
+    this.emitter.lifespan = 500;
+    this.game.input.onDown.add(this.bounce, this);
+  }
+
+  update(){
+    let angle = (this.head.angle + 50) * 0.017453292;
+    this.emitter.emitParticle(this.head.x + 60 * Math.cos(angle), this.head.y + 60 * Math.sin(angle));
+    if(this.head.x > this.game.width){
+      game.add.tween(this.startText).to( { alpha: 1 }, 3000, "Linear", true);
+    }
+  }
+
+  bounce(){
+    console.log('bounce');
+    if(this.head.y > this.world.height - (this.head.height * .75)){
+      this.head.body.velocity.y = -500;
+    }
+  }
+
+  drawGround(){
+    var graphics = game.add.graphics(0, 0);
+    graphics.beginFill(0x00AA00);
+    graphics.lineStyle(2, 0x006600, 1);
+    graphics.drawRect(0, this.world.height * .9, this.world.width, this.world.height);
   }
 
   render () {
     if (__DEV__) {
-      this.game.debug.spriteInfo(this.mushroom, 32, 32)
+      this.game.debug.spriteInfo(this.head, 32, 32)
     }
   }
 }
