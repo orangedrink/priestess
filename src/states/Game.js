@@ -9,8 +9,17 @@ export default class extends Phaser.State {
 
   create() {
     this.drawGround();
+
+    this.score = 0;
+    this.scoreText = this.add.text(10, 50, 'Score: 0');
+    this.scoreText.font = 'Nosifer'
+    this.scoreText.fontSize = 50
+    this.scoreText.fill = '#a00'
+    this.scoreText.smoothed = true
+    this.scoreText.anchor.setTo(0)
+
     this.game.physics.startSystem(Phaser.Physics.ARCADE);
-    this.game.physics.arcade.gravity.y = 350;
+    this.game.physics.arcade.gravity.y = 850;
 
     this.head = new Head({
       game: this.game,
@@ -49,12 +58,14 @@ export default class extends Phaser.State {
       this.game.add.existing(this.obstacle);
     }
     if(Phaser.Rectangle.intersects(this.head.getBounds(), this.obstacle.getBounds())) this.gameOver();
+    this.score++;
+    this.scoreText.setText(`Score: ${this.score}`);
   }
 
   bounce() {
     console.log('bounce');
     if (this.head.y > this.world.height - (this.head.height * .75)) {
-      this.head.body.velocity.y = -450;
+      this.head.body.velocity.y = -850;
     }
   }
 
