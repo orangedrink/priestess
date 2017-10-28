@@ -8,6 +8,7 @@ export default class extends Phaser.State {
   preload() {
     this.load.image('mushroom', 'assets/images/mushroom2.png');
     this.load.image('head', 'assets/images/head.png');
+    this.load.image('blood1', 'assets/images/blood-drop1.png');
   }
 
   create() {
@@ -35,6 +36,7 @@ export default class extends Phaser.State {
       y: this.world.centerY,
       asset: 'head'
     })
+    this.head.anchor.setTo(0.5, 0.5);
     this.head.update = function(){
       this.roll();
       if(this.x < 1050){
@@ -44,7 +46,18 @@ export default class extends Phaser.State {
       }
     }
     this.game.add.existing(this.head)
+    
+    this.emitter = game.add.emitter(1000,100,1000);
+    this.emitter.setScale(0.01, .25, 0.01, .25, 3000, Phaser.Easing.Quintic.Out);
+    this.emitter.makeParticles('blood1');
+    this.emitter.lifespan = 500;
+
   }
+
+  update(){
+    this.emitter.emitParticle(this.head.x, this.head.y);
+  }
+
   actionOnClick() {
     console.log('clicked');
     this.state.start('Game');
