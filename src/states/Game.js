@@ -2,6 +2,8 @@
 import Phaser from 'phaser'
 import Head from '../sprites/Head'
 import Litter from '../sprites/Litter'
+import Pumpkin from '../sprites/Pumpkin'
+import Cat from '../sprites/Cat'
 
 export default class extends Phaser.State {
   init() { }
@@ -19,7 +21,7 @@ export default class extends Phaser.State {
     this.scoreText.anchor.setTo(0)
 
     this.game.physics.startSystem(Phaser.Physics.ARCADE);
-    this.game.physics.arcade.gravity.y = 850;
+    this.game.physics.arcade.gravity.y = 1050;
 
     this.head = new Head({
       game: this.game,
@@ -28,23 +30,18 @@ export default class extends Phaser.State {
       asset: 'head'
     })
     this.game.physics.enable(this.head, Phaser.Physics.ARCADE);
-    this.head.body.bounce.y = .5;
+    this.head.body.bounce.y = .75;
     this.head.body.collideWorldBounds = true;
     this.head.anchor.setTo(0.5, 0.5);
-    this.head.update = function () {
-      this.roll();
-
-    }
     this.game.add.existing(this.head)
 
-    this.obstacle = this.createObstacle();
+    this.obstacle = this.createLitter();
     this.game.add.existing(this.obstacle);
 
     this.emitter = game.add.emitter();
     this.emitter.setScale(0.1, .3, 0.1, .3, 2000, Phaser.Easing.Exponential.Out);
     this.emitter.makeParticles('blood1');
     this.emitter.lifespan = 500;
-    this.game.input.onDown.add(this.bounce, this);
   }
 
   update() {
@@ -54,18 +51,21 @@ export default class extends Phaser.State {
       game.add.tween(this.startText).to({ alpha: 1 }, 3000, "Linear", true);
     }
     if (this.obstacle.x < 100) {
-      this.obstacle = this.createLitter();
+      this.obstacle = this.createObstacle();
       this.game.add.existing(this.obstacle);
     }
-    if(Phaser.Rectangle.intersects(this.head.getBounds(), this.obstacle.getBounds())) this.gameOver();
+    if (Phaser.Rectangle.intersects(this.head.getBounds(), this.obstacle.getBounds())) this.gameOver();
+    if (game.input.activePointer.isDown) {
+      this.bounce();
+    }
     this.score++;
     this.scoreText.setText(`Score: ${this.score}`);
   }
 
   bounce() {
-    console.log('bounce');
     if (this.head.y > this.world.height - (this.head.height * .75)) {
-      this.head.body.velocity.y = -850;
+      if (this.head.body.velocity.y > 0) this.head.body.velocity.y = -10;
+      this.head.body.velocity.y -= 220;
     }
   }
 
@@ -76,27 +76,43 @@ export default class extends Phaser.State {
     graphics.drawRect(0, this.world.height * .9, this.world.width, this.world.height);
   }
 
-  gameOver(){
+  gameOver() {
     console.log("game over")
-    this.state.start('Over');
+    //this.state.start('Over');
   }
 
   createObstacle() {
-    return this.createLitter()
+    if (Math.random() * this.score > 1500) {
+      return this.createCat()
+    } else if (Math.random() * this.score > 500) {
+      return this.createPumpkin()
+    } else {
+      return this.createLitter()
+    }
   }
 
   createLitter() {
     return new Litter({
       game: this.game,
-      x: this.world.width + (1200 + (Math.random() * 800)),
+      x: this.world.width + (100 + (Math.random() * 1800)),
       y: this.world.height - 70,
       asset: 'litter'
     })
   }
-
-  render() {
-    if (__DEV__) {
-      this.game.debug.spriteInfo(this.head, 32, 32)
-    }
+  createPumpkin() {
+    return new Pumpkin({
+      game: this.game,
+      x: this.world.width + (1200 + (Math.random() * 800)),
+      y: this.world.height - 80,
+      asset: 'pumpkin'
+    })
+  } 
+  createCat() {
+    return new Cat({
+      game: this.game,
+      x: this.world.width + (200 + (Math.random() * 300)),
+      y: this.world.height - 160,
+      asset: 'cat'
+    })
   }
 }
