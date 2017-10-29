@@ -80,7 +80,7 @@ export default class extends Phaser.State {
 
   gameOver() {
     console.log("game over")
-    //this.state.start('Over');
+    this.state.start('Over');
   }
 
   createObstacle() {
