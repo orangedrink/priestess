@@ -1,1 +1,1 @@
-web: webpack -p --config ./webpack.production.config.js --progress
+web: webpack
