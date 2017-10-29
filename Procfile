@@ -1,1 +1,1 @@
-web: node webpack
+web: webpack
