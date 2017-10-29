@@ -56,7 +56,7 @@ export default class extends Phaser.State {
       this.obstacle = this.createObstacle();
       this.game.add.existing(this.obstacle);
     }
-    if (Phaser.Rectangle.intersects(this.head.getBounds(), this.obstacle.getBounds())) this.gameOver();
+    if (this.obstacle.getBounds().contains(this.head.x, this.head.y)) this.gameOver();
     if (game.input.activePointer.isDown) {
       this.bounce();
     }
