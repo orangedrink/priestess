@@ -14,11 +14,12 @@ export default class extends Phaser.State {
   }
 
   create() {
+    console.log('Splash screen state')
     this.banner = this.add.text(this.world.centerX, 80, 'HEAD');
     this.banner.font = 'Nosifer'
     this.banner.padding.set(10, 16)
     this.banner.fontSize = 90
-    this.banner.fill = '#e00'
+    this.banner.fill = '#900'
     this.banner.smoothed = true
     this.banner.anchor.setTo(0.5)
 
@@ -63,7 +64,6 @@ export default class extends Phaser.State {
   }
 
   startGame() {
-    console.log('Starting game state');
     this.state.start('Game');
   }
 }

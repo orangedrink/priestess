@@ -13,6 +13,7 @@ export default class extends Phaser.State {
   }
 
   create() {
+    console.log('Game over state')
     this.banner = this.add.text(this.world.centerX, 80, 'GAME OVER');
     this.banner.font = 'Nosifer'
     this.banner.padding.set(10, 16)
@@ -20,6 +21,14 @@ export default class extends Phaser.State {
     this.banner.fill = '#900'
     this.banner.smoothed = true
     this.banner.anchor.setTo(0.5)
+    
+    this.scoreText = this.add.text(this.world.centerX, 100, `Score: ${this.score}`);
+    this.scoreText.inputEnabled = true;
+    this.scoreText.font = 'Arvo'
+    this.scoreText.fontSize = 50
+    this.scoreText.fill = '#999'
+    this.scoreText.smoothed = true
+    this.scoreText.anchor.setTo(0.5)
 
     this.startText = this.add.text(this.world.centerX, this.game.height - 80, 'Click to try again');
     this.startText.inputEnabled = true;

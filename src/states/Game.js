@@ -10,6 +10,7 @@ export default class extends Phaser.State {
   preload() { }
 
   create() {
+    console.log('Game state')
     this.ground = this.drawGround();
     this.background = this.game.add.tileSprite(0, 0, this.game.width, this.game.height, 'background');
     this.score = 0;
@@ -80,6 +81,7 @@ export default class extends Phaser.State {
 
   gameOver() {
     console.log("game over")
+    this.game.state.states['Over'].score = this.score;
     this.state.start('Over');
   }
 
