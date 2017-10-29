@@ -32,6 +32,14 @@ export default class extends Phaser.State {
     this.startText.alpha = 0;
     this.startText.anchor.setTo(0.5)
 
+    this.instructionsText = this.add.text(this.world.centerX, this.game.height - 150, 'You still have one last roll. Bounce to avoid the obstacles.');5
+    this.instructionsText.inputEnabled = true;
+    this.instructionsText.font = 'Arvo'
+    this.instructionsText.fontSize = 30
+    this.instructionsText.fill = '#999'
+    this.instructionsText.smoothed = true
+    this.instructionsText.anchor.setTo(0.5)
+
     this.head = new Head({
       game: this.game,
       x: -100,

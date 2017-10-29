@@ -32,6 +32,7 @@ export default class extends Phaser.State {
     })
     this.game.physics.enable([this.head, this.ground], Phaser.Physics.ARCADE);
     this.head.body.bounce.y = .75;
+    this.head.body.velocity.y = -800;
     this.head.body.collideWorldBounds = true;
     this.head.anchor.setTo(0.5, 0.5);
     this.game.add.existing(this.head)
