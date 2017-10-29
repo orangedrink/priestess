@@ -7,11 +7,10 @@ export default class extends Phaser.State {
 
   preload() {
     this.load.image('mushroom', 'assets/images/mushroom2.png');
-    this.load.image('head', 'assets/images/head.png');
-    this.load.image('blood1', 'assets/images/blood-drop1.png');
     this.load.image('litter', 'assets/images/litter.png');
     this.load.image('pumpkin', 'assets/images/pumpkin.png');
     this.load.image('cat', 'assets/images/cat.png');
+    this.load.image('background', 'assets/images/background.jpg');
   }
 
   create() {

@@ -10,8 +10,8 @@ export default class extends Phaser.State {
   preload() { }
 
   create() {
-    this.drawGround();
-
+    this.ground = this.drawGround();
+    this.background = this.game.add.tileSprite(0, 0, 800, 800, 'background');
     this.score = 0;
     this.scoreText = this.add.text(10, 50, 'Score: 0');
     this.scoreText.font = 'Nosifer'
@@ -29,7 +29,7 @@ export default class extends Phaser.State {
       y: this.world.height * .7,
       asset: 'head'
     })
-    this.game.physics.enable(this.head, Phaser.Physics.ARCADE);
+    this.game.physics.enable([this.head, this.ground], Phaser.Physics.ARCADE);
     this.head.body.bounce.y = .75;
     this.head.body.collideWorldBounds = true;
     this.head.anchor.setTo(0.5, 0.5);
@@ -45,6 +45,7 @@ export default class extends Phaser.State {
   }
 
   update() {
+    this.background.tilePosition.x -= 3;
     let angle = (this.head.angle + 50) * 0.017453292;
     this.emitter.emitParticle(this.head.x + 60 * Math.cos(angle), this.head.y + 60 * Math.sin(angle));
     if (this.head.x > this.game.width) {
@@ -74,6 +75,7 @@ export default class extends Phaser.State {
     graphics.beginFill(0x00AA00);
     graphics.lineStyle(2, 0x006600, 1);
     graphics.drawRect(0, this.world.height * .9, this.world.width, this.world.height);
+    return graphics;
   }
 
   gameOver() {
