@@ -17,7 +17,7 @@ export default class extends Phaser.State {
     this.banner.font = 'Nosifer'
     this.banner.padding.set(10, 16)
     this.banner.fontSize = 90
-    this.banner.fill = '#e00'
+    this.banner.fill = '#900'
     this.banner.smoothed = true
     this.banner.anchor.setTo(0.5)
 

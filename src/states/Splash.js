@@ -41,7 +41,7 @@ export default class extends Phaser.State {
     this.head.update = function(){
       this.roll();
       if(this.x < (this.game.world.width + 200)){
-        this.x += 2
+        this.x += 3
       }else{
         this.x = -50
       }

@@ -11,7 +11,7 @@ export default class extends Phaser.State {
 
   create() {
     this.ground = this.drawGround();
-    this.background = this.game.add.tileSprite(0, 0, 800, 800, 'background');
+    this.background = this.game.add.tileSprite(0, 0, this.game.width, this.game.height, 'background');
     this.score = 0;
     this.scoreText = this.add.text(10, 50, 'Score: 0');
     this.scoreText.font = 'Nosifer'
@@ -84,9 +84,9 @@ export default class extends Phaser.State {
   }
 
   createObstacle() {
-    if (Math.random() * this.score > 1500) {
+    if (Math.random() * this.score > 1000) {
       return this.createCat()
-    } else if (Math.random() * this.score > 500) {
+    } else if (Math.random() * this.score > 250) {
       return this.createPumpkin()
     } else {
       return this.createLitter()
