@@ -11,7 +11,7 @@ export default class extends Phaser.State {
   preload () {
     WebFont.load({
       google: {
-        families: ['Passion One']
+        families: ['Acme']
       },
       active: this.fontsLoaded
     })
@@ -21,6 +21,8 @@ export default class extends Phaser.State {
 
     this.load.image('loaderBg', './assets/images/loader-bg.png')
     this.load.image('loaderBar', './assets/images/loader-bar.png')
+    game.load.spritesheet('priestess', 'assets/images/priestess.png', 64, 64);
+    
   }
 
   render () {
