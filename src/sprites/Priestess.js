@@ -116,9 +116,10 @@ export default class extends Phaser.Sprite {
 				if (anim.onComplete._bindings == null) {
 					this.animations.currentAnim.onComplete.add(function () {
 						this.shooting = false;
-						this.shoot();
+						//this.shoot(); 
 					}, this);
 				}
+				this.shoot();
 			}
 		} else {
 			this.stoppedShooting = true;
@@ -133,9 +134,10 @@ export default class extends Phaser.Sprite {
 				if (anim.onComplete._bindings == null) {
 					anim.onComplete.add(function () {
 						this.meditating = false;
-						this.magic();
+						//this.magic();
 					}, this);
 				}
+				this.magic();
 				this.stoppedMeditating = false;
 			}
 		} else {

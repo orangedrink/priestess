@@ -24,7 +24,7 @@ export default class extends Phaser.State {
       y: 0,
       asset: 'priestess'
     })
-    this.priestess.powerUps.magicBow = true;
+    //this.priestess.powerUps.magicBow = true;
     this.game.add.existing(this.priestess);
 
     //physics

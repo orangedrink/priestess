@@ -10837,7 +10837,7 @@ var _class = function (_Phaser$State) {
         y: 0,
         asset: 'priestess'
       });
-      this.priestess.powerUps.magicBow = true;
+      //this.priestess.powerUps.magicBow = true;
       this.game.add.existing(this.priestess);
 
       //physics
@@ -11012,9 +11012,10 @@ var _class = function (_Phaser$Sprite) {
 					if (anim.onComplete._bindings == null) {
 						this.animations.currentAnim.onComplete.add(function () {
 							this.shooting = false;
-							this.shoot();
+							//this.shoot(); 
 						}, this);
 					}
+					this.shoot();
 				}
 			} else {
 				this.stoppedShooting = true;
@@ -11029,9 +11030,10 @@ var _class = function (_Phaser$Sprite) {
 					if (_anim.onComplete._bindings == null) {
 						_anim.onComplete.add(function () {
 							this.meditating = false;
-							this.magic();
+							//this.magic();
 						}, this);
 					}
+					this.magic();
 					this.stoppedMeditating = false;
 				}
 			} else {
