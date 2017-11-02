@@ -1,5 +1,5 @@
 export default {
-  gameWidth: 1600,
-  gameHeight: 800,
-  localStorageName: 'headgame'
+  gameWidth: 600,
+  gameHeight: 400,
+  localStorageName: 'chubbybunny'
 }

@@ -11,7 +11,7 @@ export default class extends Phaser.State {
   preload () {
     WebFont.load({
       google: {
-        families: ['Arvo', 'Nosifer']
+        families: ['Passion One']
       },
       active: this.fontsLoaded
     })
@@ -21,9 +21,6 @@ export default class extends Phaser.State {
 
     this.load.image('loaderBg', './assets/images/loader-bg.png')
     this.load.image('loaderBar', './assets/images/loader-bar.png')
-    this.load.image('head', 'assets/images/head.png');
-    this.load.image('blood1', 'assets/images/blood-drop1.png');
-
   }
 
   render () {
