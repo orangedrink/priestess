@@ -1,12 +1,12 @@
 import Phaser from 'phaser'
-
+import Spells from './Spells.js'
 export default class extends Phaser.Sprite {
 
 
 	constructor({ game, x, y, asset }) {
 		super(game, x, y, asset)
 
-		//Set up anumations
+		//Set up animations
 		this.animations.add('walk-right', [144, 145, 146, 147, 148, 149, 150, 151], 30, true);
 		this.animations.add('walk-left', [118, 119, 120, 121, 122, 123, 124, 125], 30, true);
 		this.animations.add('meditate', [26, 27, 28, 28, 28, 28, 28, 28, 28, 28, 29, 31, 31, 31, 31, 31, 31, 32], 30, true);
@@ -18,7 +18,6 @@ export default class extends Phaser.Sprite {
 		//set up physics
 		game.physics.enable(this, Phaser.Physics.ARCADE);
 		this.body.bounce.y = 0.2;
-		this.body.collideWorldBounds = true;
 		this.body.collideWorldBounds = true;
 
 		//set up control keys
@@ -35,7 +34,7 @@ export default class extends Phaser.Sprite {
 		this.stoppedMeditating = false;
 		this.powerUps = {
 			superJump: true,
-			magicBow: false
+			magicBow: true
 		}
 	}
 
@@ -81,9 +80,9 @@ export default class extends Phaser.Sprite {
 		//handle jumping
 		if (this.jumpButton.isDown && !this.isBusy()) {
 			if (this.powerUps.superJump) {
-				this.body.velocity.y = -590;
+				this.body.velocity.y = -550;
 			} else {
-				this.body.velocity.y = -290;
+				this.body.velocity.y = -390;
 			}
 		} else if (this.isJumping() && !this.shooting) {
 			if (this.facing == 'right') {
@@ -119,7 +118,7 @@ export default class extends Phaser.Sprite {
 						//this.shoot(); 
 					}, this);
 				}
-				this.shoot();
+				setTimeout(this.shoot, 60, this, this.facing);
 			}
 		} else {
 			this.stoppedShooting = true;
@@ -137,20 +136,41 @@ export default class extends Phaser.Sprite {
 						//this.magic();
 					}, this);
 				}
-				this.magic();
 				this.stoppedMeditating = false;
+				this.magic()
 			}
 		} else {
 			this.stoppedMeditating = true;
 		}
 	}
 
-	shoot() {
-		console.log('shoot');
+	shoot(_this, facing) {
+		let shots = Math.random() * 3
+		for (let i = 0; i < shots + 4; i++) {
+			let SpellSprite = Spells['spark'];
+			let spellSprite = new SpellSprite({
+				game: _this.game,
+				x: _this.x +  Math.random() * 32,
+				y: _this.y + 32,
+				asset: 'blue-spark'
+			})
+			if (facing == 'right') {
+				spellSprite.body.velocity.x = _this.powerUps.magicBow ? spellSprite.speed * 8 : spellSprite.speed;
+			} else {
+				spellSprite.body.velocity.x = _this.powerUps.magicBow ? 0 - spellSprite.speed * 8 : 0 - spellSprite.speed;
+			}
+			spellSprite.body.velocity.y = _this.powerUps.magicBow ? (spellSprite.arc) / 2 + Math.random() * (spellSprite.accuracy * .75): spellSprite.arc + Math.random() * (spellSprite.accuracy * 2);
+			_this.game.add.existing(spellSprite);
+		}
 	}
 
 	magic() {
-		console.log('magic');
+		let shots = Math.random() * 20
+		for (let i = 0; i < shots + 10; i++) {
+			let direction = (Math.random() >= .5 ? 'left' : 'right')
+			let delay = (Math.random() * 200) + 300;
+			setTimeout(this.shoot, delay, this, direction);
+		}
 	}
 
 	isJumping() {

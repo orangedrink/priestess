@@ -10817,7 +10817,9 @@ var _class = function (_Phaser$State) {
     value: function init() {}
   }, {
     key: 'preload',
-    value: function preload() {}
+    value: function preload() {
+      game.load.spritesheet('blue-spark', 'assets/images/spells/blue-spark.png', 64, 64);
+    }
   }, {
     key: 'create',
     value: function create() {
@@ -10837,7 +10839,6 @@ var _class = function (_Phaser$State) {
         y: 0,
         asset: 'priestess'
       });
-      //this.priestess.powerUps.magicBow = true;
       this.game.add.existing(this.priestess);
 
       //physics
@@ -10881,6 +10882,10 @@ var _phaser = __webpack_require__(/*! phaser */ 42);
 
 var _phaser2 = _interopRequireDefault(_phaser);
 
+var _Spells = __webpack_require__(/*! ./Spells.js */ 345);
+
+var _Spells2 = _interopRequireDefault(_Spells);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -10900,40 +10905,39 @@ var _class = function (_Phaser$Sprite) {
 
 		_classCallCheck(this, _class);
 
-		//Set up anumations
-		var _this = _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).call(this, game, x, y, asset));
+		//Set up animations
+		var _this2 = _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).call(this, game, x, y, asset));
 
-		_this.animations.add('walk-right', [144, 145, 146, 147, 148, 149, 150, 151], 30, true);
-		_this.animations.add('walk-left', [118, 119, 120, 121, 122, 123, 124, 125], 30, true);
-		_this.animations.add('meditate', [26, 27, 28, 28, 28, 28, 28, 28, 28, 28, 29, 31, 31, 31, 31, 31, 31, 32], 30, true);
-		_this.animations.add('throw-right', [195, 196, 197, 198, 199, 199, 200, 200], 30, true);
-		_this.animations.add('throw-left', [169, 170, 171, 172, 173, 173, 174, 174], 30, true);
-		_this.animations.add('shoot-right', [247, 249, 252, 253, 255], 40, true);
-		_this.animations.add('shoot-left', [221, 223, 226, 227, 229], 40, true);
+		_this2.animations.add('walk-right', [144, 145, 146, 147, 148, 149, 150, 151], 30, true);
+		_this2.animations.add('walk-left', [118, 119, 120, 121, 122, 123, 124, 125], 30, true);
+		_this2.animations.add('meditate', [26, 27, 28, 28, 28, 28, 28, 28, 28, 28, 29, 31, 31, 31, 31, 31, 31, 32], 30, true);
+		_this2.animations.add('throw-right', [195, 196, 197, 198, 199, 199, 200, 200], 30, true);
+		_this2.animations.add('throw-left', [169, 170, 171, 172, 173, 173, 174, 174], 30, true);
+		_this2.animations.add('shoot-right', [247, 249, 252, 253, 255], 40, true);
+		_this2.animations.add('shoot-left', [221, 223, 226, 227, 229], 40, true);
 
 		//set up physics
-		game.physics.enable(_this, _phaser2.default.Physics.ARCADE);
-		_this.body.bounce.y = 0.2;
-		_this.body.collideWorldBounds = true;
-		_this.body.collideWorldBounds = true;
+		game.physics.enable(_this2, _phaser2.default.Physics.ARCADE);
+		_this2.body.bounce.y = 0.2;
+		_this2.body.collideWorldBounds = true;
 
 		//set up control keys
-		_this.cursors = game.input.keyboard.createCursorKeys();
-		_this.jumpButton = game.input.keyboard.addKey(_phaser2.default.Keyboard.CONTROL);
-		_this.magicButton = game.input.keyboard.addKey(_phaser2.default.Keyboard.ALT);
-		_this.shootButton = game.input.keyboard.addKey(_phaser2.default.Keyboard.SPACEBAR);
+		_this2.cursors = game.input.keyboard.createCursorKeys();
+		_this2.jumpButton = game.input.keyboard.addKey(_phaser2.default.Keyboard.CONTROL);
+		_this2.magicButton = game.input.keyboard.addKey(_phaser2.default.Keyboard.ALT);
+		_this2.shootButton = game.input.keyboard.addKey(_phaser2.default.Keyboard.SPACEBAR);
 
 		//set up control flags and player data
-		_this.facing = 'left';
-		_this.shooting = false;
-		_this.stoppedShooting = true;
-		_this.meditating = false;
-		_this.stoppedMeditating = false;
-		_this.powerUps = {
+		_this2.facing = 'left';
+		_this2.shooting = false;
+		_this2.stoppedShooting = true;
+		_this2.meditating = false;
+		_this2.stoppedMeditating = false;
+		_this2.powerUps = {
 			superJump: true,
-			magicBow: false
+			magicBow: true
 		};
-		return _this;
+		return _this2;
 	}
 
 	_createClass(_class, [{
@@ -10977,9 +10981,9 @@ var _class = function (_Phaser$Sprite) {
 			//handle jumping
 			if (this.jumpButton.isDown && !this.isBusy()) {
 				if (this.powerUps.superJump) {
-					this.body.velocity.y = -590;
+					this.body.velocity.y = -550;
 				} else {
-					this.body.velocity.y = -290;
+					this.body.velocity.y = -390;
 				}
 			} else if (this.isJumping() && !this.shooting) {
 				if (this.facing == 'right') {
@@ -11015,7 +11019,7 @@ var _class = function (_Phaser$Sprite) {
 							//this.shoot(); 
 						}, this);
 					}
-					this.shoot();
+					setTimeout(this.shoot, 60, this, this.facing);
 				}
 			} else {
 				this.stoppedShooting = true;
@@ -11033,8 +11037,8 @@ var _class = function (_Phaser$Sprite) {
 							//this.magic();
 						}, this);
 					}
-					this.magic();
 					this.stoppedMeditating = false;
+					this.magic();
 				}
 			} else {
 				this.stoppedMeditating = true;
@@ -11042,13 +11046,34 @@ var _class = function (_Phaser$Sprite) {
 		}
 	}, {
 		key: 'shoot',
-		value: function shoot() {
-			console.log('shoot');
+		value: function shoot(_this, facing) {
+			var shots = Math.random() * 3;
+			for (var i = 0; i < shots + 4; i++) {
+				var SpellSprite = _Spells2.default['spark'];
+				var spellSprite = new SpellSprite({
+					game: _this.game,
+					x: _this.x + Math.random() * 32,
+					y: _this.y + 32,
+					asset: 'blue-spark'
+				});
+				if (facing == 'right') {
+					spellSprite.body.velocity.x = _this.powerUps.magicBow ? spellSprite.speed * 8 : spellSprite.speed;
+				} else {
+					spellSprite.body.velocity.x = _this.powerUps.magicBow ? 0 - spellSprite.speed * 8 : 0 - spellSprite.speed;
+				}
+				spellSprite.body.velocity.y = _this.powerUps.magicBow ? spellSprite.arc / 2 + Math.random() * (spellSprite.accuracy * .75) : spellSprite.arc + Math.random() * (spellSprite.accuracy * 2);
+				_this.game.add.existing(spellSprite);
+			}
 		}
 	}, {
 		key: 'magic',
 		value: function magic() {
-			console.log('magic');
+			var shots = Math.random() * 20;
+			for (var i = 0; i < shots + 10; i++) {
+				var direction = Math.random() >= .5 ? 'left' : 'right';
+				var delay = Math.random() * 200 + 300;
+				setTimeout(this.shoot, delay, this, direction);
+			}
 		}
 	}, {
 		key: 'isJumping',
@@ -11214,6 +11239,73 @@ exports.default = {
   gameWidth: 600,
   gameHeight: 400,
   localStorageName: 'chubbybunny'
+};
+
+/***/ }),
+/* 343 */,
+/* 344 */,
+/* 345 */
+/*!*******************************!*\
+  !*** ./src/sprites/Spells.js ***!
+  \*******************************/
+/*! dynamic exports provided */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _phaser = __webpack_require__(/*! phaser */ 42);
+
+var _phaser2 = _interopRequireDefault(_phaser);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+exports.default = {
+	spark: function (_Phaser$Sprite) {
+		_inherits(Spark, _Phaser$Sprite);
+
+		function Spark(_ref) {
+			var game = _ref.game,
+			    x = _ref.x,
+			    y = _ref.y,
+			    asset = _ref.asset;
+
+			_classCallCheck(this, Spark);
+
+			var _this = _possibleConstructorReturn(this, (Spark.__proto__ || Object.getPrototypeOf(Spark)).call(this, game, x, y, asset));
+
+			_this.anchor.setTo(0.5);
+			game.physics.enable(_this, _phaser2.default.Physics.ARCADE);
+			_this.body.bounce.y = 0.2;
+			_this.speed = 200;
+			_this.arc = -300;
+			_this.accuracy = 75;
+			_this.rollSpeed = Math.random() * 25 + 10;
+			return _this;
+		}
+
+		_createClass(Spark, [{
+			key: 'update',
+			value: function update() {
+				this.angle += this.rollSpeed;
+			}
+		}]);
+
+		return Spark;
+	}(_phaser2.default.Sprite)
 };
 
 /***/ })

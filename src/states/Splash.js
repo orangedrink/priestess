@@ -5,6 +5,8 @@ export default class extends Phaser.State {
   init() { }
 
   preload() {
+    game.load.spritesheet('blue-spark', 'assets/images/spells/blue-spark.png', 64, 64);
+    
   }
 
   create() {
@@ -24,7 +26,6 @@ export default class extends Phaser.State {
       y: 0,
       asset: 'priestess'
     })
-    //this.priestess.powerUps.magicBow = true;
     this.game.add.existing(this.priestess);
 
     //physics
