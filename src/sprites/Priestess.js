@@ -7,11 +7,13 @@ export default class extends Phaser.Sprite {
 		super(game, x, y, asset)
 
 		//Set up anumations
-		this.animations.add('walk-right', [144, 145, 146, 147, 148, 149, 150, 151], 16, true);
-		this.animations.add('walk-left', [118, 119, 120, 121, 122, 123, 124, 125], 16, true);
-		this.animations.add('meditate', [26, 27, 28, 28, 28, 28, 28, 28, 28, 28, 29, 31, 31, 31, 31, 31, 31, 32], 16, true);
-		this.animations.add('throw-right', [195, 196, 197, 198, 199, 200, 200], 16, true);
-		this.animations.add('throw-left', [169, 170, 171, 172, 173, 174, 174], 16, true);
+		this.animations.add('walk-right', [144, 145, 146, 147, 148, 149, 150, 151], 30, true);
+		this.animations.add('walk-left', [118, 119, 120, 121, 122, 123, 124, 125], 30, true);
+		this.animations.add('meditate', [26, 27, 28, 28, 28, 28, 28, 28, 28, 28, 29, 31, 31, 31, 31, 31, 31, 32], 30, true);
+		this.animations.add('throw-right', [195, 196, 197, 198, 199, 199, 200, 200], 30, true);
+		this.animations.add('throw-left', [169, 170, 171, 172, 173, 173 , 174, 174], 30, true);
+		this.animations.add('shoot-right', [247, 249, 252, 253, 255], 40, true);
+		this.animations.add('shoot-left', [221, 223, 226, 227, 229], 40 , true); 
 
 		//set up physics
 		game.physics.enable(this, Phaser.Physics.ARCADE);
@@ -33,7 +35,7 @@ export default class extends Phaser.Sprite {
 		this.stoppedMeditating = false;
 		this.powerUps = {
 			superJump: true,
-			magicBow: true
+			magicBow: false
 		}
 	}
 
@@ -101,15 +103,19 @@ export default class extends Phaser.Sprite {
 
 		//handle shooting
 		if (this.shootButton.isDown) {
+			let animPrefix = this.powerUps.magicBow ? 'shoot' : 'throw';
 			if (this.stoppedShooting) {
 				if (this.facing == 'right') {
-					this.animations.play('throw-right', null, false);
+					this.animations.play(`${animPrefix}-right`, null, false);
 				} else if (this.facing == 'left') {
-					this.animations.play('throw-left', null, false);
+					this.animations.play(`${animPrefix}-left`, null, false);
 				}
 				this.shooting = true;
 				this.stoppedShooting = false;
-				this.animations.currentAnim.onComplete.add(function () { this.shooting = false; }, this);
+				this.animations.currentAnim.onComplete.add(function () { 
+					this.shoot(); 
+					this.shooting = false; 
+				}, this);
 			}
 		} else {
 			this.stoppedShooting = true;
@@ -120,12 +126,18 @@ export default class extends Phaser.Sprite {
 			if (!this.isBusy()) {
 				this.animations.play('meditate', null, false);
 				this.meditating = true;
-				this.animations.currentAnim.onComplete.add(function () { this.meditating = false; }, this);
+				this.animations.currentAnim.onComplete.add(function () { 
+					this.meditating = false;
+				}, this);
 				this.stoppedMeditating = false;
 			}
 		} else {
 			this.stoppedMeditating = true;
 		}
+	}
+
+	shoot(){
+		console.log('shoot');
 	}
 
 	isJumping() {

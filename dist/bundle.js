@@ -10837,6 +10837,7 @@ var _class = function (_Phaser$State) {
         y: 0,
         asset: 'priestess'
       });
+      this.priestess.powerUps.magicBow = true;
       this.game.add.existing(this.priestess);
 
       //physics
@@ -10902,11 +10903,13 @@ var _class = function (_Phaser$Sprite) {
 		//Set up anumations
 		var _this = _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).call(this, game, x, y, asset));
 
-		_this.animations.add('walk-right', [144, 145, 146, 147, 148, 149, 150, 151], 16, true);
-		_this.animations.add('walk-left', [118, 119, 120, 121, 122, 123, 124, 125], 16, true);
-		_this.animations.add('meditate', [26, 27, 28, 28, 28, 28, 28, 28, 28, 28, 29, 31, 31, 31, 31, 31, 31, 32], 16, true);
-		_this.animations.add('throw-right', [195, 196, 197, 198, 199, 200, 200], 16, true);
-		_this.animations.add('throw-left', [169, 170, 171, 172, 173, 174, 174], 16, true);
+		_this.animations.add('walk-right', [144, 145, 146, 147, 148, 149, 150, 151], 30, true);
+		_this.animations.add('walk-left', [118, 119, 120, 121, 122, 123, 124, 125], 30, true);
+		_this.animations.add('meditate', [26, 27, 28, 28, 28, 28, 28, 28, 28, 28, 29, 31, 31, 31, 31, 31, 31, 32], 30, true);
+		_this.animations.add('throw-right', [195, 196, 197, 198, 199, 199, 200, 200], 30, true);
+		_this.animations.add('throw-left', [169, 170, 171, 172, 173, 173, 174, 174], 30, true);
+		_this.animations.add('shoot-right', [247, 249, 252, 253, 255], 40, true);
+		_this.animations.add('shoot-left', [221, 223, 226, 227, 229], 40, true);
 
 		//set up physics
 		game.physics.enable(_this, _phaser2.default.Physics.ARCADE);
@@ -10928,7 +10931,7 @@ var _class = function (_Phaser$Sprite) {
 		_this.stoppedMeditating = false;
 		_this.powerUps = {
 			superJump: true,
-			magicBow: true
+			magicBow: false
 		};
 		return _this;
 	}
@@ -10996,15 +10999,17 @@ var _class = function (_Phaser$Sprite) {
 
 			//handle shooting
 			if (this.shootButton.isDown) {
+				var animPrefix = this.powerUps.magicBow ? 'shoot' : 'throw';
 				if (this.stoppedShooting) {
 					if (this.facing == 'right') {
-						this.animations.play('throw-right', null, false);
+						this.animations.play(animPrefix + '-right', null, false);
 					} else if (this.facing == 'left') {
-						this.animations.play('throw-left', null, false);
+						this.animations.play(animPrefix + '-left', null, false);
 					}
 					this.shooting = true;
 					this.stoppedShooting = false;
 					this.animations.currentAnim.onComplete.add(function () {
+						this.shoot();
 						this.shooting = false;
 					}, this);
 				}
@@ -11025,6 +11030,11 @@ var _class = function (_Phaser$Sprite) {
 			} else {
 				this.stoppedMeditating = true;
 			}
+		}
+	}, {
+		key: 'shoot',
+		value: function shoot() {
+			console.log('shoot');
 		}
 	}, {
 		key: 'isJumping',
