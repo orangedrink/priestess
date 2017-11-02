@@ -20,15 +20,15 @@ export default class extends Phaser.State {
     //sprites
     this.priestess = new Priestess({
       game: this.game,
-      x: 0,
-      y: 100,
+      x: this.world.centerX / 2,
+      y: 0,
       asset: 'priestess'
     })
     this.game.add.existing(this.priestess);
 
     //physics
     game.physics.startSystem(Phaser.Physics.ARCADE);
-    game.physics.arcade.gravity.y = 250;
+    game.physics.arcade.gravity.y = 650;
   }
 
   update(){

@@ -10833,15 +10833,15 @@ var _class = function (_Phaser$State) {
       //sprites
       this.priestess = new _Priestess2.default({
         game: this.game,
-        x: 0,
-        y: 100,
+        x: this.world.centerX / 2,
+        y: 0,
         asset: 'priestess'
       });
       this.game.add.existing(this.priestess);
 
       //physics
       game.physics.startSystem(_phaser2.default.Physics.ARCADE);
-      game.physics.arcade.gravity.y = 250;
+      game.physics.arcade.gravity.y = 650;
     }
   }, {
     key: 'update',
@@ -10902,23 +10902,34 @@ var _class = function (_Phaser$Sprite) {
 		//Set up anumations
 		var _this = _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).call(this, game, x, y, asset));
 
-		_this.animations.add('walk-right', [143, 144, 145, 146, 147, 148, 149, 150, 151], 10, true);
-		_this.animations.add('walk-left', [117, 118, 119, 120, 121, 122, 123, 124, 125], 10, true);
-		_this.animations.add('meditate', [26, 27, 28, 28, 28, 28, 28, 28, 29, 30, 31, 32], 10, true);
-		_this.animations.add('throw-right', [195, 196, 197, 198, 199, 200], 10, true);
-		_this.animations.add('throw-left', [169, 170, 171, 172, 173, 174], 10, true);
+		_this.animations.add('walk-right', [144, 145, 146, 147, 148, 149, 150, 151], 16, true);
+		_this.animations.add('walk-left', [118, 119, 120, 121, 122, 123, 124, 125], 16, true);
+		_this.animations.add('meditate', [26, 27, 28, 28, 28, 28, 28, 28, 28, 28, 29, 31, 31, 31, 31, 31, 31, 32], 16, true);
+		_this.animations.add('throw-right', [195, 196, 197, 198, 199, 200, 200], 16, true);
+		_this.animations.add('throw-left', [169, 170, 171, 172, 173, 174, 174], 16, true);
 
 		//set up physics
-		_this.facing = 'left';
 		game.physics.enable(_this, _phaser2.default.Physics.ARCADE);
 		_this.body.bounce.y = 0.2;
 		_this.body.collideWorldBounds = true;
-		//this.body.setSize(20, 32, 5, 16);
 		_this.body.collideWorldBounds = true;
 
-		//set up controls
+		//set up control keys
 		_this.cursors = game.input.keyboard.createCursorKeys();
-		_this.jumpButton = game.input.keyboard.addKey(_phaser2.default.Keyboard.SPACEBAR);
+		_this.jumpButton = game.input.keyboard.addKey(_phaser2.default.Keyboard.CONTROL);
+		_this.magicButton = game.input.keyboard.addKey(_phaser2.default.Keyboard.ALT);
+		_this.shootButton = game.input.keyboard.addKey(_phaser2.default.Keyboard.SPACEBAR);
+
+		//set up control flags and player data
+		_this.facing = 'left';
+		_this.shooting = false;
+		_this.stoppedShooting = true;
+		_this.meditating = false;
+		_this.stoppedMeditating = false;
+		_this.powerUps = {
+			superJump: true,
+			magicBow: true
+		};
 		return _this;
 	}
 
@@ -10927,22 +10938,29 @@ var _class = function (_Phaser$Sprite) {
 		value: function update() {
 			this.body.velocity.x = 0;
 
-			if (this.cursors.left.isDown) {
-				this.body.velocity.x -= 150;
-
-				if (this.facing != 'left') {
-					this.animations.play('walk-left');
-					this.facing = 'left';
+			//handle movement
+			if (!this.meditating) {
+				if (this.cursors.left.isDown) {
+					this.body.velocity.x -= 150;
+				} else if (this.cursors.right.isDown) {
+					this.body.velocity.x += 150;
 				}
-			} else if (this.cursors.right.isDown) {
-				this.body.velocity.x += 150;
+			}
 
-				if (this.facing != 'right') {
-					this.animations.play('walk-right', 10, true);
-					this.facing = 'right';
+			//walking animations
+			if (!this.shooting && !this.meditating) {
+				if (this.cursors.left.isDown) {
+					if (this.facing != 'left' || !this.animations.play('walk-left').isPlaying) {
+						this.animations.play('walk-left');
+						this.facing = 'left';
+					}
+				} else if (this.cursors.right.isDown) {
+					if (this.facing != 'right' || !this.animations.play('walk-right').isPlaying) {
+						this.animations.play('walk-right', null, true);
+						this.facing = 'right';
+					}
 				}
-			} else {
-				if (this.facing != 'idle') {
+				if (this.body.velocity.x == 0 && !this.shooting) {
 					this.animations.stop();
 
 					if (this.facing == 'left') {
@@ -10950,13 +10968,73 @@ var _class = function (_Phaser$Sprite) {
 					} else {
 						this.frame = 143;
 					}
-					this.facing = 'idle';
 				}
 			}
 
-			if (this.jumpButton.isDown) {
-				this.animations.play('meditate');
+			//handle jumping
+			if (this.jumpButton.isDown && !this.isBusy()) {
+				if (this.powerUps.superJump) {
+					this.body.velocity.y = -590;
+				} else {
+					this.body.velocity.y = -290;
+				}
+			} else if (this.isJumping() && !this.shooting) {
+				if (this.facing == 'right') {
+					if (this.body.velocity.y < 0) {
+						this.frame = 43;
+					} else {
+						this.frame = 44;
+					}
+				} else if (this.facing == 'left') {
+					if (this.body.velocity.y < 0) {
+						this.frame = 17;
+					} else {
+						this.frame = 18;
+					}
+				}
 			}
+
+			//handle shooting
+			if (this.shootButton.isDown) {
+				if (this.stoppedShooting) {
+					if (this.facing == 'right') {
+						this.animations.play('throw-right', null, false);
+					} else if (this.facing == 'left') {
+						this.animations.play('throw-left', null, false);
+					}
+					this.shooting = true;
+					this.stoppedShooting = false;
+					this.animations.currentAnim.onComplete.add(function () {
+						this.shooting = false;
+					}, this);
+				}
+			} else {
+				this.stoppedShooting = true;
+			}
+
+			//handle magic
+			if (this.magicButton.isDown) {
+				if (!this.isBusy()) {
+					this.animations.play('meditate', null, false);
+					this.meditating = true;
+					this.animations.currentAnim.onComplete.add(function () {
+						this.meditating = false;
+					}, this);
+					this.stoppedMeditating = false;
+				}
+			} else {
+				this.stoppedMeditating = true;
+			}
+		}
+	}, {
+		key: 'isJumping',
+		value: function isJumping() {
+			return !this.body.onFloor();
+		}
+	}, {
+		key: 'isBusy',
+		value: function isBusy() {
+			return !(this.stoppedShooting && this.stoppedMeditating && !this.isJumping());
 		}
 	}]);
 
