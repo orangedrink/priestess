@@ -11000,18 +11000,21 @@ var _class = function (_Phaser$Sprite) {
 			//handle shooting
 			if (this.shootButton.isDown) {
 				var animPrefix = this.powerUps.magicBow ? 'shoot' : 'throw';
-				if (this.stoppedShooting) {
+				var anim = void 0;
+				if (this.stoppedShooting && !this.shooting) {
 					if (this.facing == 'right') {
-						this.animations.play(animPrefix + '-right', null, false);
+						anim = this.animations.play(animPrefix + '-right', null, false);
 					} else if (this.facing == 'left') {
-						this.animations.play(animPrefix + '-left', null, false);
+						anim = this.animations.play(animPrefix + '-left', null, false);
 					}
 					this.shooting = true;
 					this.stoppedShooting = false;
-					this.animations.currentAnim.onComplete.add(function () {
-						this.shoot();
-						this.shooting = false;
-					}, this);
+					if (anim.onComplete._bindings == null) {
+						this.animations.currentAnim.onComplete.add(function () {
+							this.shooting = false;
+							this.shoot();
+						}, this);
+					}
 				}
 			} else {
 				this.stoppedShooting = true;
@@ -11020,11 +11023,15 @@ var _class = function (_Phaser$Sprite) {
 			//handle magic
 			if (this.magicButton.isDown) {
 				if (!this.isBusy()) {
-					this.animations.play('meditate', null, false);
+					var _anim = this.animations.play('meditate', null, false);
 					this.meditating = true;
-					this.animations.currentAnim.onComplete.add(function () {
-						this.meditating = false;
-					}, this);
+					this.animations.killOnComplete = true;
+					if (_anim.onComplete._bindings == null) {
+						_anim.onComplete.add(function () {
+							this.meditating = false;
+							this.magic();
+						}, this);
+					}
 					this.stoppedMeditating = false;
 				}
 			} else {
@@ -11037,6 +11044,11 @@ var _class = function (_Phaser$Sprite) {
 			console.log('shoot');
 		}
 	}, {
+		key: 'magic',
+		value: function magic() {
+			console.log('magic');
+		}
+	}, {
 		key: 'isJumping',
 		value: function isJumping() {
 			return !this.body.onFloor();
@@ -11044,7 +11056,7 @@ var _class = function (_Phaser$Sprite) {
 	}, {
 		key: 'isBusy',
 		value: function isBusy() {
-			return !(this.stoppedShooting && this.stoppedMeditating && !this.isJumping());
+			return !(this.stoppedShooting && !this.shooting && this.stoppedMeditating && !this.meditating && !this.isJumping());
 		}
 	}]);
 

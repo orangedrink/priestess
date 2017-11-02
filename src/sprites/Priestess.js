@@ -11,9 +11,9 @@ export default class extends Phaser.Sprite {
 		this.animations.add('walk-left', [118, 119, 120, 121, 122, 123, 124, 125], 30, true);
 		this.animations.add('meditate', [26, 27, 28, 28, 28, 28, 28, 28, 28, 28, 29, 31, 31, 31, 31, 31, 31, 32], 30, true);
 		this.animations.add('throw-right', [195, 196, 197, 198, 199, 199, 200, 200], 30, true);
-		this.animations.add('throw-left', [169, 170, 171, 172, 173, 173 , 174, 174], 30, true);
+		this.animations.add('throw-left', [169, 170, 171, 172, 173, 173, 174, 174], 30, true);
 		this.animations.add('shoot-right', [247, 249, 252, 253, 255], 40, true);
-		this.animations.add('shoot-left', [221, 223, 226, 227, 229], 40 , true); 
+		this.animations.add('shoot-left', [221, 223, 226, 227, 229], 40, true);
 
 		//set up physics
 		game.physics.enable(this, Phaser.Physics.ARCADE);
@@ -50,7 +50,7 @@ export default class extends Phaser.Sprite {
 			else if (this.cursors.right.isDown) {
 				this.body.velocity.x += 150;
 			}
-		}	
+		}
 
 		//walking animations
 		if (!this.shooting && !this.meditating) {
@@ -80,9 +80,9 @@ export default class extends Phaser.Sprite {
 
 		//handle jumping
 		if (this.jumpButton.isDown && !this.isBusy()) {
-			if(this.powerUps.superJump){
+			if (this.powerUps.superJump) {
 				this.body.velocity.y = -590;
-			}else{
+			} else {
 				this.body.velocity.y = -290;
 			}
 		} else if (this.isJumping() && !this.shooting) {
@@ -104,18 +104,21 @@ export default class extends Phaser.Sprite {
 		//handle shooting
 		if (this.shootButton.isDown) {
 			let animPrefix = this.powerUps.magicBow ? 'shoot' : 'throw';
-			if (this.stoppedShooting) {
+			let anim
+			if (this.stoppedShooting && !this.shooting) {
 				if (this.facing == 'right') {
-					this.animations.play(`${animPrefix}-right`, null, false);
+					anim = this.animations.play(`${animPrefix}-right`, null, false);
 				} else if (this.facing == 'left') {
-					this.animations.play(`${animPrefix}-left`, null, false);
+					anim = this.animations.play(`${animPrefix}-left`, null, false);
 				}
 				this.shooting = true;
 				this.stoppedShooting = false;
-				this.animations.currentAnim.onComplete.add(function () { 
-					this.shoot(); 
-					this.shooting = false; 
-				}, this);
+				if (anim.onComplete._bindings == null) {
+					this.animations.currentAnim.onComplete.add(function () {
+						this.shooting = false;
+						this.shoot();
+					}, this);
+				}
 			}
 		} else {
 			this.stoppedShooting = true;
@@ -124,11 +127,15 @@ export default class extends Phaser.Sprite {
 		//handle magic
 		if (this.magicButton.isDown) {
 			if (!this.isBusy()) {
-				this.animations.play('meditate', null, false);
+				let anim = this.animations.play('meditate', null, false);
 				this.meditating = true;
-				this.animations.currentAnim.onComplete.add(function () { 
-					this.meditating = false;
-				}, this);
+				this.animations.killOnComplete = true;
+				if (anim.onComplete._bindings == null) {
+					anim.onComplete.add(function () {
+						this.meditating = false;
+						this.magic();
+					}, this);
+				}
 				this.stoppedMeditating = false;
 			}
 		} else {
@@ -136,15 +143,19 @@ export default class extends Phaser.Sprite {
 		}
 	}
 
-	shoot(){
+	shoot() {
 		console.log('shoot');
+	}
+
+	magic() {
+		console.log('magic');
 	}
 
 	isJumping() {
 		return !this.body.onFloor();
 	}
 
-	isBusy(){
-		return !(this.stoppedShooting && this.stoppedMeditating && !this.isJumping());
+	isBusy() {
+		return !((this.stoppedShooting && !this.shooting) && (this.stoppedMeditating && !this.meditating) && !this.isJumping());
 	}
 }
