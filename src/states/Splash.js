@@ -17,6 +17,7 @@ export default class extends Phaser.State {
     this.banner.smoothed = true
     this.banner.anchor.setTo(0.5)
 
+    //sprites
     this.priestess = new Priestess({
       game: this.game,
       x: 0,
@@ -24,6 +25,10 @@ export default class extends Phaser.State {
       asset: 'priestess'
     })
     this.game.add.existing(this.priestess);
+
+    //physics
+    game.physics.startSystem(Phaser.Physics.ARCADE);
+    game.physics.arcade.gravity.y = 250;
   }
 
   update(){

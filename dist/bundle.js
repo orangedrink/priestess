@@ -10830,6 +10830,7 @@ var _class = function (_Phaser$State) {
       this.banner.smoothed = true;
       this.banner.anchor.setTo(0.5);
 
+      //sprites
       this.priestess = new _Priestess2.default({
         game: this.game,
         x: 0,
@@ -10837,6 +10838,10 @@ var _class = function (_Phaser$State) {
         asset: 'priestess'
       });
       this.game.add.existing(this.priestess);
+
+      //physics
+      game.physics.startSystem(_phaser2.default.Physics.ARCADE);
+      game.physics.arcade.gravity.y = 250;
     }
   }, {
     key: 'update',
@@ -10866,7 +10871,7 @@ exports.default = _class;
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+	value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -10884,36 +10889,78 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var _class = function (_Phaser$Sprite) {
-  _inherits(_class, _Phaser$Sprite);
+	_inherits(_class, _Phaser$Sprite);
 
-  function _class(_ref) {
-    var game = _ref.game,
-        x = _ref.x,
-        y = _ref.y,
-        asset = _ref.asset;
+	function _class(_ref) {
+		var game = _ref.game,
+		    x = _ref.x,
+		    y = _ref.y,
+		    asset = _ref.asset;
 
-    _classCallCheck(this, _class);
+		_classCallCheck(this, _class);
 
-    var _this = _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).call(this, game, x, y, asset));
+		//Set up anumations
+		var _this = _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).call(this, game, x, y, asset));
 
-    _this.animations.add('right', [143, 144, 145, 146, 147, 148, 149, 150], 10, true);
-    return _this;
-  }
+		_this.animations.add('walk-right', [143, 144, 145, 146, 147, 148, 149, 150, 151], 10, true);
+		_this.animations.add('walk-left', [117, 118, 119, 120, 121, 122, 123, 124, 125], 10, true);
+		_this.animations.add('meditate', [26, 27, 28, 28, 28, 28, 28, 28, 29, 30, 31, 32], 10, true);
+		_this.animations.add('throw-right', [195, 196, 197, 198, 199, 200], 10, true);
+		_this.animations.add('throw-left', [169, 170, 171, 172, 173, 174], 10, true);
 
-  _createClass(_class, [{
-    key: 'init',
-    value: function init() {
-      console.log('init');
-    }
-  }, {
-    key: 'update',
-    value: function update() {
-      this.x += 1;
-      this.animations.play('right', 16, true);
-    }
-  }]);
+		//set up physics
+		_this.facing = 'left';
+		game.physics.enable(_this, _phaser2.default.Physics.ARCADE);
+		_this.body.bounce.y = 0.2;
+		_this.body.collideWorldBounds = true;
+		//this.body.setSize(20, 32, 5, 16);
+		_this.body.collideWorldBounds = true;
 
-  return _class;
+		//set up controls
+		_this.cursors = game.input.keyboard.createCursorKeys();
+		_this.jumpButton = game.input.keyboard.addKey(_phaser2.default.Keyboard.SPACEBAR);
+		return _this;
+	}
+
+	_createClass(_class, [{
+		key: 'update',
+		value: function update() {
+			this.body.velocity.x = 0;
+
+			if (this.cursors.left.isDown) {
+				this.body.velocity.x -= 150;
+
+				if (this.facing != 'left') {
+					this.animations.play('walk-left');
+					this.facing = 'left';
+				}
+			} else if (this.cursors.right.isDown) {
+				this.body.velocity.x += 150;
+
+				if (this.facing != 'right') {
+					this.animations.play('walk-right', 10, true);
+					this.facing = 'right';
+				}
+			} else {
+				if (this.facing != 'idle') {
+					this.animations.stop();
+
+					if (this.facing == 'left') {
+						this.frame = 117;
+					} else {
+						this.frame = 143;
+					}
+					this.facing = 'idle';
+				}
+			}
+
+			if (this.jumpButton.isDown) {
+				this.animations.play('meditate');
+			}
+		}
+	}]);
+
+	return _class;
 }(_phaser2.default.Sprite);
 
 exports.default = _class;
