@@ -10851,8 +10851,8 @@ var _class = function (_Phaser$State) {
 
       var combinations = spellKeys.length * effectKeys.length * 2;
 
-      var activeEffect = effectKeys[Math.floor(Math.random() * effectKeys.length) + 1];
-      var activeSpell = spellKeys[Math.floor(Math.random() * spellKeys.length) + 1];
+      var activeEffect = effectKeys[Math.floor(Math.random() * effectKeys.length)];
+      var activeSpell = spellKeys[Math.floor(Math.random() * spellKeys.length)];
 
       console.log(activeEffect);
       console.log(effectKeys);
@@ -11692,98 +11692,98 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = {
 	flame: {
 		asset: 'fire',
-		count: 3,
-		bowCount: 5,
+		count: 13,
+		bowCount: 15,
 		damage: 1
 	},
 	fire: {
 		asset: 'fire',
-		count: 5,
-		bowCount: 7,
+		count: 15,
+		bowCount: 17,
 		damage: 1
 	},
 	inferno: {
 		asset: 'fire',
-		count: 10,
-		bowCount: 16,
+		count: 20,
+		bowCount: 35,
 		damage: 2
 	},
 	bubble: {
 		asset: 'bubble',
-		count: 7,
-		bowCount: 10,
+		count: 17,
+		bowCount: 20,
 		damage: 1
 	},
 	blood: {
 		asset: 'blood',
-		count: 3,
-		bowCount: 5,
+		count: 13,
+		bowCount: 15,
 		damage: 1
 	},
 	pebble: {
 		asset: 'rock',
-		count: 3,
-		bowCount: 5,
+		count: 13,
+		bowCount: 15,
 		damage: 1
 	},
 	rock: {
 		asset: 'rock',
-		count: 4,
-		bowCount: 6,
+		count: 14,
+		bowCount: 16,
 		damage: 1
 	},
 	boulder: {
 		asset: 'rock',
-		count: 4,
-		bowCount: 6,
+		count: 14,
+		bowCount: 16,
 		damage: 2
 	},
 	goo: {
 		asset: 'slime',
-		count: 2,
-		bowCount: 4,
+		count: 9,
+		bowCount: 13,
 		damage: 1
 	},
 	slime: {
 		asset: 'slime',
-		count: 3,
-		bowCount: 5,
+		count: 13,
+		bowCount: 15,
 		damage: 1
 	},
 	ectoplasm: {
 		asset: 'slime',
-		count: 4,
-		bowCount: 6,
+		count: 14,
+		bowCount: 16,
 		damage: 1
 	},
 	spark: {
 		asset: 'spark',
-		count: 2,
-		bowCount: 4,
+		count: 12,
+		bowCount: 14,
 		damage: 1
 	},
 	shock: {
 		asset: 'spark',
-		count: 3,
-		bowCount: 5,
+		count: 13,
+		bowCount: 15,
 		damage: 1
 	},
 	lightning: {
 		asset: 'spark',
-		count: 3,
-		bowCount: 5,
+		count: 10,
+		bowCount: 15,
 		damage: 3
 	},
 	spirit: {
 		asset: 'spirit',
-		count: 3,
-		bowCount: 5,
+		count: 13,
+		bowCount: 15,
 		damage: 1
 	},
 	ghost: {
 		asset: 'spirit',
-		count: 3,
-		bowCount: 5,
+		count: 10,
+		bowCount: 15,
 		damage: 1
 	}
 };

@@ -33,8 +33,8 @@ export default class extends Phaser.State {
 
     let combinations = (spellKeys.length * effectKeys.length) * 2;
 
-    let activeEffect = effectKeys[Math.floor(Math.random() * effectKeys.length)+1]
-    let activeSpell = spellKeys[Math.floor(Math.random() * spellKeys.length)+1]
+    let activeEffect = effectKeys[Math.floor(Math.random() * effectKeys.length)]
+    let activeSpell = spellKeys[Math.floor(Math.random() * spellKeys.length)]
 
     console.log(activeEffect);
     console.log(effectKeys);
