@@ -10854,7 +10854,7 @@ var _class = function (_Phaser$State) {
       var activeSpell = spellKeys[Math.floor(Math.random() * spellKeys.length)];
       var bow = Math.round(Math.random()) == 1;
       console.log(bow);
-      //activeEffect = 'surge';
+      activeEffect = 'swarm';
 
       this.instructions = this.add.text(this.world.centerX, this.world.height - 100, 'Generating a random spell from ' + combinations + ' possible combinations: ' + activeSpell + ' ' + activeEffect + ' ');
       this.instructions.font = 'acme';
@@ -11744,7 +11744,7 @@ exports.default = {
 			_this10.body.bounce.y = 0.2;
 			//this.body.gravity.x = (2000 - (Math.random() * 4000)) * 2
 			_this10.body.gravity.y = 0 - Math.random() * 100;
-			_this10.speed = 200;
+			_this10.speed = 20;
 			_this10.arc = -300;
 			_this10.accuracy = 75;
 			_this10.animations.add('surge');
@@ -11773,6 +11773,104 @@ exports.default = {
 					this.x += this.body.velocity.x * .35;
 					this.body.velocity.x -= Math.random() * (this.body.velocity.x * 2);
 				}
+			}
+		}]);
+
+		return Surge;
+	}(_EffectClass2.default),
+	feild: function (_Effect11) {
+		_inherits(Surge, _Effect11);
+
+		function Surge(_ref11) {
+			var game = _ref11.game,
+			    x = _ref11.x,
+			    y = _ref11.y,
+			    asset = _ref11.asset;
+
+			_classCallCheck(this, Surge);
+
+			var _this11 = _possibleConstructorReturn(this, (Surge.__proto__ || Object.getPrototypeOf(Surge)).call(this, game, x, y, asset));
+
+			_this11.anchor.setTo(0.5);
+			game.physics.enable(_this11, _phaser2.default.Physics.ARCADE);
+			_this11.body.bounce.y = 0.2;
+			_this11.body.gravity.y = -650;
+			_this11.speed = 0;
+			_this11.arc = 0;
+			_this11.accuracy = 75;
+			_this11.animations.add('surge');
+			_this11.animations.play('surge', 30, true);
+			_this11.x += Math.random() * 50;
+			_this11.powerUps = {};
+			_this11.alpha = 1;
+			return _this11;
+		}
+
+		_createClass(Surge, [{
+			key: 'update',
+			value: function update() {
+				_get(Surge.prototype.__proto__ || Object.getPrototypeOf(Surge.prototype), 'update', this).call(this);
+				this.alpha -= .1;
+				if (this.facing == "right") {} else {}
+				if (this.x > this.game.world.centerX) {
+					this.body.gravity.x -= Math.random() * 60;
+				}
+				if (this.x < this.game.world.centerX) {
+					this.body.gravity.x += Math.random() * 60;
+				}
+				if (this.powerUps.magicBow) {} else {}
+			}
+		}]);
+
+		return Surge;
+	}(_EffectClass2.default),
+	swarm: function (_Effect12) {
+		_inherits(Surge, _Effect12);
+
+		function Surge(_ref12) {
+			var game = _ref12.game,
+			    x = _ref12.x,
+			    y = _ref12.y,
+			    asset = _ref12.asset;
+
+			_classCallCheck(this, Surge);
+
+			var _this12 = _possibleConstructorReturn(this, (Surge.__proto__ || Object.getPrototypeOf(Surge)).call(this, game, x, y, asset));
+
+			_this12.anchor.setTo(0.5);
+			game.physics.enable(_this12, _phaser2.default.Physics.ARCADE);
+			_this12.body.bounce.y = 0.2;
+			_this12.body.gravity.y = -650;
+			_this12.speed = 10;
+			_this12.arc = 0;
+			_this12.accuracy = 75;
+			_this12.animations.add('surge');
+			_this12.animations.play('surge', 30, true);
+			_this12.x += Math.random() * 50;
+			_this12.powerUps = {};
+			_this12.alpha = 1;
+			return _this12;
+		}
+
+		_createClass(Surge, [{
+			key: 'update',
+			value: function update() {
+				_get(Surge.prototype.__proto__ || Object.getPrototypeOf(Surge.prototype), 'update', this).call(this);
+				this.alpha -= .1;
+				if (this.facing == "right") {} else {}
+				if (this.x > this.game.world.centerX) {
+					this.body.gravity.x -= Math.random() * 6;
+				}
+				if (this.x < this.game.world.centerX) {
+					this.body.gravity.x += Math.random() * 6;
+				}
+				if (this.y > this.game.world.centerY) {
+					this.body.gravity.y -= Math.random() * 6;
+				}
+				if (this.y < this.game.world.centerY) {
+					this.body.gravity.y += Math.random() * 6;
+				}
+				if (this.powerUps.magicBow) {} else {}
 			}
 		}]);
 

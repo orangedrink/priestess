@@ -29,7 +29,7 @@ export default class extends Phaser.State {
     let activeSpell = spellKeys[Math.floor(Math.random() * spellKeys.length)]
     let bow = (Math.round(Math.random()) == 1)
     console.log(bow)
-    //activeEffect = 'surge';
+    activeEffect = 'swarm';
 
     this.instructions = this.add.text(this.world.centerX, this.world.height-100, `Generating a random spell from ${combinations} possible combinations: ${activeSpell} ${activeEffect} `);
     this.instructions.font = 'acme'
