@@ -35,10 +35,11 @@ export default class extends Phaser.State {
 
     let activeEffect = effectKeys[Math.floor(Math.random() * effectKeys.length)]
     let activeSpell = spellKeys[Math.floor(Math.random() * spellKeys.length)]
-
-    console.log(activeEffect);
-    console.log(effectKeys);
+    let bow = (Math.round(Math.random()) == 1)
+    console.log(bow)
+    activeEffect = 'surge';
     
+
     this.instructions = this.add.text(this.world.centerX, this.world.height-100, `Generating a random spell from ${combinations} possible combinations: ${activeSpell} ${activeEffect} `);
     this.instructions.font = 'acme'
     this.instructions.padding.set(10, 16)
@@ -56,7 +57,7 @@ export default class extends Phaser.State {
     })
     this.priestess.activeEffect = activeEffect;
     this.priestess.activeSpell = activeSpell;
-    
+    this.priestess.powerUps.magicBow = bow;
     this.game.add.existing(this.priestess);
 
     //physics

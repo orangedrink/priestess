@@ -230,4 +230,69 @@ export default {
 			}
 		}
 	},
+	stream: class Stream extends Phaser.Sprite {
+		constructor({ game, x, y, asset }) {
+			super(game, x, y, asset)
+			this.anchor.setTo(0.5)
+			game.physics.enable(this, Phaser.Physics.ARCADE);
+			this.body.bounce.y = 0.2;
+			this.body.gravity.x = (2000 - (Math.random() * 4000)) * 4
+			this.speed = 200;
+			this.arc = -300
+			this.accuracy = 75;
+			this.animations.add('stream');
+			this.animations.play('stream', 30, true);
+			this.x += Math.random() * 50;
+			this.powerUps = {};
+			this.alpha = 1;
+		}
+
+		update() {
+			this.alpha -= .1;
+			if (this.powerUps.magicBow) {
+				this.x += this.body.velocity.x * .05;
+				this.body.velocity.x -= Math.random() * (this.body.velocity.x * 2);
+			}
+			else {
+				this.x += this.body.velocity.x * .35;
+				this.body.velocity.x -= Math.random() * (this.body.velocity.x * 2);
+			}
+		}
+	},
+	surge: class Surge extends Phaser.Sprite {
+		constructor({ game, x, y, asset }) {
+			super(game, x, y, asset)
+			this.anchor.setTo(0.5)
+			game.physics.enable(this, Phaser.Physics.ARCADE);
+			this.body.bounce.y = 0.2;
+			//this.body.gravity.x = (2000 - (Math.random() * 4000)) * 2
+			this.body.gravity.y = (0 - (Math.random() * 100))
+			this.speed = 200;
+			this.arc = -300
+			this.accuracy = 75;
+			this.animations.add('surge');
+			this.animations.play('surge', 30, true);
+			this.x += Math.random() * 50;
+			this.powerUps = {};
+			this.alpha = 1;
+		}
+
+		update() {
+			this.alpha -= .1;
+			this.body.gravity.y -= Math.random() * 60
+			if(this.facing=="right"){
+				this.body.gravity.x += Math.random() * 600
+			}else{
+				this.body.gravity.x -= Math.random() * 600
+			}
+			if (this.powerUps.magicBow) {
+				this.x += this.body.velocity.x * .05;
+				this.body.velocity.x -= Math.random() * (this.body.velocity.x * 2);
+			}
+			else {
+				this.x += this.body.velocity.x * .35;
+				this.body.velocity.x -= Math.random() * (this.body.velocity.x * 2);
+			}
+		}
+	},
 }

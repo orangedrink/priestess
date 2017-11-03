@@ -160,6 +160,7 @@ export default class extends Phaser.Sprite {
 			effectSprite.frame = Math.random() * 3;
 			effectSprite.powerUps = _this.powerUps;
 			effectSprite.spell = Spells[_this.activeSpell].asset
+			effectSprite.facing = facing;
 			if (facing == 'right') {
 				effectSprite.body.velocity.x = _this.powerUps.magicBow ? effectSprite.speed * 8 : effectSprite.speed;
 			} else {

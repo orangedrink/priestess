@@ -10853,9 +10853,9 @@ var _class = function (_Phaser$State) {
 
       var activeEffect = effectKeys[Math.floor(Math.random() * effectKeys.length)];
       var activeSpell = spellKeys[Math.floor(Math.random() * spellKeys.length)];
-
-      console.log(activeEffect);
-      console.log(effectKeys);
+      var bow = Math.round(Math.random()) == 1;
+      console.log(bow);
+      activeEffect = 'surge';
 
       this.instructions = this.add.text(this.world.centerX, this.world.height - 100, 'Generating a random spell from ' + combinations + ' possible combinations: ' + activeSpell + ' ' + activeEffect + ' ');
       this.instructions.font = 'acme';
@@ -10874,7 +10874,7 @@ var _class = function (_Phaser$State) {
       });
       this.priestess.activeEffect = activeEffect;
       this.priestess.activeSpell = activeSpell;
-
+      this.priestess.powerUps.magicBow = bow;
       this.game.add.existing(this.priestess);
 
       //physics
@@ -11101,6 +11101,7 @@ var _class = function (_Phaser$Sprite) {
 				effectSprite.frame = Math.random() * 3;
 				effectSprite.powerUps = _this.powerUps;
 				effectSprite.spell = _Spells2.default[_this.activeSpell].asset;
+				effectSprite.facing = facing;
 				if (facing == 'right') {
 					effectSprite.body.velocity.x = _this.powerUps.magicBow ? effectSprite.speed * 8 : effectSprite.speed;
 				} else {
@@ -11664,6 +11665,101 @@ exports.default = {
 		}]);
 
 		return Wall;
+	}(_phaser2.default.Sprite),
+	stream: function (_Phaser$Sprite9) {
+		_inherits(Stream, _Phaser$Sprite9);
+
+		function Stream(_ref9) {
+			var game = _ref9.game,
+			    x = _ref9.x,
+			    y = _ref9.y,
+			    asset = _ref9.asset;
+
+			_classCallCheck(this, Stream);
+
+			var _this9 = _possibleConstructorReturn(this, (Stream.__proto__ || Object.getPrototypeOf(Stream)).call(this, game, x, y, asset));
+
+			_this9.anchor.setTo(0.5);
+			game.physics.enable(_this9, _phaser2.default.Physics.ARCADE);
+			_this9.body.bounce.y = 0.2;
+			_this9.body.gravity.x = (2000 - Math.random() * 4000) * 4;
+			_this9.speed = 200;
+			_this9.arc = -300;
+			_this9.accuracy = 75;
+			_this9.animations.add('stream');
+			_this9.animations.play('stream', 30, true);
+			_this9.x += Math.random() * 50;
+			_this9.powerUps = {};
+			_this9.alpha = 1;
+			return _this9;
+		}
+
+		_createClass(Stream, [{
+			key: 'update',
+			value: function update() {
+				this.alpha -= .1;
+				if (this.powerUps.magicBow) {
+					this.x += this.body.velocity.x * .05;
+					this.body.velocity.x -= Math.random() * (this.body.velocity.x * 2);
+				} else {
+					this.x += this.body.velocity.x * .35;
+					this.body.velocity.x -= Math.random() * (this.body.velocity.x * 2);
+				}
+			}
+		}]);
+
+		return Stream;
+	}(_phaser2.default.Sprite),
+	surge: function (_Phaser$Sprite10) {
+		_inherits(Surge, _Phaser$Sprite10);
+
+		function Surge(_ref10) {
+			var game = _ref10.game,
+			    x = _ref10.x,
+			    y = _ref10.y,
+			    asset = _ref10.asset;
+
+			_classCallCheck(this, Surge);
+
+			var _this10 = _possibleConstructorReturn(this, (Surge.__proto__ || Object.getPrototypeOf(Surge)).call(this, game, x, y, asset));
+
+			_this10.anchor.setTo(0.5);
+			game.physics.enable(_this10, _phaser2.default.Physics.ARCADE);
+			_this10.body.bounce.y = 0.2;
+			//this.body.gravity.x = (2000 - (Math.random() * 4000)) * 2
+			_this10.body.gravity.y = 0 - Math.random() * 100;
+			_this10.speed = 200;
+			_this10.arc = -300;
+			_this10.accuracy = 75;
+			_this10.animations.add('surge');
+			_this10.animations.play('surge', 30, true);
+			_this10.x += Math.random() * 50;
+			_this10.powerUps = {};
+			_this10.alpha = 1;
+			return _this10;
+		}
+
+		_createClass(Surge, [{
+			key: 'update',
+			value: function update() {
+				this.alpha -= .1;
+				this.body.gravity.y -= Math.random() * 60;
+				if (this.facing == "right") {
+					this.body.gravity.x += Math.random() * 600;
+				} else {
+					this.body.gravity.x -= Math.random() * 600;
+				}
+				if (this.powerUps.magicBow) {
+					this.x += this.body.velocity.x * .05;
+					this.body.velocity.x -= Math.random() * (this.body.velocity.x * 2);
+				} else {
+					this.x += this.body.velocity.x * .35;
+					this.body.velocity.x -= Math.random() * (this.body.velocity.x * 2);
+				}
+			}
+		}]);
+
+		return Surge;
 	}(_phaser2.default.Sprite)
 };
 
