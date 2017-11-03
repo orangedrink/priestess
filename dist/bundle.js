@@ -10848,13 +10848,14 @@ var _class = function (_Phaser$State) {
 
       var spellKeys = Object.keys(_Spells2.default);
       var effectKeys = Object.keys(_Effects2.default);
-      console.log(spellKeys);
-      console.log(Math.round(Math.random() * spellKeys.length));
 
       var combinations = spellKeys.length * effectKeys.length * 2;
 
-      var activeEffect = effectKeys[Math.round(Math.random() * effectKeys.length)];
-      var activeSpell = spellKeys[Math.round(Math.random() * spellKeys.length)];
+      var activeEffect = effectKeys[Math.floor(Math.random() * effectKeys.length) + 1];
+      var activeSpell = spellKeys[Math.floor(Math.random() * spellKeys.length) + 1];
+
+      console.log(activeEffect);
+      console.log(effectKeys);
 
       this.instructions = this.add.text(this.world.centerX, this.world.height - 100, 'Generating a random spell from ' + combinations + ' possible combinations: ' + activeSpell + ' ' + activeEffect + ' ');
       this.instructions.font = 'acme';
@@ -11112,8 +11113,8 @@ var _class = function (_Phaser$Sprite) {
 	}, {
 		key: 'magic',
 		value: function magic() {
-			var shots = Math.random() * 20;
-			for (var i = 0; i < shots + 10; i++) {
+			var shots = Math.random() * 10;
+			for (var i = 0; i < shots + 5; i++) {
 				var direction = Math.random() >= .5 ? 'left' : 'right';
 				var delay = Math.random() * 200 + 300;
 				setTimeout(this.shoot, delay, this, direction);

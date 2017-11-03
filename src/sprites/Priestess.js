@@ -171,8 +171,8 @@ export default class extends Phaser.Sprite {
 	}
 
 	magic() {
-		let shots = Math.random() * 20
-		for (let i = 0; i < shots + 10; i++) {
+		let shots = Math.random() * 10
+		for (let i = 0; i < shots + 5; i++) {
 			let direction = (Math.random() >= .5 ? 'left' : 'right')
 			let delay = (Math.random() * 200) + 300;
 			setTimeout(this.shoot, delay, this, direction);
