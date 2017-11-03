@@ -34,7 +34,7 @@ export default class extends Phaser.Sprite {
 		this.stoppedMeditating = false;
 		this.powerUps = {
 			superJump: true,
-			magicBow: true
+			magicBow: false
 		}
 	}
 
@@ -145,15 +145,16 @@ export default class extends Phaser.Sprite {
 	}
 
 	shoot(_this, facing) {
-		let shots = Math.random() * 3
+		let shots = (_this.powerUps.magicBow ? 8 :  Math.random() * 3 )
 		for (let i = 0; i < shots + 4; i++) {
-			let SpellSprite = Spells['spark'];
+			let SpellSprite = Spells['throw'];
 			let spellSprite = new SpellSprite({
 				game: _this.game,
 				x: _this.x +  Math.random() * 32,
 				y: _this.y + 32,
-				asset: 'blue-spark'
+				asset: 'blue-spark',
 			})
+			spellSprite.powerUps = _this.powerUps;
 			if (facing == 'right') {
 				spellSprite.body.velocity.x = _this.powerUps.magicBow ? spellSprite.speed * 8 : spellSprite.speed;
 			} else {
