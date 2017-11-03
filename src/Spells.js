@@ -15,14 +15,14 @@ export default {
 	},
 	inferno: {
 		asset: 'fire',
-		count: 5,
-		bowCount: 7,
+		count: 10,
+		bowCount: 16,
 		damage: 2,
 	},
 	bubble: {
 		asset: 'bubble',
-		count: 3,
-		bowCount: 5,
+		count: 7,
+		bowCount: 10,
 		damage: 1,
 	},
 	blood: {

@@ -1,6 +1,8 @@
 import Phaser from 'phaser'
 import { centerGameObjects } from '../utils'
 import Priestess from '../sprites/Priestess'
+import Effects from '../Effects.js'
+import Spells from '../Spells.js'
 export default class extends Phaser.State {
   init() { }
 
@@ -25,6 +27,25 @@ export default class extends Phaser.State {
     this.banner.smoothed = true
     this.banner.anchor.setTo(0.5)
 
+    let spellKeys = Object.keys(Spells)
+    let effectKeys = Object.keys(Effects)
+    console.log(spellKeys)
+    console.log(Math.round(Math.random() * spellKeys.length))
+    
+
+    let combinations = (spellKeys.length * effectKeys.length) * 2;
+
+    let activeEffect = effectKeys[Math.round(Math.random() * effectKeys.length)]
+    let activeSpell = spellKeys[Math.round(Math.random() * spellKeys.length)]
+    
+    this.instructions = this.add.text(this.world.centerX, this.world.height-100, `Generating a random spell from ${combinations} possible combinations: ${activeSpell} ${activeEffect} `);
+    this.instructions.font = 'acme'
+    this.instructions.padding.set(10, 16)
+    this.instructions.fontSize = 20
+    this.instructions.fill = '#ddd'
+    this.instructions.smoothed = true
+    this.instructions.anchor.setTo(0.5)
+
     //sprites
     this.priestess = new Priestess({
       game: this.game,
@@ -32,6 +53,9 @@ export default class extends Phaser.State {
       y: 0,
       asset: 'priestess'
     })
+    this.priestess.activeEffect = activeEffect;
+    this.priestess.activeSpell = activeSpell;
+    
     this.game.add.existing(this.priestess);
 
     //physics

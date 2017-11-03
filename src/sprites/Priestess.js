@@ -35,10 +35,10 @@ export default class extends Phaser.Sprite {
 		this.stoppedMeditating = false;
 		this.powerUps = {
 			superJump: true,
-			magicBow: true
+			magicBow: false
 		}
-		this.activeSpell = 'bubble';
-		this.activeEffect = 'wall'
+		this.activeSpell = 'boulder';
+		this.activeEffect = 'toss'
 	}
 
 	update() {

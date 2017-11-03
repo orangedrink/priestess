@@ -10795,6 +10795,14 @@ var _Priestess = __webpack_require__(/*! ../sprites/Priestess */ 339);
 
 var _Priestess2 = _interopRequireDefault(_Priestess);
 
+var _Effects = __webpack_require__(/*! ../Effects.js */ 346);
+
+var _Effects2 = _interopRequireDefault(_Effects);
+
+var _Spells = __webpack_require__(/*! ../Spells.js */ 347);
+
+var _Spells2 = _interopRequireDefault(_Spells);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -10838,6 +10846,24 @@ var _class = function (_Phaser$State) {
       this.banner.smoothed = true;
       this.banner.anchor.setTo(0.5);
 
+      var spellKeys = Object.keys(_Spells2.default);
+      var effectKeys = Object.keys(_Effects2.default);
+      console.log(spellKeys);
+      console.log(Math.round(Math.random() * spellKeys.length));
+
+      var combinations = spellKeys.length * effectKeys.length * 2;
+
+      var activeEffect = effectKeys[Math.round(Math.random() * effectKeys.length)];
+      var activeSpell = spellKeys[Math.round(Math.random() * spellKeys.length)];
+
+      this.instructions = this.add.text(this.world.centerX, this.world.height - 100, 'Generating a random spell from ' + combinations + ' possible combinations: ' + activeSpell + ' ' + activeEffect + ' ');
+      this.instructions.font = 'acme';
+      this.instructions.padding.set(10, 16);
+      this.instructions.fontSize = 20;
+      this.instructions.fill = '#ddd';
+      this.instructions.smoothed = true;
+      this.instructions.anchor.setTo(0.5);
+
       //sprites
       this.priestess = new _Priestess2.default({
         game: this.game,
@@ -10845,6 +10871,9 @@ var _class = function (_Phaser$State) {
         y: 0,
         asset: 'priestess'
       });
+      this.priestess.activeEffect = activeEffect;
+      this.priestess.activeSpell = activeSpell;
+
       this.game.add.existing(this.priestess);
 
       //physics
@@ -10945,10 +10974,10 @@ var _class = function (_Phaser$Sprite) {
 		_this2.stoppedMeditating = false;
 		_this2.powerUps = {
 			superJump: true,
-			magicBow: true
+			magicBow: false
 		};
-		_this2.activeSpell = 'bubble';
-		_this2.activeEffect = 'wall';
+		_this2.activeSpell = 'boulder';
+		_this2.activeEffect = 'toss';
 		return _this2;
 	}
 
@@ -11674,14 +11703,14 @@ exports.default = {
 	},
 	inferno: {
 		asset: 'fire',
-		count: 5,
-		bowCount: 7,
+		count: 10,
+		bowCount: 16,
 		damage: 2
 	},
 	bubble: {
 		asset: 'bubble',
-		count: 3,
-		bowCount: 5,
+		count: 7,
+		bowCount: 10,
 		damage: 1
 	},
 	blood: {
