@@ -10854,7 +10854,8 @@ var _class = function (_Phaser$State) {
       var activeSpell = spellKeys[Math.floor(Math.random() * spellKeys.length)];
       var bow = Math.round(Math.random()) == 1;
       console.log(bow);
-      activeEffect = 'swarm';
+      //activeEffect = effectKeys[effectKeys.length-1]
+      //activeSpell = spellKeys[spellKeys.length-1]
 
       this.instructions = this.add.text(this.world.centerX, this.world.height - 100, 'Generating a random spell from ' + combinations + ' possible combinations: ' + activeSpell + ' ' + activeEffect + ' ');
       this.instructions.font = 'acme';
