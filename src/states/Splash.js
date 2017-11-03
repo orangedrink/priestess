@@ -1,8 +1,8 @@
 import Phaser from 'phaser'
 import { centerGameObjects } from '../utils'
 import Priestess from '../sprites/Priestess'
-import Effects from '../Effects.js'
-import Spells from '../Spells.js'
+import Effects from '../classes/Effects.js'
+import Spells from '../classes/Spells.js'
 export default class extends Phaser.State {
   init() { }
 

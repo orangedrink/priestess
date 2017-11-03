@@ -1,6 +1,6 @@
 import Phaser from 'phaser'
-import Effects from '../Effects.js'
-import Spells from '../Spells.js'
+import Effects from '../classes/Effects.js'
+import Spells from '../classes/Spells.js'
 export default class extends Phaser.Sprite {
 
 

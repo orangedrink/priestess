@@ -10795,11 +10795,11 @@ var _Priestess = __webpack_require__(/*! ../sprites/Priestess */ 339);
 
 var _Priestess2 = _interopRequireDefault(_Priestess);
 
-var _Effects = __webpack_require__(/*! ../Effects.js */ 346);
+var _Effects = __webpack_require__(/*! ../classes/Effects.js */ 348);
 
 var _Effects2 = _interopRequireDefault(_Effects);
 
-var _Spells = __webpack_require__(/*! ../Spells.js */ 347);
+var _Spells = __webpack_require__(/*! ../classes/Spells.js */ 349);
 
 var _Spells2 = _interopRequireDefault(_Spells);
 
@@ -10918,11 +10918,11 @@ var _phaser = __webpack_require__(/*! phaser */ 31);
 
 var _phaser2 = _interopRequireDefault(_phaser);
 
-var _Effects = __webpack_require__(/*! ../Effects.js */ 346);
+var _Effects = __webpack_require__(/*! ../classes/Effects.js */ 348);
 
 var _Effects2 = _interopRequireDefault(_Effects);
 
-var _Spells = __webpack_require__(/*! ../Spells.js */ 347);
+var _Spells = __webpack_require__(/*! ../classes/Spells.js */ 349);
 
 var _Spells2 = _interopRequireDefault(_Spells);
 
@@ -11291,10 +11291,12 @@ exports.default = {
 /***/ }),
 /* 344 */,
 /* 345 */,
-/* 346 */
-/*!************************!*\
-  !*** ./src/Effects.js ***!
-  \************************/
+/* 346 */,
+/* 347 */,
+/* 348 */
+/*!********************************!*\
+  !*** ./src/classes/Effects.js ***!
+  \********************************/
 /*! dynamic exports provided */
 /*! all exports used */
 /***/ (function(module, exports, __webpack_require__) {
@@ -11308,9 +11310,15 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
+
 var _phaser = __webpack_require__(/*! phaser */ 31);
 
 var _phaser2 = _interopRequireDefault(_phaser);
+
+var _EffectClass = __webpack_require__(/*! ./EffectClass.js */ 350);
+
+var _EffectClass2 = _interopRequireDefault(_EffectClass);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -11321,8 +11329,8 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 exports.default = {
-	toss: function (_Phaser$Sprite) {
-		_inherits(Toss, _Phaser$Sprite);
+	toss: function (_Effect) {
+		_inherits(Toss, _Effect);
 
 		function Toss(_ref) {
 			var game = _ref.game,
@@ -11350,14 +11358,15 @@ exports.default = {
 		_createClass(Toss, [{
 			key: 'update',
 			value: function update() {
+				_get(Toss.prototype.__proto__ || Object.getPrototypeOf(Toss.prototype), 'update', this).call(this);
 				this.angle += this.rollSpeed;
 			}
 		}]);
 
 		return Toss;
-	}(_phaser2.default.Sprite),
-	rain: function (_Phaser$Sprite2) {
-		_inherits(Rain, _Phaser$Sprite2);
+	}(_EffectClass2.default),
+	rain: function (_Effect2) {
+		_inherits(Rain, _Effect2);
 
 		function Rain(_ref2) {
 			var game = _ref2.game,
@@ -11386,6 +11395,7 @@ exports.default = {
 		_createClass(Rain, [{
 			key: 'update',
 			value: function update() {
+				_get(Rain.prototype.__proto__ || Object.getPrototypeOf(Rain.prototype), 'update', this).call(this);
 				this.alpha += .15;
 				this.body.velocity.y -= 1;
 				if (this.powerUps.magicBow) {
@@ -11399,9 +11409,9 @@ exports.default = {
 		}]);
 
 		return Rain;
-	}(_phaser2.default.Sprite),
-	wave: function (_Phaser$Sprite3) {
-		_inherits(Wave, _Phaser$Sprite3);
+	}(_EffectClass2.default),
+	wave: function (_Effect3) {
+		_inherits(Wave, _Effect3);
 
 		function Wave(_ref3) {
 			var game = _ref3.game,
@@ -11431,6 +11441,7 @@ exports.default = {
 		_createClass(Wave, [{
 			key: 'update',
 			value: function update() {
+				_get(Wave.prototype.__proto__ || Object.getPrototypeOf(Wave.prototype), 'update', this).call(this);
 				this.alpha += .25;
 				if (this.powerUps.magicBow) {
 					this.body.velocity.y -= 1;
@@ -11445,9 +11456,9 @@ exports.default = {
 		}]);
 
 		return Wave;
-	}(_phaser2.default.Sprite),
-	bubble: function (_Phaser$Sprite4) {
-		_inherits(Bubble, _Phaser$Sprite4);
+	}(_EffectClass2.default),
+	bubble: function (_Effect4) {
+		_inherits(Bubble, _Effect4);
 
 		function Bubble(_ref4) {
 			var game = _ref4.game,
@@ -11477,6 +11488,7 @@ exports.default = {
 		_createClass(Bubble, [{
 			key: 'update',
 			value: function update() {
+				_get(Bubble.prototype.__proto__ || Object.getPrototypeOf(Bubble.prototype), 'update', this).call(this);
 				this.alpha -= .1;
 				if (this.powerUps.magicBow) {
 					this.x += this.body.velocity.x * .05;
@@ -11489,9 +11501,9 @@ exports.default = {
 		}]);
 
 		return Bubble;
-	}(_phaser2.default.Sprite),
-	storm: function (_Phaser$Sprite5) {
-		_inherits(Storme, _Phaser$Sprite5);
+	}(_EffectClass2.default),
+	storm: function (_Effect5) {
+		_inherits(Storme, _Effect5);
 
 		function Storme(_ref5) {
 			var game = _ref5.game,
@@ -11522,6 +11534,7 @@ exports.default = {
 		_createClass(Storme, [{
 			key: 'update',
 			value: function update() {
+				_get(Storme.prototype.__proto__ || Object.getPrototypeOf(Storme.prototype), 'update', this).call(this);
 				this.alpha -= .1;
 				if (this.powerUps.magicBow) {
 					this.x += this.body.velocity.x * .05;
@@ -11534,9 +11547,9 @@ exports.default = {
 		}]);
 
 		return Storme;
-	}(_phaser2.default.Sprite),
-	spray: function (_Phaser$Sprite6) {
-		_inherits(Spray, _Phaser$Sprite6);
+	}(_EffectClass2.default),
+	spray: function (_Effect6) {
+		_inherits(Spray, _Effect6);
 
 		function Spray(_ref6) {
 			var game = _ref6.game,
@@ -11566,6 +11579,7 @@ exports.default = {
 		_createClass(Spray, [{
 			key: 'update',
 			value: function update() {
+				_get(Spray.prototype.__proto__ || Object.getPrototypeOf(Spray.prototype), 'update', this).call(this);
 				if (this.powerUps.magicBow) {} else {
 					if (Math.abs(this.body.velocity.x) > 20) {
 						this.x += this.body.velocity.x * .35;
@@ -11576,9 +11590,9 @@ exports.default = {
 		}]);
 
 		return Spray;
-	}(_phaser2.default.Sprite),
-	tornado: function (_Phaser$Sprite7) {
-		_inherits(Tornado, _Phaser$Sprite7);
+	}(_EffectClass2.default),
+	tornado: function (_Effect7) {
+		_inherits(Tornado, _Effect7);
 
 		function Tornado(_ref7) {
 			var game = _ref7.game,
@@ -11606,6 +11620,7 @@ exports.default = {
 		_createClass(Tornado, [{
 			key: 'update',
 			value: function update() {
+				_get(Tornado.prototype.__proto__ || Object.getPrototypeOf(Tornado.prototype), 'update', this).call(this);
 				if (this.body.velocity.x > 100) {
 					this.body.velocity.x = 100;
 				}
@@ -11621,9 +11636,9 @@ exports.default = {
 		}]);
 
 		return Tornado;
-	}(_phaser2.default.Sprite),
-	wall: function (_Phaser$Sprite8) {
-		_inherits(Wall, _Phaser$Sprite8);
+	}(_EffectClass2.default),
+	wall: function (_Effect8) {
+		_inherits(Wall, _Effect8);
 
 		function Wall(_ref8) {
 			var game = _ref8.game,
@@ -11651,6 +11666,7 @@ exports.default = {
 		_createClass(Wall, [{
 			key: 'update',
 			value: function update() {
+				_get(Wall.prototype.__proto__ || Object.getPrototypeOf(Wall.prototype), 'update', this).call(this);
 				if (this.body.velocity.x > 300) {
 					this.body.velocity.x = 300;
 				}
@@ -11665,9 +11681,9 @@ exports.default = {
 		}]);
 
 		return Wall;
-	}(_phaser2.default.Sprite),
-	stream: function (_Phaser$Sprite9) {
-		_inherits(Stream, _Phaser$Sprite9);
+	}(_EffectClass2.default),
+	stream: function (_Effect9) {
+		_inherits(Stream, _Effect9);
 
 		function Stream(_ref9) {
 			var game = _ref9.game,
@@ -11697,6 +11713,7 @@ exports.default = {
 		_createClass(Stream, [{
 			key: 'update',
 			value: function update() {
+				_get(Stream.prototype.__proto__ || Object.getPrototypeOf(Stream.prototype), 'update', this).call(this);
 				this.alpha -= .1;
 				if (this.powerUps.magicBow) {
 					this.x += this.body.velocity.x * .05;
@@ -11709,9 +11726,9 @@ exports.default = {
 		}]);
 
 		return Stream;
-	}(_phaser2.default.Sprite),
-	surge: function (_Phaser$Sprite10) {
-		_inherits(Surge, _Phaser$Sprite10);
+	}(_EffectClass2.default),
+	surge: function (_Effect10) {
+		_inherits(Surge, _Effect10);
 
 		function Surge(_ref10) {
 			var game = _ref10.game,
@@ -11742,6 +11759,7 @@ exports.default = {
 		_createClass(Surge, [{
 			key: 'update',
 			value: function update() {
+				_get(Surge.prototype.__proto__ || Object.getPrototypeOf(Surge.prototype), 'update', this).call(this);
 				this.alpha -= .1;
 				this.body.gravity.y -= Math.random() * 60;
 				if (this.facing == "right") {
@@ -11760,14 +11778,14 @@ exports.default = {
 		}]);
 
 		return Surge;
-	}(_phaser2.default.Sprite)
+	}(_EffectClass2.default)
 };
 
 /***/ }),
-/* 347 */
-/*!***********************!*\
-  !*** ./src/Spells.js ***!
-  \***********************/
+/* 349 */
+/*!*******************************!*\
+  !*** ./src/classes/Spells.js ***!
+  \*******************************/
 /*! dynamic exports provided */
 /*! all exports used */
 /***/ (function(module, exports, __webpack_require__) {
@@ -11883,6 +11901,66 @@ exports.default = {
 		damage: 1
 	}
 };
+
+/***/ }),
+/* 350 */
+/*!************************************!*\
+  !*** ./src/classes/EffectClass.js ***!
+  \************************************/
+/*! dynamic exports provided */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _phaser = __webpack_require__(/*! phaser */ 31);
+
+var _phaser2 = _interopRequireDefault(_phaser);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var _class = function (_Phaser$Sprite) {
+	_inherits(_class, _Phaser$Sprite);
+
+	function _class(game, x, y, asset) {
+		_classCallCheck(this, _class);
+
+		var _this = _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).call(this, game, x, y, asset));
+
+		_this.game = game;
+		_this.checkWorldBounds = true;
+		_this.events.onOutOfBounds.add(_this.die, _this);
+		return _this;
+	}
+
+	_createClass(_class, [{
+		key: 'die',
+		value: function die() {
+			this.kill();
+			this.destroy();
+		}
+	}, {
+		key: 'update',
+		value: function update() {}
+	}]);
+
+	return _class;
+}(_phaser2.default.Sprite);
+
+exports.default = _class;
 
 /***/ })
 ],[129]);

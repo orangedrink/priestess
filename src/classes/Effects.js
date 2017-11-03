@@ -1,7 +1,7 @@
 import Phaser from 'phaser'
-
+import Effect from './EffectClass.js'
 export default {
-	toss: class Toss extends Phaser.Sprite {
+	toss: class Toss extends Effect {
 		constructor({ game, x, y, asset }) {
 			super(game, x, y, asset)
 			this.anchor.setTo(0.5)
@@ -17,10 +17,11 @@ export default {
 		}
 
 		update() {
+			super.update()
 			this.angle += this.rollSpeed;
 		}
 	},
-	rain: class Rain extends Phaser.Sprite {
+	rain: class Rain extends Effect {
 		constructor({ game, x, y, asset }) {
 			super(game, x, y, asset)
 			this.anchor.setTo(0.5)
@@ -37,6 +38,7 @@ export default {
 		}
 
 		update() {
+			super.update()
 			this.alpha += .15;
 			this.body.velocity.y -= 1;
 			if (this.powerUps.magicBow) {
@@ -49,7 +51,7 @@ export default {
 			}
 		}
 	},
-	wave: class Wave extends Phaser.Sprite {
+	wave: class Wave extends Effect {
 		constructor({ game, x, y, asset }) {
 			super(game, x, y, asset)
 			this.anchor.setTo(0.5)
@@ -67,6 +69,7 @@ export default {
 		}
 
 		update() {
+			super.update()
 			this.alpha += .25;
 			if (this.powerUps.magicBow) {
 				this.body.velocity.y -= 1;
@@ -80,7 +83,7 @@ export default {
 			}
 		}
 	},
-	bubble: class Bubble extends Phaser.Sprite {
+	bubble: class Bubble extends Effect {
 		constructor({ game, x, y, asset }) {
 			super(game, x, y, asset)
 			this.anchor.setTo(0.5)
@@ -98,6 +101,7 @@ export default {
 		}
 
 		update() {
+			super.update()
 			this.alpha -= .1;
 			if (this.powerUps.magicBow) {
 				this.x += this.body.velocity.x * .05;
@@ -109,7 +113,7 @@ export default {
 			}
 		}
 	},
-	storm: class Storme extends Phaser.Sprite {
+	storm: class Storme extends Effect {
 		constructor({ game, x, y, asset }) {
 			super(game, x, y, asset)
 			this.anchor.setTo(0.5)
@@ -128,6 +132,7 @@ export default {
 		}
 
 		update() {
+			super.update()
 			this.alpha -= .1;
 			if (this.powerUps.magicBow) {
 				this.x += this.body.velocity.x * .05;
@@ -139,7 +144,7 @@ export default {
 			}
 		}
 	},
-	spray: class Spray extends Phaser.Sprite {
+	spray: class Spray extends Effect {
 		constructor({ game, x, y, asset }) {
 			super(game, x, y, asset)
 			this.anchor.setTo(0.5)
@@ -157,6 +162,7 @@ export default {
 		}
 
 		update() {
+			super.update()
 			if (this.powerUps.magicBow) {
 			}
 			else {
@@ -167,7 +173,7 @@ export default {
 			}
 		}
 	},
-	tornado: class Tornado extends Phaser.Sprite {
+	tornado: class Tornado extends Effect {
 		constructor({ game, x, y, asset }) {
 			super(game, x, y, asset)
 			this.anchor.setTo(0.5)
@@ -183,13 +189,14 @@ export default {
 		}
 
 		update() {
-			if(this.body.velocity.x > 100){
+			super.update()
+			if (this.body.velocity.x > 100) {
 				this.body.velocity.x = 100;
 			}
-			if(this.body.velocity.x < -100){
+			if (this.body.velocity.x < -100) {
 				this.body.velocity.x = -100;
 			}
-			
+
 			this.body.gravity.x = (500 - (Math.random() * 1000)) * 10
 			this.body.gravity.y = (500 - (Math.random() * 1000)) * 30
 
@@ -199,7 +206,7 @@ export default {
 			}
 		}
 	},
-	wall: class Wall extends Phaser.Sprite {
+	wall: class Wall extends Effect {
 		constructor({ game, x, y, asset }) {
 			super(game, x, y, asset)
 			this.anchor.setTo(0.5)
@@ -215,13 +222,14 @@ export default {
 		}
 
 		update() {
-			if(this.body.velocity.x > 300){
+			super.update()
+			if (this.body.velocity.x > 300) {
 				this.body.velocity.x = 300;
 			}
-			if(this.body.velocity.x < -300){
+			if (this.body.velocity.x < -300) {
 				this.body.velocity.x = -300;
 			}
-			
+
 			this.body.gravity.y = (500 - (Math.random() * 1000)) * 30
 
 			if (this.powerUps.magicBow) {
@@ -230,7 +238,7 @@ export default {
 			}
 		}
 	},
-	stream: class Stream extends Phaser.Sprite {
+	stream: class Stream extends Effect {
 		constructor({ game, x, y, asset }) {
 			super(game, x, y, asset)
 			this.anchor.setTo(0.5)
@@ -248,6 +256,7 @@ export default {
 		}
 
 		update() {
+			super.update()
 			this.alpha -= .1;
 			if (this.powerUps.magicBow) {
 				this.x += this.body.velocity.x * .05;
@@ -259,7 +268,7 @@ export default {
 			}
 		}
 	},
-	surge: class Surge extends Phaser.Sprite {
+	surge: class Surge extends Effect {
 		constructor({ game, x, y, asset }) {
 			super(game, x, y, asset)
 			this.anchor.setTo(0.5)
@@ -278,11 +287,12 @@ export default {
 		}
 
 		update() {
+			super.update()
 			this.alpha -= .1;
 			this.body.gravity.y -= Math.random() * 60
-			if(this.facing=="right"){
+			if (this.facing == "right") {
 				this.body.gravity.x += Math.random() * 600
-			}else{
+			} else {
 				this.body.gravity.x -= Math.random() * 600
 			}
 			if (this.powerUps.magicBow) {
