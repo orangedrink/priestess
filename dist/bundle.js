@@ -10888,9 +10888,13 @@ var _phaser = __webpack_require__(/*! phaser */ 31);
 
 var _phaser2 = _interopRequireDefault(_phaser);
 
-var _Effects = __webpack_require__(/*! ./Effects.js */ 345);
+var _Effects = __webpack_require__(/*! ../Effects.js */ 346);
 
 var _Effects2 = _interopRequireDefault(_Effects);
+
+var _Spells = __webpack_require__(/*! ../Spells.js */ 347);
+
+var _Spells2 = _interopRequireDefault(_Spells);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -10941,8 +10945,10 @@ var _class = function (_Phaser$Sprite) {
 		_this2.stoppedMeditating = false;
 		_this2.powerUps = {
 			superJump: true,
-			magicBow: false
+			magicBow: true
 		};
+		_this2.activeSpell = 'bubble';
+		_this2.activeEffect = 'wall';
 		return _this2;
 	}
 
@@ -11053,17 +11059,18 @@ var _class = function (_Phaser$Sprite) {
 	}, {
 		key: 'shoot',
 		value: function shoot(_this, facing) {
-			var shots = _this.powerUps.magicBow ? 8 : Math.random() * 3;
+			var shots = _this.powerUps.magicBow ? _Spells2.default[_this.activeSpell].bowCount : Math.random() * _Spells2.default[_this.activeSpell].count;
 			for (var i = 0; i < shots + 4; i++) {
-				var EffectSprite = _Effects2.default['rain'];
-				var effectSprite = new EffectSprite({
+				var EffectsSprite = _Effects2.default[_this.activeEffect];
+				var effectSprite = new EffectsSprite({
 					game: _this.game,
 					x: _this.x + Math.random() * 32,
 					y: _this.y + 32,
-					asset: 'blood'
+					asset: _Spells2.default[_this.activeSpell].asset
 				});
 				effectSprite.frame = Math.random() * 3;
 				effectSprite.powerUps = _this.powerUps;
+				effectSprite.spell = _Spells2.default[_this.activeSpell].asset;
 				if (facing == 'right') {
 					effectSprite.body.velocity.x = _this.powerUps.magicBow ? effectSprite.speed * 8 : effectSprite.speed;
 				} else {
@@ -11252,10 +11259,11 @@ exports.default = {
 
 /***/ }),
 /* 344 */,
-/* 345 */
-/*!********************************!*\
-  !*** ./src/sprites/Effects.js ***!
-  \********************************/
+/* 345 */,
+/* 346 */
+/*!************************!*\
+  !*** ./src/Effects.js ***!
+  \************************/
 /*! dynamic exports provided */
 /*! all exports used */
 /***/ (function(module, exports, __webpack_require__) {
@@ -11627,6 +11635,127 @@ exports.default = {
 
 		return Wall;
 	}(_phaser2.default.Sprite)
+};
+
+/***/ }),
+/* 347 */
+/*!***********************!*\
+  !*** ./src/Spells.js ***!
+  \***********************/
+/*! dynamic exports provided */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _phaser = __webpack_require__(/*! phaser */ 31);
+
+var _phaser2 = _interopRequireDefault(_phaser);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+	flame: {
+		asset: 'fire',
+		count: 3,
+		bowCount: 5,
+		damage: 1
+	},
+	fire: {
+		asset: 'fire',
+		count: 5,
+		bowCount: 7,
+		damage: 1
+	},
+	inferno: {
+		asset: 'fire',
+		count: 5,
+		bowCount: 7,
+		damage: 2
+	},
+	bubble: {
+		asset: 'bubble',
+		count: 3,
+		bowCount: 5,
+		damage: 1
+	},
+	blood: {
+		asset: 'blood',
+		count: 3,
+		bowCount: 5,
+		damage: 1
+	},
+	pebble: {
+		asset: 'rock',
+		count: 3,
+		bowCount: 5,
+		damage: 1
+	},
+	rock: {
+		asset: 'rock',
+		count: 4,
+		bowCount: 6,
+		damage: 1
+	},
+	boulder: {
+		asset: 'rock',
+		count: 4,
+		bowCount: 6,
+		damage: 2
+	},
+	goo: {
+		asset: 'slime',
+		count: 2,
+		bowCount: 4,
+		damage: 1
+	},
+	slime: {
+		asset: 'slime',
+		count: 3,
+		bowCount: 5,
+		damage: 1
+	},
+	ectoplasm: {
+		asset: 'slime',
+		count: 4,
+		bowCount: 6,
+		damage: 1
+	},
+	spark: {
+		asset: 'spark',
+		count: 2,
+		bowCount: 4,
+		damage: 1
+	},
+	shock: {
+		asset: 'spark',
+		count: 3,
+		bowCount: 5,
+		damage: 1
+	},
+	lightning: {
+		asset: 'spark',
+		count: 3,
+		bowCount: 5,
+		damage: 3
+	},
+	spirit: {
+		asset: 'spirit',
+		count: 3,
+		bowCount: 5,
+		damage: 1
+	},
+	ghost: {
+		asset: 'spirit',
+		count: 3,
+		bowCount: 5,
+		damage: 1
+	}
 };
 
 /***/ })

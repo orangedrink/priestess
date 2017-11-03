@@ -1,5 +1,6 @@
 import Phaser from 'phaser'
-import Effects from './Effects.js'
+import Effects from '../Effects.js'
+import Spells from '../Spells.js'
 export default class extends Phaser.Sprite {
 
 
@@ -34,8 +35,10 @@ export default class extends Phaser.Sprite {
 		this.stoppedMeditating = false;
 		this.powerUps = {
 			superJump: true,
-			magicBow: false
+			magicBow: true
 		}
+		this.activeSpell = 'bubble';
+		this.activeEffect = 'wall'
 	}
 
 	update() {
@@ -145,17 +148,18 @@ export default class extends Phaser.Sprite {
 	}
 
 	shoot(_this, facing) {
-		let shots = (_this.powerUps.magicBow ? 8 :  Math.random() * 3 )
+		let shots = (_this.powerUps.magicBow ? Spells[_this.activeSpell].bowCount :  Math.random() * Spells[_this.activeSpell].count )
 		for (let i = 0; i < shots + 4; i++) {
-			let EffectSprite = Effects['rain'];
-			let effectSprite = new EffectSprite({
+			let EffectsSprite = Effects[_this.activeEffect];
+			let effectSprite = new EffectsSprite({
 				game: _this.game,
 				x: _this.x +  Math.random() * 32,
 				y: _this.y + 32,
-				asset: 'blood',
+				asset: Spells[_this.activeSpell].asset,
 			})
 			effectSprite.frame = Math.random() * 3;
 			effectSprite.powerUps = _this.powerUps;
+			effectSprite.spell = Spells[_this.activeSpell].asset
 			if (facing == 'right') {
 				effectSprite.body.velocity.x = _this.powerUps.magicBow ? effectSprite.speed * 8 : effectSprite.speed;
 			} else {
