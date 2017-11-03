@@ -10741,11 +10741,18 @@ var _class = function (_Phaser$State) {
         active: this.fontsLoaded
       });
 
-      //let text = this.add.text(this.world.centerX, this.world.centerY, 'loading fonts', { font: '16px Arial', fill: '#dddddd', align: 'center' })
-      //text.anchor.setTo(0.5, 0.5)
+      var text = this.add.text(this.world.centerX, this.world.centerY, 'Orangedrink made this.', { font: '16px Arial', fill: '#dddddd', align: 'center' });
+      text.anchor.setTo(0.5, 0.5);
 
       this.load.image('loaderBg', './assets/images/loader-bg.png');
       this.load.image('loaderBar', './assets/images/loader-bar.png');
+      game.load.spritesheet('spark', 'assets/images/spells/spark.png', 64, 64);
+      game.load.spritesheet('spirit', 'assets/images/spells/spirit.png', 64, 64);
+      game.load.spritesheet('slime', 'assets/images/spells/slime.png', 64, 64);
+      game.load.spritesheet('fire', 'assets/images/spells/fire.png', 64, 64);
+      game.load.spritesheet('blood', 'assets/images/spells/blood.png', 64, 64);
+      game.load.spritesheet('rock', 'assets/images/spells/rock.png', 64, 64);
+      game.load.spritesheet('bubble', 'assets/images/spells/bubble.png', 64, 64);
       game.load.spritesheet('priestess', 'assets/images/priestess.png', 64, 64);
     }
   }, {
@@ -10825,15 +10832,7 @@ var _class = function (_Phaser$State) {
     value: function init() {}
   }, {
     key: 'preload',
-    value: function preload() {
-      game.load.spritesheet('spark', 'assets/images/spells/spark.png', 64, 64);
-      game.load.spritesheet('spirit', 'assets/images/spells/spirit.png', 64, 64);
-      game.load.spritesheet('slime', 'assets/images/spells/slime.png', 64, 64);
-      game.load.spritesheet('fire', 'assets/images/spells/fire.png', 64, 64);
-      game.load.spritesheet('blood', 'assets/images/spells/blood.png', 64, 64);
-      game.load.spritesheet('rock', 'assets/images/spells/rock.png', 64, 64);
-      game.load.spritesheet('bubble', 'assets/images/spells/bubble.png', 64, 64);
-    }
+    value: function preload() {}
   }, {
     key: 'create',
     value: function create() {
@@ -10855,7 +10854,7 @@ var _class = function (_Phaser$State) {
       var activeSpell = spellKeys[Math.floor(Math.random() * spellKeys.length)];
       var bow = Math.round(Math.random()) == 1;
       console.log(bow);
-      activeEffect = 'surge';
+      //activeEffect = 'surge';
 
       this.instructions = this.add.text(this.world.centerX, this.world.height - 100, 'Generating a random spell from ' + combinations + ' possible combinations: ' + activeSpell + ' ' + activeEffect + ' ');
       this.instructions.font = 'acme';
@@ -10868,7 +10867,7 @@ var _class = function (_Phaser$State) {
       //sprites
       this.priestess = new _Priestess2.default({
         game: this.game,
-        x: this.world.centerX / 2,
+        x: this.world.centerX,
         y: 0,
         asset: 'priestess'
       });

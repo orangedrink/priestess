@@ -7,14 +7,6 @@ export default class extends Phaser.State {
   init() { }
 
   preload() {
-    game.load.spritesheet('spark', 'assets/images/spells/spark.png', 64, 64);
-    game.load.spritesheet('spirit', 'assets/images/spells/spirit.png', 64, 64);
-    game.load.spritesheet('slime', 'assets/images/spells/slime.png', 64, 64);
-    game.load.spritesheet('fire', 'assets/images/spells/fire.png', 64, 64);
-    game.load.spritesheet('blood', 'assets/images/spells/blood.png', 64, 64);
-    game.load.spritesheet('rock', 'assets/images/spells/rock.png', 64, 64);
-    game.load.spritesheet('bubble', 'assets/images/spells/bubble.png', 64, 64);
-    
   }
 
   create() {
@@ -37,8 +29,7 @@ export default class extends Phaser.State {
     let activeSpell = spellKeys[Math.floor(Math.random() * spellKeys.length)]
     let bow = (Math.round(Math.random()) == 1)
     console.log(bow)
-    activeEffect = 'surge';
-    
+    //activeEffect = 'surge';
 
     this.instructions = this.add.text(this.world.centerX, this.world.height-100, `Generating a random spell from ${combinations} possible combinations: ${activeSpell} ${activeEffect} `);
     this.instructions.font = 'acme'
@@ -51,7 +42,7 @@ export default class extends Phaser.State {
     //sprites
     this.priestess = new Priestess({
       game: this.game,
-      x: this.world.centerX / 2,
+      x: this.world.centerX,
       y: 0,
       asset: 'priestess'
     })
