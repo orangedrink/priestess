@@ -5,7 +5,13 @@ export default class extends Phaser.State {
   init() { }
 
   preload() {
-    game.load.spritesheet('blue-spark', 'assets/images/spells/blue-spark.png', 64, 64);
+    game.load.spritesheet('spark', 'assets/images/spells/spark.png', 64, 64);
+    game.load.spritesheet('spirit', 'assets/images/spells/spirit.png', 64, 64);
+    game.load.spritesheet('slime', 'assets/images/spells/slime.png', 64, 64);
+    game.load.spritesheet('fire', 'assets/images/spells/fire.png', 64, 64);
+    game.load.spritesheet('blood', 'assets/images/spells/blood.png', 64, 64);
+    game.load.spritesheet('rock', 'assets/images/spells/rock.png', 64, 64);
+    game.load.spritesheet('bubble', 'assets/images/spells/bubble.png', 64, 64);
     
   }
 

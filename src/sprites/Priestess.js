@@ -1,5 +1,5 @@
 import Phaser from 'phaser'
-import Spells from './Spells.js'
+import Effects from './Effects.js'
 export default class extends Phaser.Sprite {
 
 
@@ -22,7 +22,7 @@ export default class extends Phaser.Sprite {
 
 		//set up control keys
 		this.cursors = game.input.keyboard.createCursorKeys();
-		this.jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.CONTROL);
+		this.jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.UP);
 		this.magicButton = game.input.keyboard.addKey(Phaser.Keyboard.ALT);
 		this.shootButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
@@ -147,21 +147,22 @@ export default class extends Phaser.Sprite {
 	shoot(_this, facing) {
 		let shots = (_this.powerUps.magicBow ? 8 :  Math.random() * 3 )
 		for (let i = 0; i < shots + 4; i++) {
-			let SpellSprite = Spells['throw'];
-			let spellSprite = new SpellSprite({
+			let EffectSprite = Effects['rain'];
+			let effectSprite = new EffectSprite({
 				game: _this.game,
 				x: _this.x +  Math.random() * 32,
 				y: _this.y + 32,
-				asset: 'blue-spark',
+				asset: 'blood',
 			})
-			spellSprite.powerUps = _this.powerUps;
+			effectSprite.frame = Math.random() * 3;
+			effectSprite.powerUps = _this.powerUps;
 			if (facing == 'right') {
-				spellSprite.body.velocity.x = _this.powerUps.magicBow ? spellSprite.speed * 8 : spellSprite.speed;
+				effectSprite.body.velocity.x = _this.powerUps.magicBow ? effectSprite.speed * 8 : effectSprite.speed;
 			} else {
-				spellSprite.body.velocity.x = _this.powerUps.magicBow ? 0 - spellSprite.speed * 8 : 0 - spellSprite.speed;
+				effectSprite.body.velocity.x = _this.powerUps.magicBow ? 0 - effectSprite.speed * 8 : 0 - effectSprite.speed;
 			}
-			spellSprite.body.velocity.y = _this.powerUps.magicBow ? (spellSprite.arc) / 2 + Math.random() * (spellSprite.accuracy * .75): spellSprite.arc + Math.random() * (spellSprite.accuracy * 2);
-			_this.game.add.existing(spellSprite);
+			effectSprite.body.velocity.y = _this.powerUps.magicBow ? (effectSprite.arc) / 2 + Math.random() * (effectSprite.accuracy * .75): effectSprite.arc + Math.random() * (effectSprite.accuracy * 2);
+			_this.game.add.existing(effectSprite);
 		}
 	}
 

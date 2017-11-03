@@ -10818,7 +10818,13 @@ var _class = function (_Phaser$State) {
   }, {
     key: 'preload',
     value: function preload() {
-      game.load.spritesheet('blue-spark', 'assets/images/spells/blue-spark.png', 64, 64);
+      game.load.spritesheet('spark', 'assets/images/spells/spark.png', 64, 64);
+      game.load.spritesheet('spirit', 'assets/images/spells/spirit.png', 64, 64);
+      game.load.spritesheet('slime', 'assets/images/spells/slime.png', 64, 64);
+      game.load.spritesheet('fire', 'assets/images/spells/fire.png', 64, 64);
+      game.load.spritesheet('blood', 'assets/images/spells/blood.png', 64, 64);
+      game.load.spritesheet('rock', 'assets/images/spells/rock.png', 64, 64);
+      game.load.spritesheet('bubble', 'assets/images/spells/bubble.png', 64, 64);
     }
   }, {
     key: 'create',
@@ -10882,9 +10888,9 @@ var _phaser = __webpack_require__(/*! phaser */ 31);
 
 var _phaser2 = _interopRequireDefault(_phaser);
 
-var _Spells = __webpack_require__(/*! ./Spells.js */ 340);
+var _Effects = __webpack_require__(/*! ./Effects.js */ 345);
 
-var _Spells2 = _interopRequireDefault(_Spells);
+var _Effects2 = _interopRequireDefault(_Effects);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -10923,7 +10929,7 @@ var _class = function (_Phaser$Sprite) {
 
 		//set up control keys
 		_this2.cursors = game.input.keyboard.createCursorKeys();
-		_this2.jumpButton = game.input.keyboard.addKey(_phaser2.default.Keyboard.CONTROL);
+		_this2.jumpButton = game.input.keyboard.addKey(_phaser2.default.Keyboard.UP);
 		_this2.magicButton = game.input.keyboard.addKey(_phaser2.default.Keyboard.ALT);
 		_this2.shootButton = game.input.keyboard.addKey(_phaser2.default.Keyboard.SPACEBAR);
 
@@ -11049,21 +11055,22 @@ var _class = function (_Phaser$Sprite) {
 		value: function shoot(_this, facing) {
 			var shots = _this.powerUps.magicBow ? 8 : Math.random() * 3;
 			for (var i = 0; i < shots + 4; i++) {
-				var SpellSprite = _Spells2.default['throw'];
-				var spellSprite = new SpellSprite({
+				var EffectSprite = _Effects2.default['rain'];
+				var effectSprite = new EffectSprite({
 					game: _this.game,
 					x: _this.x + Math.random() * 32,
 					y: _this.y + 32,
-					asset: 'blue-spark'
+					asset: 'blood'
 				});
-				spellSprite.powerUps = _this.powerUps;
+				effectSprite.frame = Math.random() * 3;
+				effectSprite.powerUps = _this.powerUps;
 				if (facing == 'right') {
-					spellSprite.body.velocity.x = _this.powerUps.magicBow ? spellSprite.speed * 8 : spellSprite.speed;
+					effectSprite.body.velocity.x = _this.powerUps.magicBow ? effectSprite.speed * 8 : effectSprite.speed;
 				} else {
-					spellSprite.body.velocity.x = _this.powerUps.magicBow ? 0 - spellSprite.speed * 8 : 0 - spellSprite.speed;
+					effectSprite.body.velocity.x = _this.powerUps.magicBow ? 0 - effectSprite.speed * 8 : 0 - effectSprite.speed;
 				}
-				spellSprite.body.velocity.y = _this.powerUps.magicBow ? spellSprite.arc / 2 + Math.random() * (spellSprite.accuracy * .75) : spellSprite.arc + Math.random() * (spellSprite.accuracy * 2);
-				_this.game.add.existing(spellSprite);
+				effectSprite.body.velocity.y = _this.powerUps.magicBow ? effectSprite.arc / 2 + Math.random() * (effectSprite.accuracy * .75) : effectSprite.arc + Math.random() * (effectSprite.accuracy * 2);
+				_this.game.add.existing(effectSprite);
 			}
 		}
 	}, {
@@ -11094,164 +11101,7 @@ var _class = function (_Phaser$Sprite) {
 exports.default = _class;
 
 /***/ }),
-/* 340 */
-/*!*******************************!*\
-  !*** ./src/sprites/Spells.js ***!
-  \*******************************/
-/*! dynamic exports provided */
-/*! all exports used */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _phaser = __webpack_require__(/*! phaser */ 31);
-
-var _phaser2 = _interopRequireDefault(_phaser);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-exports.default = {
-	throw: function (_Phaser$Sprite) {
-		_inherits(Throw, _Phaser$Sprite);
-
-		function Throw(_ref) {
-			var game = _ref.game,
-			    x = _ref.x,
-			    y = _ref.y,
-			    asset = _ref.asset;
-
-			_classCallCheck(this, Throw);
-
-			var _this = _possibleConstructorReturn(this, (Throw.__proto__ || Object.getPrototypeOf(Throw)).call(this, game, x, y, asset));
-
-			_this.anchor.setTo(0.5);
-			game.physics.enable(_this, _phaser2.default.Physics.ARCADE);
-			_this.body.bounce.y = 0.2;
-			_this.speed = 200;
-			_this.arc = -300;
-			_this.accuracy = 75;
-			_this.rollSpeed = Math.random() * 5 + 2;
-			_this.animations.add('throw');
-			_this.animations.play('throw', 30, true);
-			_this.powerUps = {};
-			return _this;
-		}
-
-		_createClass(Throw, [{
-			key: 'update',
-			value: function update() {
-				this.angle += this.rollSpeed;
-			}
-		}]);
-
-		return Throw;
-	}(_phaser2.default.Sprite),
-	rain: function (_Phaser$Sprite2) {
-		_inherits(Rain, _Phaser$Sprite2);
-
-		function Rain(_ref2) {
-			var game = _ref2.game,
-			    x = _ref2.x,
-			    y = _ref2.y,
-			    asset = _ref2.asset;
-
-			_classCallCheck(this, Rain);
-
-			var _this2 = _possibleConstructorReturn(this, (Rain.__proto__ || Object.getPrototypeOf(Rain)).call(this, game, x, y, asset));
-
-			_this2.anchor.setTo(0.5);
-			game.physics.enable(_this2, _phaser2.default.Physics.ARCADE);
-			_this2.body.bounce.y = 0.2;
-			_this2.speed = 200;
-			_this2.arc = -300;
-			_this2.accuracy = 75;
-			_this2.animations.add('rain');
-			_this2.animations.play('rain', 30, true);
-			_this2.y -= Math.random() * 200;
-			_this2.powerUps = {};
-			_this2.alpha = 0;
-			return _this2;
-		}
-
-		_createClass(Rain, [{
-			key: 'update',
-			value: function update() {
-				this.alpha += .15;
-				this.body.velocity.y -= 1;
-				if (this.powerUps.magicBow) {
-					this.x += this.body.velocity.x * .05;
-					this.body.velocity.x -= Math.random() * (this.body.velocity.x * 2);
-				} else {
-					this.x += this.body.velocity.x * .35;
-					this.body.velocity.x -= Math.random() * (this.body.velocity.x * 2);
-				}
-			}
-		}]);
-
-		return Rain;
-	}(_phaser2.default.Sprite),
-	wave: function (_Phaser$Sprite3) {
-		_inherits(Wave, _Phaser$Sprite3);
-
-		function Wave(_ref3) {
-			var game = _ref3.game,
-			    x = _ref3.x,
-			    y = _ref3.y,
-			    asset = _ref3.asset;
-
-			_classCallCheck(this, Wave);
-
-			var _this3 = _possibleConstructorReturn(this, (Wave.__proto__ || Object.getPrototypeOf(Wave)).call(this, game, x, y, asset));
-
-			_this3.anchor.setTo(0.5);
-			game.physics.enable(_this3, _phaser2.default.Physics.ARCADE);
-			_this3.body.bounce.y = 0.2;
-			//this.body.gravity = -100;
-			_this3.speed = 200;
-			_this3.arc = -300;
-			_this3.accuracy = 75;
-			_this3.animations.add('wave');
-			_this3.animations.play('wave', 30, true);
-			_this3.y += Math.random() * 20;
-			_this3.powerUps = {};
-			_this3.alpha = 0;
-			return _this3;
-		}
-
-		_createClass(Wave, [{
-			key: 'update',
-			value: function update() {
-				this.alpha += .15;
-				if (this.powerUps.magicBow) {
-					this.body.velocity.y -= 1;
-					this.x += this.body.velocity.x * .05;
-					this.body.velocity.x -= Math.random() * (this.body.velocity.x * 2);
-				} else {
-					this.body.velocity.y += 3;
-					this.x += this.body.velocity.x * .35;
-					this.body.velocity.x -= Math.random() * (this.body.velocity.x * 2);
-				}
-			}
-		}]);
-
-		return Wave;
-	}(_phaser2.default.Sprite)
-};
-
-/***/ }),
+/* 340 */,
 /* 341 */
 /*!****************************!*\
   !*** ./src/states/Game.js ***!
@@ -11395,9 +11245,388 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = {
-  gameWidth: 600,
-  gameHeight: 400,
-  localStorageName: 'chubbybunny'
+  gameWidth: 1024,
+  gameHeight: 768,
+  localStorageName: 'priestess'
+};
+
+/***/ }),
+/* 344 */,
+/* 345 */
+/*!********************************!*\
+  !*** ./src/sprites/Effects.js ***!
+  \********************************/
+/*! dynamic exports provided */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _phaser = __webpack_require__(/*! phaser */ 31);
+
+var _phaser2 = _interopRequireDefault(_phaser);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+exports.default = {
+	toss: function (_Phaser$Sprite) {
+		_inherits(Toss, _Phaser$Sprite);
+
+		function Toss(_ref) {
+			var game = _ref.game,
+			    x = _ref.x,
+			    y = _ref.y,
+			    asset = _ref.asset;
+
+			_classCallCheck(this, Toss);
+
+			var _this = _possibleConstructorReturn(this, (Toss.__proto__ || Object.getPrototypeOf(Toss)).call(this, game, x, y, asset));
+
+			_this.anchor.setTo(0.5);
+			game.physics.enable(_this, _phaser2.default.Physics.ARCADE);
+			_this.body.bounce.y = 0.2;
+			_this.speed = 200;
+			_this.arc = -300;
+			_this.accuracy = 75;
+			_this.rollSpeed = Math.random() * 5 + 2;
+			_this.animations.add('toss');
+			_this.animations.play('toss', 30, true);
+			_this.powerUps = {};
+			return _this;
+		}
+
+		_createClass(Toss, [{
+			key: 'update',
+			value: function update() {
+				this.angle += this.rollSpeed;
+			}
+		}]);
+
+		return Toss;
+	}(_phaser2.default.Sprite),
+	rain: function (_Phaser$Sprite2) {
+		_inherits(Rain, _Phaser$Sprite2);
+
+		function Rain(_ref2) {
+			var game = _ref2.game,
+			    x = _ref2.x,
+			    y = _ref2.y,
+			    asset = _ref2.asset;
+
+			_classCallCheck(this, Rain);
+
+			var _this2 = _possibleConstructorReturn(this, (Rain.__proto__ || Object.getPrototypeOf(Rain)).call(this, game, x, y, asset));
+
+			_this2.anchor.setTo(0.5);
+			game.physics.enable(_this2, _phaser2.default.Physics.ARCADE);
+			_this2.body.bounce.y = 0.2;
+			_this2.speed = 200;
+			_this2.arc = -300;
+			_this2.accuracy = 75;
+			_this2.animations.add('rain');
+			_this2.animations.play('rain', 30, true);
+			_this2.y -= Math.random() * 200;
+			_this2.powerUps = {};
+			_this2.alpha = 0;
+			return _this2;
+		}
+
+		_createClass(Rain, [{
+			key: 'update',
+			value: function update() {
+				this.alpha += .15;
+				this.body.velocity.y -= 1;
+				if (this.powerUps.magicBow) {
+					this.x += this.body.velocity.x * .05;
+					this.body.velocity.x -= Math.random() * (this.body.velocity.x * 2);
+				} else {
+					this.x += this.body.velocity.x * .35;
+					this.body.velocity.x -= Math.random() * (this.body.velocity.x * 2);
+				}
+			}
+		}]);
+
+		return Rain;
+	}(_phaser2.default.Sprite),
+	wave: function (_Phaser$Sprite3) {
+		_inherits(Wave, _Phaser$Sprite3);
+
+		function Wave(_ref3) {
+			var game = _ref3.game,
+			    x = _ref3.x,
+			    y = _ref3.y,
+			    asset = _ref3.asset;
+
+			_classCallCheck(this, Wave);
+
+			var _this3 = _possibleConstructorReturn(this, (Wave.__proto__ || Object.getPrototypeOf(Wave)).call(this, game, x, y, asset));
+
+			_this3.anchor.setTo(0.5);
+			game.physics.enable(_this3, _phaser2.default.Physics.ARCADE);
+			_this3.body.bounce.y = 0.2;
+			//this.body.gravity = -100;
+			_this3.speed = 200;
+			_this3.arc = -300;
+			_this3.accuracy = 75;
+			_this3.animations.add('wave');
+			_this3.animations.play('wave', 30, true);
+			_this3.y += Math.random() * 20;
+			_this3.powerUps = {};
+			_this3.alpha = 0;
+			return _this3;
+		}
+
+		_createClass(Wave, [{
+			key: 'update',
+			value: function update() {
+				this.alpha += .25;
+				if (this.powerUps.magicBow) {
+					this.body.velocity.y -= 1;
+					this.x += this.body.velocity.x * .05;
+					this.body.velocity.x -= Math.random() * (this.body.velocity.x * 2);
+				} else {
+					this.body.velocity.y += 3;
+					this.x += this.body.velocity.x * .35;
+					this.body.velocity.x -= Math.random() * (this.body.velocity.x * 2);
+				}
+			}
+		}]);
+
+		return Wave;
+	}(_phaser2.default.Sprite),
+	bubble: function (_Phaser$Sprite4) {
+		_inherits(Bubble, _Phaser$Sprite4);
+
+		function Bubble(_ref4) {
+			var game = _ref4.game,
+			    x = _ref4.x,
+			    y = _ref4.y,
+			    asset = _ref4.asset;
+
+			_classCallCheck(this, Bubble);
+
+			var _this4 = _possibleConstructorReturn(this, (Bubble.__proto__ || Object.getPrototypeOf(Bubble)).call(this, game, x, y, asset));
+
+			_this4.anchor.setTo(0.5);
+			game.physics.enable(_this4, _phaser2.default.Physics.ARCADE);
+			_this4.body.bounce.y = 0.2;
+			_this4.body.gravity.y = -1000;
+			_this4.speed = 200;
+			_this4.arc = -300;
+			_this4.accuracy = 75;
+			_this4.animations.add('bubble');
+			_this4.animations.play('bubble', 30, true);
+			_this4.x += Math.random() * 50;
+			_this4.powerUps = {};
+			_this4.alpha = 1;
+			return _this4;
+		}
+
+		_createClass(Bubble, [{
+			key: 'update',
+			value: function update() {
+				this.alpha -= .1;
+				if (this.powerUps.magicBow) {
+					this.x += this.body.velocity.x * .05;
+					this.body.velocity.x -= Math.random() * (this.body.velocity.x * 2);
+				} else {
+					this.x += this.body.velocity.x * .35;
+					this.body.velocity.x -= Math.random() * (this.body.velocity.x * 2);
+				}
+			}
+		}]);
+
+		return Bubble;
+	}(_phaser2.default.Sprite),
+	storm: function (_Phaser$Sprite5) {
+		_inherits(Storme, _Phaser$Sprite5);
+
+		function Storme(_ref5) {
+			var game = _ref5.game,
+			    x = _ref5.x,
+			    y = _ref5.y,
+			    asset = _ref5.asset;
+
+			_classCallCheck(this, Storme);
+
+			var _this5 = _possibleConstructorReturn(this, (Storme.__proto__ || Object.getPrototypeOf(Storme)).call(this, game, x, y, asset));
+
+			_this5.anchor.setTo(0.5);
+			game.physics.enable(_this5, _phaser2.default.Physics.ARCADE);
+			_this5.body.bounce.y = 0.2;
+			_this5.body.gravity.x = (2000 - Math.random() * 4000) * 4;
+			_this5.body.gravity.y = (2000 - Math.random() * 4000) * 4;
+			_this5.speed = 200;
+			_this5.arc = -300;
+			_this5.accuracy = 75;
+			_this5.animations.add('storm');
+			_this5.animations.play('storm', 30, true);
+			_this5.x += Math.random() * 50;
+			_this5.powerUps = {};
+			_this5.alpha = 1;
+			return _this5;
+		}
+
+		_createClass(Storme, [{
+			key: 'update',
+			value: function update() {
+				this.alpha -= .1;
+				if (this.powerUps.magicBow) {
+					this.x += this.body.velocity.x * .05;
+					this.body.velocity.x -= Math.random() * (this.body.velocity.x * 2);
+				} else {
+					this.x += this.body.velocity.x * .35;
+					this.body.velocity.x -= Math.random() * (this.body.velocity.x * 2);
+				}
+			}
+		}]);
+
+		return Storme;
+	}(_phaser2.default.Sprite),
+	spray: function (_Phaser$Sprite6) {
+		_inherits(Spray, _Phaser$Sprite6);
+
+		function Spray(_ref6) {
+			var game = _ref6.game,
+			    x = _ref6.x,
+			    y = _ref6.y,
+			    asset = _ref6.asset;
+
+			_classCallCheck(this, Spray);
+
+			var _this6 = _possibleConstructorReturn(this, (Spray.__proto__ || Object.getPrototypeOf(Spray)).call(this, game, x, y, asset));
+
+			_this6.anchor.setTo(0.5);
+			game.physics.enable(_this6, _phaser2.default.Physics.ARCADE);
+			_this6.body.bounce.y = 0.2;
+			_this6.body.gravity.x = (500 - Math.random() * 1000) * 2;
+			_this6.body.gravity.y = (500 - Math.random() * 1000) * 3;
+			_this6.speed = 200;
+			_this6.arc = -300;
+			_this6.accuracy = 75;
+			_this6.animations.add('spray');
+			_this6.animations.play('spray', 30, true);
+			_this6.x += Math.random() * 50;
+			_this6.powerUps = {};
+			return _this6;
+		}
+
+		_createClass(Spray, [{
+			key: 'update',
+			value: function update() {
+				if (this.powerUps.magicBow) {} else {
+					if (Math.abs(this.body.velocity.x) > 20) {
+						this.x += this.body.velocity.x * .35;
+						this.body.velocity.x -= Math.random() * this.body.velocity.x;
+					}
+				}
+			}
+		}]);
+
+		return Spray;
+	}(_phaser2.default.Sprite),
+	tornado: function (_Phaser$Sprite7) {
+		_inherits(Tornado, _Phaser$Sprite7);
+
+		function Tornado(_ref7) {
+			var game = _ref7.game,
+			    x = _ref7.x,
+			    y = _ref7.y,
+			    asset = _ref7.asset;
+
+			_classCallCheck(this, Tornado);
+
+			var _this7 = _possibleConstructorReturn(this, (Tornado.__proto__ || Object.getPrototypeOf(Tornado)).call(this, game, x, y, asset));
+
+			_this7.anchor.setTo(0.5);
+			game.physics.enable(_this7, _phaser2.default.Physics.ARCADE);
+			_this7.body.bounce.y = 0.2;
+			_this7.speed = 200;
+			_this7.arc = -300;
+			_this7.accuracy = 75;
+			_this7.animations.add('tornado');
+			_this7.animations.play('tornado', 30, true);
+			_this7.x += Math.random() * 50;
+			_this7.powerUps = {};
+			return _this7;
+		}
+
+		_createClass(Tornado, [{
+			key: 'update',
+			value: function update() {
+				if (this.body.velocity.x > 100) {
+					this.body.velocity.x = 100;
+				}
+				if (this.body.velocity.x < -100) {
+					this.body.velocity.x = -100;
+				}
+
+				this.body.gravity.x = (500 - Math.random() * 1000) * 10;
+				this.body.gravity.y = (500 - Math.random() * 1000) * 30;
+
+				if (this.powerUps.magicBow) {} else {}
+			}
+		}]);
+
+		return Tornado;
+	}(_phaser2.default.Sprite),
+	wall: function (_Phaser$Sprite8) {
+		_inherits(Wall, _Phaser$Sprite8);
+
+		function Wall(_ref8) {
+			var game = _ref8.game,
+			    x = _ref8.x,
+			    y = _ref8.y,
+			    asset = _ref8.asset;
+
+			_classCallCheck(this, Wall);
+
+			var _this8 = _possibleConstructorReturn(this, (Wall.__proto__ || Object.getPrototypeOf(Wall)).call(this, game, x, y, asset));
+
+			_this8.anchor.setTo(0.5);
+			game.physics.enable(_this8, _phaser2.default.Physics.ARCADE);
+			_this8.body.bounce.y = 0.2;
+			_this8.speed = 200;
+			_this8.arc = -300;
+			_this8.accuracy = 75;
+			_this8.animations.add('wall');
+			_this8.animations.play('wall', 30, true);
+			_this8.y += Math.random() * 50;
+			_this8.powerUps = {};
+			return _this8;
+		}
+
+		_createClass(Wall, [{
+			key: 'update',
+			value: function update() {
+				if (this.body.velocity.x > 300) {
+					this.body.velocity.x = 300;
+				}
+				if (this.body.velocity.x < -300) {
+					this.body.velocity.x = -300;
+				}
+
+				this.body.gravity.y = (500 - Math.random() * 1000) * 30;
+
+				if (this.powerUps.magicBow) {} else {}
+			}
+		}]);
+
+		return Wall;
+	}(_phaser2.default.Sprite)
 };
 
 /***/ })
