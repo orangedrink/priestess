@@ -29,9 +29,10 @@ export default {
 	},
 	blood: {
 		asset: 'blood',
-		count: 13,
-		bowCount: 15,
+		count: 100,
+		bowCount: 150,
 		damage: 1,
+		scale: .30
 	},
 	pebble: {
 		asset: 'rock',

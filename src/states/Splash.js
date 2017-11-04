@@ -31,10 +31,11 @@ export default class extends Phaser.State {
     console.log(bow)
     //activeEffect = effectKeys[effectKeys.length-1]
     //activeSpell = spellKeys[spellKeys.length-1]
-    activeSpell = 'ectoplasm'
-    activeEffect = 'wall'
+    //activeSpell = 'inferno'
+    //activeEffect = 'wall'
+    //bow = false
     
-    this.instructions = this.add.text(this.world.centerX, this.world.height-100, `Generating a random spell from ${combinations} possible combinations: ${activeSpell} ${activeEffect} `);
+    this.instructions = this.add.text(this.world.centerX, this.world.height-100, `Generating a random power  from ${combinations} possible combinations: ${activeSpell} ${activeEffect} `);
     this.instructions.font = 'acme'
     this.instructions.padding.set(10, 16)
     this.instructions.fontSize = 20

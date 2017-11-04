@@ -57,31 +57,30 @@ export default {
 			this.anchor.setTo(0.5)
 			game.physics.enable(this, Phaser.Physics.ARCADE);
 			this.body.bounce.y = 0.2;
-			//this.body.gravity = -100;
+			//this.body.gravity.y = -1000
 			this.speed = 200;
 			this.arc = -300
 			this.accuracy = 75;
-			this.animations.add('wave');
-			this.animations.play('wave', 30, true);
-			this.y += Math.random() * 20;
+			this.animations.add('bubble');
+			this.animations.play('bubble', 30, true);
+			this.x += Math.random() * 50;
 			this.powerUps = {};
-			this.alpha = 0;
+			this.alpha = 1;
 		}
 
 		update() {
 			super.update()
-			this.alpha += .25;
+			this.alpha -= .1;
 			if (this.powerUps.magicBow) {
-				this.body.velocity.y -= 1;
 				this.x += this.body.velocity.x * .05;
 				this.body.velocity.x -= Math.random() * (this.body.velocity.x * 2);
 			}
 			else {
-				this.body.velocity.y += 3;
 				this.x += this.body.velocity.x * .35;
 				this.body.velocity.x -= Math.random() * (this.body.velocity.x * 2);
 			}
 		}
+
 	},
 	bubble: class Bubble extends Effect {
 		constructor({ game, x, y, asset }) {

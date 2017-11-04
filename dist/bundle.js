@@ -4379,15 +4379,15 @@ exports.default = {
 			_this3.anchor.setTo(0.5);
 			game.physics.enable(_this3, _phaser2.default.Physics.ARCADE);
 			_this3.body.bounce.y = 0.2;
-			//this.body.gravity = -100;
+			//this.body.gravity.y = -1000
 			_this3.speed = 200;
 			_this3.arc = -300;
 			_this3.accuracy = 75;
-			_this3.animations.add('wave');
-			_this3.animations.play('wave', 30, true);
-			_this3.y += Math.random() * 20;
+			_this3.animations.add('bubble');
+			_this3.animations.play('bubble', 30, true);
+			_this3.x += Math.random() * 50;
 			_this3.powerUps = {};
-			_this3.alpha = 0;
+			_this3.alpha = 1;
 			return _this3;
 		}
 
@@ -4395,13 +4395,11 @@ exports.default = {
 			key: 'update',
 			value: function update() {
 				_get(Wave.prototype.__proto__ || Object.getPrototypeOf(Wave.prototype), 'update', this).call(this);
-				this.alpha += .25;
+				this.alpha -= .1;
 				if (this.powerUps.magicBow) {
-					this.body.velocity.y -= 1;
 					this.x += this.body.velocity.x * .05;
 					this.body.velocity.x -= Math.random() * (this.body.velocity.x * 2);
 				} else {
-					this.body.velocity.y += 3;
 					this.x += this.body.velocity.x * .35;
 					this.body.velocity.x -= Math.random() * (this.body.velocity.x * 2);
 				}
@@ -4883,9 +4881,10 @@ exports.default = {
 	},
 	blood: {
 		asset: 'blood',
-		count: 13,
-		bowCount: 15,
-		damage: 1
+		count: 100,
+		bowCount: 150,
+		damage: 1,
+		scale: .30
 	},
 	pebble: {
 		asset: 'rock',
@@ -11572,10 +11571,11 @@ var _class = function (_Phaser$State) {
       console.log(bow);
       //activeEffect = effectKeys[effectKeys.length-1]
       //activeSpell = spellKeys[spellKeys.length-1]
-      activeSpell = 'ectoplasm';
-      activeEffect = 'wall';
+      //activeSpell = 'inferno'
+      //activeEffect = 'wall'
+      //bow = false
 
-      this.instructions = this.add.text(this.world.centerX, this.world.height - 100, 'Generating a random spell from ' + combinations + ' possible combinations: ' + activeSpell + ' ' + activeEffect + ' ');
+      this.instructions = this.add.text(this.world.centerX, this.world.height - 100, 'Generating a random power  from ' + combinations + ' possible combinations: ' + activeSpell + ' ' + activeEffect + ' ');
       this.instructions.font = 'acme';
       this.instructions.padding.set(10, 16);
       this.instructions.fontSize = 20;
