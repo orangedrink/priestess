@@ -21,6 +21,26 @@ export default {
 			this.angle += this.rollSpeed;
 		}
 	},
+	bounce: class Toss extends Effect {
+		constructor({ game, x, y, asset }) {
+			super(game, x, y, asset)
+			this.anchor.setTo(0.5)
+			game.physics.enable(this, Phaser.Physics.ARCADE);
+			this.body.bounce.y = 0.5;
+			this.speed = 200;
+			this.arc = -300
+			this.accuracy = 75;
+			this.rollSpeed = Math.random() * 5 + 2
+			this.animations.add('toss');
+			this.animations.play('toss', 30, true);
+			this.powerUps = {};
+		}
+
+		update() {
+			super.update()
+			this.angle += this.rollSpeed;
+		}
+	},
 	rain: class Rain extends Effect {
 		constructor({ game, x, y, asset }) {
 			super(game, x, y, asset)
