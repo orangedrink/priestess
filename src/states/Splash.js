@@ -41,8 +41,8 @@ export default class extends Phaser.State {
     console.log(bow)
     //activeEffect = effectKeys[effectKeys.length-1]
     //activeSpell = spellKeys[spellKeys.length-1]
-    //activeSpell = 'shock'
-    //activeEffect = 'bolt'
+    activeSpell = 'boulder'
+    activeEffect = 'rain'
     //bow = true
 
     //sprites
@@ -74,9 +74,19 @@ export default class extends Phaser.State {
 
   update() {
     this.game.physics.arcade.collide(this.priestess, this.groundLayer);
+    if (this.priestess.y > 1660) {
+      this.state.start('Splash');
+    }
+    if (this.priestess.x > 1590) {
+      this.startGame();
+      
+    }
   }
 
   startGame() {
-    this.state.start('Game');
+    this.fadeOut = game.add.tween(game.world).to({ alpha: 0 }, 100, Phaser.Easing.Linear.None, true);
+    this.fadeOut.onComplete.add(function () {
+      this.state.start('Game');
+    }, this);
   }
 }

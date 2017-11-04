@@ -24,9 +24,18 @@ export default {
 	},
 	bubble: {
 		asset: 'bubble',
-		count: 17,
-		bowCount: 20,
+		count: 30,
+		bowCount: 40,
 		damage: 1,
+		scale: .5,
+	},
+	orb: {
+		asset: 'bubble',
+		count: 20,
+		bowCount: 30,
+		damage: 1,
+		scale: 1,
+		tint: 0xf02020,
 	},
 	blood: {
 		asset: 'blood',
@@ -109,16 +118,24 @@ export default {
 		bowCount: 90,
 		damage: 3,
 	},
-	spirit: {
+	air: {
+		asset: 'spirit',
+		count: 18,
+		bowCount: 25,
+		damage: 1,
+		scale: .5
+	},
+	wind: {
 		asset: 'spirit',
 		count: 13,
 		bowCount: 15,
 		damage: 1,
 	},
-	ghost: {
+	cloud: {
 		asset: 'spirit',
-		count: 10,
-		bowCount: 15,
+		count: 15,
+		bowCount: 20,
 		damage: 1,
+		scale: 1.5
 	},
 }
