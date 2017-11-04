@@ -84,6 +84,8 @@ export default class extends Phaser.State {
   startGame() {
     this.fadeOut = game.add.tween(game.world).to({ alpha: 0 }, 100, Phaser.Easing.Linear.None, true);
     this.fadeOut.onComplete.add(function () {
+      this.game.state.states['Level'].levelData = '../assets/levels/index.json';
+      this.game.state.states['Level'].levelIndex = 0;
       this.state.start('Level');
     }, this);
   }

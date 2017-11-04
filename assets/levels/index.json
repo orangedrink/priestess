@@ -1,0 +1,13 @@
+{
+	"world": "",
+	"levels": [
+		{
+			"tileSet": "assets/images/tileset.png",
+			"mapAsset": "l1"
+		},
+		{
+			"tileSet": "assets/images/tileset.png",
+			"mapAsset": "l2"
+		}
+	]
+}
