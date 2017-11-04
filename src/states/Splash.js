@@ -41,8 +41,8 @@ export default class extends Phaser.State {
     console.log(bow)
     //activeEffect = effectKeys[effectKeys.length-1]
     //activeSpell = spellKeys[spellKeys.length-1]
-    //activeSpell = 'boulder'
-    //activeEffect = 'surge'
+    activeSpell = 'shock'
+    activeEffect = 'bolt'
     //bow = true
 
     //sprites

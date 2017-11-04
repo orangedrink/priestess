@@ -23,7 +23,7 @@ export default {
 	},
 	rain: class Rain extends Effect {
 		constructor({ game, x, y, asset }) {
-			super(game, x, y, asset)
+			super(game, x, y, asset, 2000)
 			this.anchor.setTo(0.5)
 			game.physics.enable(this, Phaser.Physics.ARCADE);
 			this.body.bounce.y = 0.2;
@@ -243,7 +243,7 @@ export default {
 	},
 	stream: class Stream extends Effect {
 		constructor({ game, x, y, asset }) {
-			super(game, x, y, asset)
+			super(game, x, y, asset, 300)
 			this.anchor.setTo(0.5)
 			game.physics.enable(this, Phaser.Physics.ARCADE);
 			this.body.bounce.y = 0.2;
@@ -309,10 +309,9 @@ export default {
 			}
 		}
 	},
-	feild: class Surge extends Effect {
+	field: class Surge extends Effect {
 		constructor({ game, x, y, asset, facing, powerUps }) {
 			super(game, x, y, asset)
-			this.started = game.time.now
 			this.anchor.setTo(0.5)
 			game.physics.enable(this, Phaser.Physics.ARCADE);
 			this.body.gravity.y = -600
@@ -341,8 +340,8 @@ export default {
 		}
 	},
 	swarm: class Surge extends Effect {
-		constructor({ game, x, y, asset }) {
-			super(game, x, y, asset)
+		constructor({ game, x, y, asset, facing}) {
+			super(game, x, y, asset, 800 )
 			this.anchor.setTo(0.5)
 			game.physics.enable(this, Phaser.Physics.ARCADE);
 			this.body.bounce.y = 0.2;
@@ -355,6 +354,53 @@ export default {
 			this.x += Math.random() * 50;
 			this.powerUps = {};
 			this.alpha = 1;
+			this.facing = facing;
+		}
+
+		update() {
+			super.update()
+			this.alpha -= .1;
+			if (this.facing == "right") {
+				this.body.gravity.x += Math.random() * 6 + 50
+			} else {
+				this.body.gravity.x -= Math.random() * 6 + 50
+			}
+			if (this.powerUps.magicBow) {
+			}
+			else {
+			}
+		}
+	},
+	bolt: class Surge extends Effect {
+		constructor({ game, x, y, asset, facing, spell}) {
+			super(game, x, y, asset)
+			this.anchor.setTo(0.5)
+			game.physics.enable(this, Phaser.Physics.ARCADE);
+			this.body.bounce.y = 0.2;
+			this.body.gravity.y = (Math.random()*100) * 100
+			this.speed = 10;
+			this.arc = 0
+			this.accuracy = 75;
+			this.animations.add('surge');
+			this.animations.play('surge', 30, true);
+			this.y -= (Math.random() * 50) + 200;
+			if (facing == "right") {
+				this.x += 100;
+			} else {
+				this.x -= 100;
+			}
+			this.facing=facing;
+			this.powerUps = {};
+			this.alpha = 1;
+			if(spell.name=='lightning' || spell.name=='fire'){
+				this.body.gravity.y += 2000
+				//this.scale.setTo(50);
+				if (facing == "right") {
+					this.body.gravity.x += 2000;
+				} else {
+					this.body.gravity.x -= 2000;
+				}
+			}
 		}
 
 		update() {
@@ -362,18 +408,6 @@ export default {
 			this.alpha -= .1;
 			if (this.facing == "right") {
 			} else {
-			}
-			if (this.x > this.game.world.centerX) {
-				this.body.gravity.x -= Math.random() * 6
-			}
-			if (this.x < this.game.world.centerX) {
-				this.body.gravity.x += Math.random() * 6
-			}
-			if (this.y > this.game.world.centerY) {
-				this.body.gravity.y -= Math.random() * 6
-			}
-			if (this.y < this.game.world.centerY) {
-				this.body.gravity.y += Math.random() * 6
 			}
 			if (this.powerUps.magicBow) {
 			}

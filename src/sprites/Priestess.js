@@ -162,6 +162,7 @@ export default class extends Phaser.Sprite {
 			})
 			effectSprite.frame = Math.random() * 3;
 			effectSprite.powerUps = _this.powerUps;
+			effectSprite.tint = Spells[_this.activeSpell].tint || 0xffffff
 			effectSprite.spell = Spells[_this.activeSpell].asset
  			effectSprite.scale.setTo(Spells[_this.activeSpell].scale || 1)
 			if (facing == 'right') {

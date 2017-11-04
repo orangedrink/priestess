@@ -1,11 +1,12 @@
 import Phaser from 'phaser'
 export default class extends Phaser.Sprite{
-	constructor( game, x, y, asset ) {
+	constructor( game, x, y, asset, timeAlive ) {
 		super(game, x, y, asset)
 		this.game = game;
 		this.checkWorldBounds = true;
 		this.events.onOutOfBounds.add(this.die, this);
-		this.timeAlive = Math.random() * 200 + 300
+		this.started = this.game.time.now
+		this.timeAlive =  Math.random() *  timeAlive || 200 + timeAlive || 300
 	}
 	die(_this = this){
 		_this.kill()
@@ -15,7 +16,7 @@ export default class extends Phaser.Sprite{
 		if(this.game.time.now > this.timeAlive + this.started){
 			this.alpha -= .01;
 			if(!this.killflag){
-				setTimeout(this.die, 500, this);
+				setTimeout(this.die, this.timeAlive, this);
 				this.killflag = true 
 			}
 		}

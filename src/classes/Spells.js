@@ -6,20 +6,21 @@ export default {
 		count: 30,
 		bowCount: 50,
 		damage: 1,
-		scale: .5,
+		scale: .75,
 	},
 	fire: {
+		name:'fire',
 		asset: 'fire',
-		count: 15,
-		bowCount: 17,
+		count: 60,
+		bowCount: 80,
 		damage: 1,
 	},
 	inferno: {
 		asset: 'fire',
-		count: 20,
-		bowCount: 35,
+		count: 100,
+		bowCount: 120,
 		damage: 2,
-		scale: 1.5,
+		scale: 1,
 	},
 	bubble: {
 		asset: 'bubble',
@@ -34,6 +35,14 @@ export default {
 		damage: 1,
 		scale: .30
 	},
+	bile: {
+		asset: 'blood',
+		count: 20,
+		bowCount: 30,
+		damage: 1,
+		scale: 1,
+		tint: 0x50faaa
+	},
 	pebble: {
 		asset: 'rock',
 		count: 35,
@@ -45,19 +54,26 @@ export default {
 		asset: 'rock',
 		count: 14,
 		bowCount: 16,
-		scale: .5,
+		scale: .75,
 	},
-	boulder: {
+	stone: {
 		asset: 'rock',
 		count: 14,
 		bowCount: 16,
 		damage: 2,
 		scale: 1 
 	},
+	boulder: {
+		asset: 'rock',
+		count: 14,
+		bowCount: 16,
+		damage: 2,
+		scale: 1.25 
+	},
 	goo: {
 		asset: 'slime',
-		count: 9,
-		bowCount: 13,
+		count: 13,
+		bowCount: 15,
 		damage: 1,
 		scale: .5  
 	},
@@ -69,10 +85,10 @@ export default {
 	},
 	ectoplasm: {
 		asset: 'slime',
-		count: 14,
-		bowCount: 16,
+		count: 50,
+		bowCount: 80,
 		damage: 1,
-		scale: 2,
+		scale: 1,
 	},
 	spark: {
 		asset: 'spark',
@@ -87,6 +103,7 @@ export default {
 		damage: 1,
 	},
 	lightning: {
+		name: 'lightning',
 		asset: 'spark',
 		count: 70,
 		bowCount: 90,

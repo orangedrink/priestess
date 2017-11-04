@@ -4329,7 +4329,7 @@ exports.default = {
 
 			_classCallCheck(this, Rain);
 
-			var _this2 = _possibleConstructorReturn(this, (Rain.__proto__ || Object.getPrototypeOf(Rain)).call(this, game, x, y, asset));
+			var _this2 = _possibleConstructorReturn(this, (Rain.__proto__ || Object.getPrototypeOf(Rain)).call(this, game, x, y, asset, 2000));
 
 			_this2.anchor.setTo(0.5);
 			game.physics.enable(_this2, _phaser2.default.Physics.ARCADE);
@@ -4649,7 +4649,7 @@ exports.default = {
 
 			_classCallCheck(this, Stream);
 
-			var _this9 = _possibleConstructorReturn(this, (Stream.__proto__ || Object.getPrototypeOf(Stream)).call(this, game, x, y, asset));
+			var _this9 = _possibleConstructorReturn(this, (Stream.__proto__ || Object.getPrototypeOf(Stream)).call(this, game, x, y, asset, 300));
 
 			_this9.anchor.setTo(0.5);
 			game.physics.enable(_this9, _phaser2.default.Physics.ARCADE);
@@ -4737,7 +4737,7 @@ exports.default = {
 
 		return Surge;
 	}(_EffectClass2.default),
-	feild: function (_Effect11) {
+	field: function (_Effect11) {
 		_inherits(Surge, _Effect11);
 
 		function Surge(_ref11) {
@@ -4752,7 +4752,6 @@ exports.default = {
 
 			var _this11 = _possibleConstructorReturn(this, (Surge.__proto__ || Object.getPrototypeOf(Surge)).call(this, game, x, y, asset));
 
-			_this11.started = game.time.now;
 			_this11.anchor.setTo(0.5);
 			game.physics.enable(_this11, _phaser2.default.Physics.ARCADE);
 			_this11.body.gravity.y = -600;
@@ -4790,11 +4789,12 @@ exports.default = {
 			var game = _ref12.game,
 			    x = _ref12.x,
 			    y = _ref12.y,
-			    asset = _ref12.asset;
+			    asset = _ref12.asset,
+			    facing = _ref12.facing;
 
 			_classCallCheck(this, Surge);
 
-			var _this12 = _possibleConstructorReturn(this, (Surge.__proto__ || Object.getPrototypeOf(Surge)).call(this, game, x, y, asset));
+			var _this12 = _possibleConstructorReturn(this, (Surge.__proto__ || Object.getPrototypeOf(Surge)).call(this, game, x, y, asset, 800));
 
 			_this12.anchor.setTo(0.5);
 			game.physics.enable(_this12, _phaser2.default.Physics.ARCADE);
@@ -4808,6 +4808,7 @@ exports.default = {
 			_this12.x += Math.random() * 50;
 			_this12.powerUps = {};
 			_this12.alpha = 1;
+			_this12.facing = facing;
 			return _this12;
 		}
 
@@ -4816,19 +4817,68 @@ exports.default = {
 			value: function update() {
 				_get(Surge.prototype.__proto__ || Object.getPrototypeOf(Surge.prototype), 'update', this).call(this);
 				this.alpha -= .1;
+				if (this.facing == "right") {
+					this.body.gravity.x += Math.random() * 6 + 50;
+				} else {
+					this.body.gravity.x -= Math.random() * 6 + 50;
+				}
+				if (this.powerUps.magicBow) {} else {}
+			}
+		}]);
+
+		return Surge;
+	}(_EffectClass2.default),
+	bolt: function (_Effect13) {
+		_inherits(Surge, _Effect13);
+
+		function Surge(_ref13) {
+			var game = _ref13.game,
+			    x = _ref13.x,
+			    y = _ref13.y,
+			    asset = _ref13.asset,
+			    facing = _ref13.facing,
+			    spell = _ref13.spell;
+
+			_classCallCheck(this, Surge);
+
+			var _this13 = _possibleConstructorReturn(this, (Surge.__proto__ || Object.getPrototypeOf(Surge)).call(this, game, x, y, asset));
+
+			_this13.anchor.setTo(0.5);
+			game.physics.enable(_this13, _phaser2.default.Physics.ARCADE);
+			_this13.body.bounce.y = 0.2;
+			_this13.body.gravity.y = Math.random() * 100 * 100;
+			_this13.speed = 10;
+			_this13.arc = 0;
+			_this13.accuracy = 75;
+			_this13.animations.add('surge');
+			_this13.animations.play('surge', 30, true);
+			_this13.y -= Math.random() * 50 + 200;
+			if (facing == "right") {
+				_this13.x += 100;
+			} else {
+				_this13.x -= 100;
+			}
+			_this13.facing = facing;
+			_this13.powerUps = {};
+			_this13.alpha = 1;
+			if (spell.name == 'lightning' || spell.name == 'fire') {
+				_this13.body.gravity.y += 2000;
+				//this.scale.setTo(50);
+				if (facing == "right") {
+					_this13.body.gravity.x += 2000;
+				} else {
+					_this13.body.gravity.x -= 2000;
+				}
+			}
+			return _this13;
+		}
+
+		_createClass(Surge, [{
+			key: 'update',
+			value: function update() {
+				_get(Surge.prototype.__proto__ || Object.getPrototypeOf(Surge.prototype), 'update', this).call(this);
+				this.alpha -= .1;
 				if (this.facing == "right") {} else {}
-				if (this.x > this.game.world.centerX) {
-					this.body.gravity.x -= Math.random() * 6;
-				}
-				if (this.x < this.game.world.centerX) {
-					this.body.gravity.x += Math.random() * 6;
-				}
-				if (this.y > this.game.world.centerY) {
-					this.body.gravity.y -= Math.random() * 6;
-				}
-				if (this.y < this.game.world.centerY) {
-					this.body.gravity.y += Math.random() * 6;
-				}
 				if (this.powerUps.magicBow) {} else {}
 			}
 		}]);
@@ -4865,20 +4915,21 @@ exports.default = {
 		count: 30,
 		bowCount: 50,
 		damage: 1,
-		scale: .5
+		scale: .75
 	},
 	fire: {
+		name: 'fire',
 		asset: 'fire',
-		count: 15,
-		bowCount: 17,
+		count: 60,
+		bowCount: 80,
 		damage: 1
 	},
 	inferno: {
 		asset: 'fire',
-		count: 20,
-		bowCount: 35,
+		count: 100,
+		bowCount: 120,
 		damage: 2,
-		scale: 1.5
+		scale: 1
 	},
 	bubble: {
 		asset: 'bubble',
@@ -4893,6 +4944,14 @@ exports.default = {
 		damage: 1,
 		scale: .30
 	},
+	bile: {
+		asset: 'blood',
+		count: 20,
+		bowCount: 30,
+		damage: 1,
+		scale: 1,
+		tint: 0x50faaa
+	},
 	pebble: {
 		asset: 'rock',
 		count: 35,
@@ -4904,19 +4963,26 @@ exports.default = {
 		asset: 'rock',
 		count: 14,
 		bowCount: 16,
-		scale: .5
+		scale: .75
 	},
-	boulder: {
+	stone: {
 		asset: 'rock',
 		count: 14,
 		bowCount: 16,
 		damage: 2,
 		scale: 1
 	},
+	boulder: {
+		asset: 'rock',
+		count: 14,
+		bowCount: 16,
+		damage: 2,
+		scale: 1.25
+	},
 	goo: {
 		asset: 'slime',
-		count: 9,
-		bowCount: 13,
+		count: 13,
+		bowCount: 15,
 		damage: 1,
 		scale: .5
 	},
@@ -4928,10 +4994,10 @@ exports.default = {
 	},
 	ectoplasm: {
 		asset: 'slime',
-		count: 14,
-		bowCount: 16,
+		count: 50,
+		bowCount: 80,
 		damage: 1,
-		scale: 2
+		scale: 1
 	},
 	spark: {
 		asset: 'spark',
@@ -4946,6 +5012,7 @@ exports.default = {
 		damage: 1
 	},
 	lightning: {
+		name: 'lightning',
 		asset: 'spark',
 		count: 70,
 		bowCount: 90,
@@ -11588,8 +11655,8 @@ var _class = function (_Phaser$State) {
       console.log(bow);
       //activeEffect = effectKeys[effectKeys.length-1]
       //activeSpell = spellKeys[spellKeys.length-1]
-      //activeSpell = 'boulder'
-      //activeEffect = 'surge'
+      activeSpell = 'shock';
+      activeEffect = 'bolt';
       //bow = true
 
       //sprites
@@ -11841,6 +11908,7 @@ var _class = function (_Phaser$Sprite) {
 				});
 				effectSprite.frame = Math.random() * 3;
 				effectSprite.powerUps = _this.powerUps;
+				effectSprite.tint = _Spells2.default[_this.activeSpell].tint || 0xffffff;
 				effectSprite.spell = _Spells2.default[_this.activeSpell].asset;
 				effectSprite.scale.setTo(_Spells2.default[_this.activeSpell].scale || 1);
 				if (facing == 'right') {
@@ -11912,7 +11980,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var _class = function (_Phaser$Sprite) {
 	_inherits(_class, _Phaser$Sprite);
 
-	function _class(game, x, y, asset) {
+	function _class(game, x, y, asset, timeAlive) {
 		_classCallCheck(this, _class);
 
 		var _this2 = _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).call(this, game, x, y, asset));
@@ -11920,7 +11988,8 @@ var _class = function (_Phaser$Sprite) {
 		_this2.game = game;
 		_this2.checkWorldBounds = true;
 		_this2.events.onOutOfBounds.add(_this2.die, _this2);
-		_this2.timeAlive = Math.random() * 200 + 300;
+		_this2.started = _this2.game.time.now;
+		_this2.timeAlive = Math.random() * timeAlive || 200 + timeAlive || 300;
 		return _this2;
 	}
 
@@ -11938,7 +12007,7 @@ var _class = function (_Phaser$Sprite) {
 			if (this.game.time.now > this.timeAlive + this.started) {
 				this.alpha -= .01;
 				if (!this.killflag) {
-					setTimeout(this.die, 500, this);
+					setTimeout(this.die, this.timeAlive, this);
 					this.killflag = true;
 				}
 			}
