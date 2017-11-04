@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="70" height="70" tilewidth="32" tileheight="32" nextobjectid="1">
- <tileset firstgid="1" source="level.json"/>
- <layer name="GroundLayer" width="70" height="70">
-  <data encoding="base64" compression="zlib">
-   eJzt1NEKgzAMBdD6oP//yXsaiDRtZKhxnANFaTNprnWtAcD9tqc38OeWw3W2Pqt/g0wP+5pe72/KJfMNjXo61o3qM7lUzOhrCUZr/T7bYC2a69Uc76s5k0tUE9Vln/+U0fcT7fuuUdVWdFy5x4y16Lhyj3L5LZcluM7mZrX7tTXx+0q5RL1k89j/h/b6jPp+y3k5c2ZGGfRqMhkfn/V0Lr333jsDo7kos1E2s7oKuVQccqmZCwAAAAAAAAAAAAAAAEDkA7dbCLA=
-  </data>
- </layer>
-</map>

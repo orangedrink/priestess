@@ -4542,7 +4542,8 @@ exports.default = {
 			var game = _ref7.game,
 			    x = _ref7.x,
 			    y = _ref7.y,
-			    asset = _ref7.asset;
+			    asset = _ref7.asset,
+			    facing = _ref7.facing;
 
 			_classCallCheck(this, Spray);
 
@@ -4551,8 +4552,12 @@ exports.default = {
 			_this7.anchor.setTo(0.5);
 			game.physics.enable(_this7, _phaser2.default.Physics.ARCADE);
 			_this7.body.bounce.y = 0.2;
-			_this7.body.gravity.x = (500 - Math.random() * 1000) * 2;
-			_this7.body.gravity.y = (500 - Math.random() * 1000) * 3;
+			_this7.body.gravity.y = (500 - Math.random() * 500) * 4;
+			if (facing == 'right') {
+				_this7.body.gravity.x = Math.random() * 1000 * 3;
+			} else {
+				_this7.body.gravity.x = 0 - Math.random() * 1000 * 3;
+			}
 			_this7.speed = 200;
 			_this7.arc = -300;
 			_this7.accuracy = 75;
@@ -11503,8 +11508,8 @@ var _class = function (_Phaser$State) {
       game.load.spritesheet('rock', 'assets/images/spells/rock.png', 64, 64);
       game.load.spritesheet('bubble', 'assets/images/spells/bubble.png', 64, 64);
       game.load.spritesheet('priestess', 'assets/images/priestess.png', 64, 64);
-      this.game.load.tilemap('tilemap', 'assets/splash.csv', null, _phaser2.default.Tilemap.CSV);
-      this.game.load.image('tiles', 'assets/tiles.png');
+      this.game.load.tilemap('tilemap', 'assets/levels/splash.csv', null, _phaser2.default.Tilemap.CSV);
+      this.game.load.image('tiles', 'assets/images/tiles.png');
     }
   }, {
     key: 'render',
@@ -11618,8 +11623,8 @@ var _class = function (_Phaser$State) {
       //activeEffect = effectKeys[effectKeys.length-1]
       //activeSpell = spellKeys[spellKeys.length-1]
       //activeSpell = 'inferno'
-      //activeEffect = 'wall'
-      //bow = false
+      activeEffect = 'spray';
+      bow = true;
 
       //sprites
       this.priestess = new _Priestess2.default({
@@ -11863,12 +11868,12 @@ var _class = function (_Phaser$Sprite) {
 					game: _this.game,
 					x: _this.x + Math.random() * 32,
 					y: _this.y + 32,
-					asset: _Spells2.default[_this.activeSpell].asset
+					asset: _Spells2.default[_this.activeSpell].asset,
+					facing: facing
 				});
 				effectSprite.frame = Math.random() * 3;
 				effectSprite.powerUps = _this.powerUps;
 				effectSprite.spell = _Spells2.default[_this.activeSpell].asset;
-				effectSprite.facing = facing;
 				effectSprite.scale.setTo(_Spells2.default[_this.activeSpell].scale || 1);
 				if (facing == 'right') {
 					effectSprite.body.velocity.x = _this.powerUps.magicBow ? effectSprite.speed * 8 : effectSprite.speed;

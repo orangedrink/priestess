@@ -29,8 +29,8 @@ export default class extends Phaser.State {
     game.load.spritesheet('rock', 'assets/images/spells/rock.png', 64, 64);
     game.load.spritesheet('bubble', 'assets/images/spells/bubble.png', 64, 64);
     game.load.spritesheet('priestess', 'assets/images/priestess.png', 64, 64);
-    this.game.load.tilemap('tilemap', 'assets/splash.csv', null, Phaser.Tilemap.CSV);
-    this.game.load.image('tiles', 'assets/tiles.png');
+    this.game.load.tilemap('tilemap', 'assets/levels/splash.csv', null, Phaser.Tilemap.CSV);
+    this.game.load.image('tiles', 'assets/images/tiles.png');
   }
 
   render () {

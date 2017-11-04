@@ -164,13 +164,17 @@ export default {
 		}
 	},
 	spray: class Spray extends Effect {
-		constructor({ game, x, y, asset }) {
+		constructor({ game, x, y, asset, facing }) {
 			super(game, x, y, asset)
 			this.anchor.setTo(0.5)
 			game.physics.enable(this, Phaser.Physics.ARCADE);
 			this.body.bounce.y = 0.2;
-			this.body.gravity.x = (500 - (Math.random() * 1000)) * 2
-			this.body.gravity.y = (500 - (Math.random() * 1000)) * 3
+			this.body.gravity.y = (500 - (Math.random() * 500)) * 4
+			if(facing == 'right'){
+				this.body.gravity.x = (Math.random() * 1000) * 3
+			}else{
+				this.body.gravity.x = 0 -(Math.random() * 1000) * 3
+			}
 			this.speed = 200;
 			this.arc = -300
 			this.accuracy = 75;
