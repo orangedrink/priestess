@@ -31,7 +31,9 @@ export default class extends Phaser.State {
     console.log(bow)
     //activeEffect = effectKeys[effectKeys.length-1]
     //activeSpell = spellKeys[spellKeys.length-1]
-
+    activeSpell = 'ectoplasm'
+    activeEffect = 'wall'
+    
     this.instructions = this.add.text(this.world.centerX, this.world.height-100, `Generating a random spell from ${combinations} possible combinations: ${activeSpell} ${activeEffect} `);
     this.instructions.font = 'acme'
     this.instructions.padding.set(10, 16)
@@ -55,9 +57,18 @@ export default class extends Phaser.State {
     //physics
     game.physics.startSystem(Phaser.Physics.ARCADE);
     game.physics.arcade.gravity.y = 650;
+
+    //world
+/*     this.map = this.game.add.tilemap('tilemap');
+    this.groundLayer = this.map.createLayer('GroundLayer');
+    this.map.setCollisionBetween(1, 1, true, 'GroundLayer');
+    this.groundLayer.resizeWorld();
+    this.map.addTilesetImage('tiles128', 'tiles');
+    this.game.camera.follow(this.priestess); */
   }
 
   update(){
+    this.game.physics.arcade.collide(this.priestess, this.groundLayer);
   }
 
   startGame() {

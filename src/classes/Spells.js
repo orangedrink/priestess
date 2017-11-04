@@ -3,9 +3,10 @@ import Phaser from 'phaser'
 export default {
 	flame: {
 		asset: 'fire',
-		count: 13,
-		bowCount: 15,
+		count: 30,
+		bowCount: 50,
 		damage: 1,
+		scale: .5,
 	},
 	fire: {
 		asset: 'fire',
@@ -18,6 +19,7 @@ export default {
 		count: 20,
 		bowCount: 35,
 		damage: 2,
+		scale: 1.5,
 	},
 	bubble: {
 		asset: 'bubble',
@@ -33,27 +35,30 @@ export default {
 	},
 	pebble: {
 		asset: 'rock',
-		count: 13,
-		bowCount: 15,
+		count: 35,
+		bowCount: 65,
 		damage: 1,
+		scale: .35  
 	},
 	rock: {
 		asset: 'rock',
 		count: 14,
 		bowCount: 16,
-		damage: 1,
+		damage: .5,
 	},
 	boulder: {
 		asset: 'rock',
 		count: 14,
 		bowCount: 16,
-		damage: 2 ,
+		damage: 2,
+		scale: 1 
 	},
 	goo: {
 		asset: 'slime',
 		count: 9,
 		bowCount: 13,
 		damage: 1,
+		scale: .5  
 	},
 	slime: {
 		asset: 'slime',
@@ -66,6 +71,7 @@ export default {
 		count: 14,
 		bowCount: 16,
 		damage: 1,
+		scale: 2,
 	},
 	spark: {
 		asset: 'spark',
@@ -81,8 +87,8 @@ export default {
 	},
 	lightning: {
 		asset: 'spark',
-		count: 10,
-		bowCount: 15,
+		count: 70,
+		bowCount: 90,
 		damage: 3,
 	},
 	spirit: {
