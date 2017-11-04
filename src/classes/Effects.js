@@ -84,7 +84,7 @@ export default {
 	},
 	bubble: class Bubble extends Effect {
 		constructor({ game, x, y, asset }) {
-			super(game, x, y, asset)
+			super(game, x, y, asset, 500)
 			this.anchor.setTo(0.5)
 			game.physics.enable(this, Phaser.Physics.ARCADE);
 			this.body.bounce.y = 0.2;

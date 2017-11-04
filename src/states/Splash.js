@@ -39,10 +39,8 @@ export default class extends Phaser.State {
     let activeSpell = spellKeys[Math.floor(Math.random() * spellKeys.length)]
     let bow = (Math.round(Math.random()) == 1)
     console.log(bow)
-    //activeEffect = effectKeys[effectKeys.length-1]
-    //activeSpell = spellKeys[spellKeys.length-1]
-    activeSpell = 'boulder'
-    activeEffect = 'rain'
+    //activeSpell = 'boulder'
+    //activeEffect = 'wave'
     //bow = true
 
     //sprites
@@ -86,7 +84,7 @@ export default class extends Phaser.State {
   startGame() {
     this.fadeOut = game.add.tween(game.world).to({ alpha: 0 }, 100, Phaser.Easing.Linear.None, true);
     this.fadeOut.onComplete.add(function () {
-      this.state.start('Game');
+      this.state.start('Level');
     }, this);
   }
 }

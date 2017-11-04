@@ -20,7 +20,8 @@ export default class extends Phaser.Sprite {
 		game.physics.enable(this, Phaser.Physics.ARCADE);
 		this.body.bounce.y = 0.2;
 		this.body.collideWorldBounds = true;
-
+		this.anchor.setTo(0.5, 0.5);
+		
 		//set up control keys
 		this.cursors = game.input.keyboard.createCursorKeys();
 		this.jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.UP);

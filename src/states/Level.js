@@ -7,7 +7,7 @@ export default class extends Phaser.State {
   preload() { }
 
   create() {
-    console.log('Game state')
+    console.log('Level started')
    }
 
    update() { }
