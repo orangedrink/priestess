@@ -39,13 +39,13 @@ export default {
 		count: 35,
 		bowCount: 65,
 		damage: 1,
-		scale: .35  
+		scale: .25  
 	},
 	rock: {
 		asset: 'rock',
 		count: 14,
 		bowCount: 16,
-		damage: .5,
+		scale: .5,
 	},
 	boulder: {
 		asset: 'rock',

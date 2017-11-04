@@ -41,9 +41,9 @@ export default class extends Phaser.State {
     console.log(bow)
     //activeEffect = effectKeys[effectKeys.length-1]
     //activeSpell = spellKeys[spellKeys.length-1]
-    //activeSpell = 'inferno'
-    activeEffect = 'spray'
-    bow = true
+    //activeSpell = 'boulder'
+    //activeEffect = 'surge'
+    //bow = true
 
     //sprites
     this.priestess = new Priestess({

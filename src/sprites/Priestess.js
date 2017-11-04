@@ -156,7 +156,9 @@ export default class extends Phaser.Sprite {
 				x: _this.x +  Math.random() * 32,
 				y: _this.y + 32,
 				asset: Spells[_this.activeSpell].asset,
-				facing: facing
+				facing: facing,
+				powerUps: _this.powerUps,
+				spell: Spells[_this.activeSpell]
 			})
 			effectSprite.frame = Math.random() * 3;
 			effectSprite.powerUps = _this.powerUps;

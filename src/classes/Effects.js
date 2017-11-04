@@ -21,26 +21,6 @@ export default {
 			this.angle += this.rollSpeed;
 		}
 	},
-	bounce: class Toss extends Effect {
-		constructor({ game, x, y, asset }) {
-			super(game, x, y, asset)
-			this.anchor.setTo(0.5)
-			game.physics.enable(this, Phaser.Physics.ARCADE);
-			this.body.bounce.y = 0.5;
-			this.speed = 200;
-			this.arc = -300
-			this.accuracy = 75;
-			this.rollSpeed = Math.random() * 5 + 2
-			this.animations.add('toss');
-			this.animations.play('toss', 30, true);
-			this.powerUps = {};
-		}
-
-		update() {
-			super.update()
-			this.angle += this.rollSpeed;
-		}
-	},
 	rain: class Rain extends Effect {
 		constructor({ game, x, y, asset }) {
 			super(game, x, y, asset)
@@ -170,13 +150,13 @@ export default {
 			game.physics.enable(this, Phaser.Physics.ARCADE);
 			this.body.bounce.y = 0.2;
 			this.body.gravity.y = (500 - (Math.random() * 500)) * 4
-			if(facing == 'right'){
+			if (facing == 'right') {
 				this.body.gravity.x = (Math.random() * 1000) * 3
-			}else{
-				this.body.gravity.x = 0 -(Math.random() * 1000) * 3
+			} else {
+				this.body.gravity.x = 0 - (Math.random() * 1000) * 3
 			}
 			this.speed = 200;
-			this.arc = -300
+			this.arc = -400
 			this.accuracy = 75;
 			this.animations.add('spray');
 			this.animations.play('spray', 30, true);
@@ -292,7 +272,7 @@ export default {
 		}
 	},
 	surge: class Surge extends Effect {
-		constructor({ game, x, y, asset }) {
+		constructor({ game, x, y, asset, facing}) {
 			super(game, x, y, asset)
 			this.anchor.setTo(0.5)
 			game.physics.enable(this, Phaser.Physics.ARCADE);
@@ -307,6 +287,7 @@ export default {
 			this.x += Math.random() * 50;
 			this.powerUps = {};
 			this.alpha = 1;
+			this.facing = facing
 		}
 
 		update() {
@@ -329,34 +310,30 @@ export default {
 		}
 	},
 	feild: class Surge extends Effect {
-		constructor({ game, x, y, asset }) {
+		constructor({ game, x, y, asset, facing, powerUps }) {
 			super(game, x, y, asset)
+			this.started = game.time.now
 			this.anchor.setTo(0.5)
 			game.physics.enable(this, Phaser.Physics.ARCADE);
-			this.body.bounce.y = 0.2;
-			this.body.gravity.y = -650
-			this.speed = 0;
-			this.arc = 0
+			this.body.gravity.y = -600
+			this.speed = 200;
+			this.arc = -300
 			this.accuracy = 75;
-			this.animations.add('surge');
-			this.animations.play('surge', 30, true);
-			this.x += Math.random() * 50;
-			this.powerUps = {};
-			this.alpha = 1;
+			this.animations.add('rain');
+			this.animations.play('rain', 30, true);
+			this.y -= Math.random() * 100;
+ 			let bowMultiplier = powerUps.magicBow ? 5 : 3
+			if (facing == 'right') {
+				this.x += (Math.random() * 100) * bowMultiplier
+			} else {
+				this.x -= (Math.random() * 100) * bowMultiplier
+			}
 		}
 
 		update() {
 			super.update()
-			this.alpha -= .1;
-			if (this.facing == "right") {
-			} else {
-			}
-			if(this.x > this.game.world.centerX){
-				this.body.gravity.x -= Math.random() * 60
-			}
-			if(this.x < this.game.world.centerX){
-				this.body.gravity.x += Math.random() * 60
-			}
+			this.body.velocity.x -= Math.random() * (this.body.velocity.x * 2);
+			this.body.velocity.y -= Math.random() * (this.body.velocity.y * 2);
 			if (this.powerUps.magicBow) {
 			}
 			else {
@@ -386,16 +363,16 @@ export default {
 			if (this.facing == "right") {
 			} else {
 			}
-			if(this.x > this.game.world.centerX){
+			if (this.x > this.game.world.centerX) {
 				this.body.gravity.x -= Math.random() * 6
 			}
-			if(this.x < this.game.world.centerX){
+			if (this.x < this.game.world.centerX) {
 				this.body.gravity.x += Math.random() * 6
 			}
-			if(this.y > this.game.world.centerY){
+			if (this.y > this.game.world.centerY) {
 				this.body.gravity.y -= Math.random() * 6
 			}
-			if(this.y < this.game.world.centerY){
+			if (this.y < this.game.world.centerY) {
 				this.body.gravity.y += Math.random() * 6
 			}
 			if (this.powerUps.magicBow) {
