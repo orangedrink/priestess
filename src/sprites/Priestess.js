@@ -34,7 +34,7 @@ export default class extends Phaser.Sprite {
 		this.meditating = false;
 		this.stoppedMeditating = false;
 		this.powerUps = {
-			superJump: true,
+			superJump: false,
 			magicBow: false
 		}
 		this.activeSpell = 'boulder';

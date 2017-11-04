@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="67" height="54" tilewidth="32" tileheight="32" nextobjectid="1">
+ <tileset firstgid="1" source="../../../../../Desktop/untitled.tsx"/>
+ <layer name="Tile Layer 1" width="67" height="54" offsetx="-6" offsety="-44">
+  <data encoding="base64" compression="zlib">
+   eJzt0V0KgkAUBlB/yvdqBdUKqv3vrQkKhmGSURQHPAcuvlw/P65NA2yl27pARWq5xbB1gaaOW3zusEaPKZndwh2OM99bukecW9qptMOUvDnWvEVpbunulLwSh5k9ctow/feZ/rNc7m8/Fe+2SV6f7KV5sf7PXu77bWYv7jEku2NOYc47msvILa5hbjua+8gtHmGeO5rXyC0AAAAAAAAAAAAAoCZv9VkY2Q==
+  </data>
+ </layer>
+</map>

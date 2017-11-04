@@ -17,7 +17,7 @@ export default class extends Phaser.State {
     this.screenHeight = this.game.height;
     this.map = this.game.add.tilemap('tilemap');
     this.groundLayer = this.map.createLayer(0);
-    this.map.setCollisionBetween(1, 8);
+    this.map.setCollisionBetween(8, 80);
     this.groundLayer.resizeWorld();
     this.map.addTilesetImage('tiles');
 
