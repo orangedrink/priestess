@@ -3,8 +3,8 @@
 	"levels": [
 		{
 			"bgAsset": "forrest-background",
-			"musicAsset": "stranger",
-			"mapAsset": "l1"
+			"mapAsset": "l1",
+			"musicAsset": "goodbye"
 		},
 		{
 			"bgAsset": "graveyard-background",
@@ -12,8 +12,7 @@
 		},
 		{
 			"bgAsset": "clouds-background",
-			"mapAsset": "l3",
-			"musicAsset": "thrills"
+			"mapAsset": "l3"
 		},
 		{
 			"bgAsset": "clouds-background",

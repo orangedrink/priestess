@@ -12134,7 +12134,6 @@ var _class = function (_Phaser$State) {
       await this.preload();
       console.log('Starting Level ' + this.levelIndex + ' from ' + this.levelData);
       //world
-      //this.music.fadeOut(100);
       if (this.level.musicAsset && this.music && this.music.isPlaying) {
         console.log("stopping music");
         this.music.fadeOut(100);
@@ -12201,6 +12200,7 @@ var _class = function (_Phaser$State) {
         if (this.levelIndex < this.worldData.length) {
           this.state.start('Level');
         } else {
+          this.music.fadeOut(200);
           this.state.start('Credits');
         }
       }, this);
