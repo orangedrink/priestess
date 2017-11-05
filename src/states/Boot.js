@@ -22,6 +22,7 @@ export default class extends Phaser.State {
     this.load.image('loaderBg', './assets/images/loader-bg.png')
     this.load.image('loaderBar', './assets/images/loader-bar.png')
     game.load.spritesheet('spark', 'assets/images/spells/spark.png', 64, 64);
+    game.load.spritesheet('lightning', 'assets/images/spells/lightning.png', 100, 300);
     game.load.spritesheet('spirit', 'assets/images/spells/spirit.png', 64, 64);
     game.load.spritesheet('slime', 'assets/images/spells/slime.png', 64, 64);
     game.load.spritesheet('fire', 'assets/images/spells/fire.png', 64, 64);

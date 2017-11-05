@@ -3745,7 +3745,14 @@ exports.default = {
 			_this13.powerUps = {};
 			if (spell.name == 'lightning' || spell.name == 'fire') {
 				_this13.body.gravity.y += 2000;
-				//this.scale.setTo(50);
+				if (spell.name == 'lightning' && Math.random() * 25 < 1) {
+					_this13.lightning = game.add.sprite(_this13.x, _this13.y + 120, 'lightning');
+					_this13.lightning.anchor.setTo(0.5, 0.5);
+					_this13.lightning.alpha = .5;
+					_this13.anim = _this13.lightning.animations.add('strike');
+					_this13.anim.play(50, true);
+					_this13.game.add.tween(_this13.lightning).to({ alpha: 0 }, 300, _phaser2.default.Easing.Linear.None, true);
+				}
 				if (facing == "right") {
 					_this13.body.gravity.x += 2000;
 				} else {
@@ -11791,6 +11798,7 @@ var _class = function (_Phaser$State) {
       this.load.image('loaderBg', './assets/images/loader-bg.png');
       this.load.image('loaderBar', './assets/images/loader-bar.png');
       game.load.spritesheet('spark', 'assets/images/spells/spark.png', 64, 64);
+      game.load.spritesheet('lightning', 'assets/images/spells/lightning.png', 100, 300);
       game.load.spritesheet('spirit', 'assets/images/spells/spirit.png', 64, 64);
       game.load.spritesheet('slime', 'assets/images/spells/slime.png', 64, 64);
       game.load.spritesheet('fire', 'assets/images/spells/fire.png', 64, 64);
@@ -11926,8 +11934,8 @@ var _class = function (_Phaser$State) {
       var activeSpell = spellKeys[Math.floor(Math.random() * spellKeys.length)];
       var bow = Math.round(Math.random()) == 1;
       console.log(bow);
-      //activeSpell = 'boulder'
-      //activeEffect = 'wave'
+      activeSpell = 'lightning';
+      activeEffect = 'bolt';
       //bow = true
 
       //sprites
@@ -12195,12 +12203,10 @@ var _class = function (_Phaser$State) {
     value: function nextLevel() {
       this.fadeOut = game.add.tween(game.world).to({ alpha: 0 }, 100, _phaser2.default.Easing.Linear.None, true);
       this.fadeOut.onComplete.add(function () {
-        this.game.state.states['Level'].levelData = '../assets/levels/index.json';
         this.levelIndex++;
         if (this.levelIndex < this.worldData.length) {
           this.state.start('Level');
         } else {
-          this.music.fadeOut(200);
           this.state.start('Credits');
         }
       }, this);

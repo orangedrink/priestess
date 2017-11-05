@@ -43,8 +43,8 @@ export default class extends Phaser.State {
     let activeSpell = spellKeys[Math.floor(Math.random() * spellKeys.length)]
     let bow = (Math.round(Math.random()) == 1)
     console.log(bow)
-    //activeSpell = 'boulder'
-    //activeEffect = 'wave'
+    activeSpell = 'lightning'
+    activeEffect = 'bolt'
     //bow = true
 
     //sprites

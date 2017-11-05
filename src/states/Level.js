@@ -89,12 +89,10 @@ export default class extends Phaser.State {
   nextLevel() {
     this.fadeOut = game.add.tween(game.world).to({ alpha: 0 }, 100, Phaser.Easing.Linear.None, true);
     this.fadeOut.onComplete.add(function () {
-      this.game.state.states['Level'].levelData = '../assets/levels/index.json';
       this.levelIndex++;
       if (this.levelIndex < this.worldData.length) {
         this.state.start('Level');
       } else {
-        this.music.fadeOut(200)
         this.state.start('Credits');
       }
     }, this);

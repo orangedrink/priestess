@@ -27,7 +27,7 @@ export default {
 			this.anchor.setTo(0.5)
 			game.physics.enable(this, Phaser.Physics.ARCADE);
 			this.body.bounce.y = 0.2;
-			this.body.gravity.y +=900 
+			this.body.gravity.y += 900
 			this.speed = 200;
 			this.arc = -300
 			this.accuracy = 75;
@@ -266,7 +266,7 @@ export default {
 		}
 	},
 	surge: class Surge extends Effect {
-		constructor({ game, x, y, asset, facing}) {
+		constructor({ game, x, y, asset, facing }) {
 			super(game, x, y, asset)
 			this.anchor.setTo(0.5)
 			game.physics.enable(this, Phaser.Physics.ARCADE);
@@ -313,7 +313,7 @@ export default {
 			this.animations.add('rain');
 			this.animations.play('rain', 30, true);
 			this.y -= Math.random() * 100;
- 			let bowMultiplier = powerUps.magicBow ? 5 : 3
+			let bowMultiplier = powerUps.magicBow ? 5 : 3
 			if (facing == 'right') {
 				this.x += (Math.random() * 100) * bowMultiplier
 			} else {
@@ -332,8 +332,8 @@ export default {
 		}
 	},
 	swarm: class Surge extends Effect {
-		constructor({ game, x, y, asset, facing}) {
-			super(game, x, y, asset, 800 )
+		constructor({ game, x, y, asset, facing }) {
+			super(game, x, y, asset, 800)
 			this.anchor.setTo(0.5)
 			game.physics.enable(this, Phaser.Physics.ARCADE);
 			this.body.bounce.y = 0.2;
@@ -362,12 +362,12 @@ export default {
 		}
 	},
 	bolt: class Surge extends Effect {
-		constructor({ game, x, y, asset, facing, spell}) {
+		constructor({ game, x, y, asset, facing, spell }) {
 			super(game, x, y, asset)
 			this.anchor.setTo(0.5)
 			game.physics.enable(this, Phaser.Physics.ARCADE);
 			this.body.bounce.y = 0.2;
-			this.body.gravity.y = (Math.random()*100) * 100
+			this.body.gravity.y = (Math.random() * 100) * 100
 			this.speed = 10;
 			this.arc = 0
 			this.accuracy = 75;
@@ -379,11 +379,18 @@ export default {
 			} else {
 				this.x -= 100;
 			}
-			this.facing=facing;
+			this.facing = facing;
 			this.powerUps = {};
-			if(spell.name=='lightning' || spell.name=='fire'){
+			if (spell.name == 'lightning' || spell.name == 'fire') {
 				this.body.gravity.y += 2000
-				//this.scale.setTo(50);
+				if (spell.name == 'lightning' && Math.random() *  25 < 1) {
+					this.lightning = game.add.sprite(this.x, this.y + 120, 'lightning');
+					this.lightning.anchor.setTo(0.5, 0.5);
+					this.lightning.alpha = .5
+					this.anim = this.lightning.animations.add('strike');
+					this.anim.play(50, true);
+					this.game.add.tween(this.lightning).to( { alpha: 0 }, 300, Phaser.Easing.Linear.None, true );
+				}
 				if (facing == "right") {
 					this.body.gravity.x += 2000;
 				} else {
