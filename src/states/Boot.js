@@ -39,6 +39,10 @@ export default class extends Phaser.State {
     this.game.load.image('graveyard-background', 'assets/images/backgrounds/graveyard.png');
     this.game.load.image('clouds-background', 'assets/images/backgrounds/clouds.png');
     game.load.audio('dream', ['assets/music/dream.mp3']);
+    game.load.audio('stranger', ['assets/music/stranger.mp3']);
+    game.load.audio('rush', ['assets/music/rush.mp3']);
+    game.load.audio('goodbye', ['assets/music/goodbye.mp3']);
+    game.load.audio('thrills', ['assets/music/thrills.mp3']);
   }
 
   render () {

@@ -3,6 +3,7 @@
 	"levels": [
 		{
 			"bgAsset": "forrest-background",
+			"musicAsset": "stranger",
 			"mapAsset": "l1"
 		},
 		{
@@ -11,11 +12,13 @@
 		},
 		{
 			"bgAsset": "clouds-background",
-			"mapAsset": "l3"
+			"mapAsset": "l3",
+			"musicAsset": "thrills"
 		},
 		{
 			"bgAsset": "clouds-background",
-			"mapAsset": "l4"
+			"mapAsset": "l4",
+			"musicAsset": "rush"
 		}
 	]
 }

@@ -28,6 +28,17 @@ export default class extends Phaser.State {
     await this.preload()
     console.log(`Starting Level ${this.levelIndex} from ${this.levelData}`)
     //world
+    //this.music.fadeOut(100);
+    if(this.level.musicAsset && this.music && this.music.isPlaying){
+      console.log("stopping music")
+      this.music.fadeOut(100)
+    }
+    if(this.level.musicAsset){
+      this.music = game.add.audio(this.level.musicAsset);
+      this.music.loop = true;
+      this.music.play();
+    }
+
     this.background = this.game.add.image(0, 0, this.level.bgAsset);
     this.background.fixedToCamera = true;
     this.screenWidth = this.game.width;

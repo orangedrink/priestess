@@ -13,7 +13,8 @@ export default class extends Phaser.State {
     console.log('Splash screen state')
 
     //world
-    this.music = game.add.audio('dream');
+    this.music = game.add.audio('stranger');
+    this.music.loop = true;
     this.music.play();
     this.screenWidth = this.game.width;
     this.screenHeight = this.game.height;
@@ -22,7 +23,8 @@ export default class extends Phaser.State {
     this.map.setCollisionBetween(8, 80);
     this.groundLayer.resizeWorld();
     this.map.addTilesetImage('tiles');
-
+    this.map.setTileIndexCallback(3, this.startGame, this);
+    
     this.banner = this.add.text(this.screenWidth / 2, 80, 'Priestess');
     this.banner.font = 'acme'
     this.banner.padding.set(10, 16)
@@ -77,14 +79,11 @@ export default class extends Phaser.State {
     if (this.priestess.y > 1660) {
       this.state.start('Splash');
     }
-    if (this.priestess.x > 1590) {
-      this.startGame();
-
-    }
   }
 
   startGame() {
     this.fadeOut = game.add.tween(game.world).to({ alpha: 0 }, 100, Phaser.Easing.Linear.None, true);
+    this.music.fadeOut(100);
     this.fadeOut.onComplete.add(function () {
       this.game.state.states['Level'].levelData = '../assets/levels/index.json';
       this.game.state.states['Level'].levelIndex = 0;

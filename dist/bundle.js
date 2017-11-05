@@ -11808,6 +11808,10 @@ var _class = function (_Phaser$State) {
       this.game.load.image('graveyard-background', 'assets/images/backgrounds/graveyard.png');
       this.game.load.image('clouds-background', 'assets/images/backgrounds/clouds.png');
       game.load.audio('dream', ['assets/music/dream.mp3']);
+      game.load.audio('stranger', ['assets/music/stranger.mp3']);
+      game.load.audio('rush', ['assets/music/rush.mp3']);
+      game.load.audio('goodbye', ['assets/music/goodbye.mp3']);
+      game.load.audio('thrills', ['assets/music/thrills.mp3']);
     }
   }, {
     key: 'render',
@@ -11893,7 +11897,8 @@ var _class = function (_Phaser$State) {
       console.log('Splash screen state');
 
       //world
-      this.music = game.add.audio('dream');
+      this.music = game.add.audio('stranger');
+      this.music.loop = true;
       this.music.play();
       this.screenWidth = this.game.width;
       this.screenHeight = this.game.height;
@@ -11902,6 +11907,7 @@ var _class = function (_Phaser$State) {
       this.map.setCollisionBetween(8, 80);
       this.groundLayer.resizeWorld();
       this.map.addTilesetImage('tiles');
+      this.map.setTileIndexCallback(3, this.startGame, this);
 
       this.banner = this.add.text(this.screenWidth / 2, 80, 'Priestess');
       this.banner.font = 'acme';
@@ -11956,14 +11962,12 @@ var _class = function (_Phaser$State) {
       if (this.priestess.y > 1660) {
         this.state.start('Splash');
       }
-      if (this.priestess.x > 1590) {
-        this.startGame();
-      }
     }
   }, {
     key: 'startGame',
     value: function startGame() {
       this.fadeOut = game.add.tween(game.world).to({ alpha: 0 }, 100, _phaser2.default.Easing.Linear.None, true);
+      this.music.fadeOut(100);
       this.fadeOut.onComplete.add(function () {
         this.game.state.states['Level'].levelData = '../assets/levels/index.json';
         this.game.state.states['Level'].levelIndex = 0;
@@ -12130,6 +12134,17 @@ var _class = function (_Phaser$State) {
       await this.preload();
       console.log('Starting Level ' + this.levelIndex + ' from ' + this.levelData);
       //world
+      //this.music.fadeOut(100);
+      if (this.level.musicAsset && this.music && this.music.isPlaying) {
+        console.log("stopping music");
+        this.music.fadeOut(100);
+      }
+      if (this.level.musicAsset) {
+        this.music = game.add.audio(this.level.musicAsset);
+        this.music.loop = true;
+        this.music.play();
+      }
+
       this.background = this.game.add.image(0, 0, this.level.bgAsset);
       this.background.fixedToCamera = true;
       this.screenWidth = this.game.width;
