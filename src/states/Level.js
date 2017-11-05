@@ -7,7 +7,6 @@ import Spells from '../classes/Spells.js'
 
 export default class extends Phaser.State {
   async init() {
-    let _this = this
     this.worldData = await fetch(this.levelData, {
       method: 'get'
     }).then(r => r.json())
@@ -27,8 +26,10 @@ export default class extends Phaser.State {
   async create() {
     game.add.tween(game.world).to({ alpha: 1 }, 100, Phaser.Easing.Linear.None, true);
     await this.preload()
-
+    console.log(`Starting Level ${this.levelIndex} from ${this.levelData}`)
     //world
+    this.background = this.game.add.image(0, 0, this.level.bgAsset);
+    this.background.fixedToCamera = true;
     this.screenWidth = this.game.width;
     this.screenHeight = this.game.height;
     this.map = this.game.add.tilemap(this.level.mapAsset);
@@ -46,7 +47,8 @@ export default class extends Phaser.State {
     let activeEffect = effectKeys[Math.floor(Math.random() * effectKeys.length)]
     let activeSpell = spellKeys[Math.floor(Math.random() * spellKeys.length)]
     let bow = (Math.round(Math.random()) == 1)
-    console.log(bow)
+    console.log(`Randomly generated power: ${activeSpell} ${activeEffect}`)
+    console.log(`Magic bow: ${bow}`)
     //activeSpell = 'boulder'
     //activeEffect = 'wave'
     //bow = true
@@ -79,7 +81,6 @@ export default class extends Phaser.State {
     this.fadeOut.onComplete.add(function () {
       this.game.state.states['Level'].levelData = '../assets/levels/index.json';
       this.levelIndex++;
-      console.log(this.worldData);
       if (this.levelIndex < this.worldData.length) {
         this.state.start('Level');
       } else {

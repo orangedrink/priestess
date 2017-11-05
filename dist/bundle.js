@@ -11798,10 +11798,16 @@ var _class = function (_Phaser$State) {
       game.load.spritesheet('rock', 'assets/images/spells/rock.png', 64, 64);
       game.load.spritesheet('bubble', 'assets/images/spells/bubble.png', 64, 64);
       game.load.spritesheet('priestess', 'assets/images/priestess.png', 64, 64);
-      this.game.load.tilemap('tilemap', 'assets/levels/splash.csv', null, _phaser2.default.Tilemap.CSV);0;
+      this.game.load.tilemap('splashmap', 'assets/levels/splash.csv', null, _phaser2.default.Tilemap.CSV);0;
       this.game.load.tilemap('l1', 'assets/levels/l1.csv', null, _phaser2.default.Tilemap.CSV);
       this.game.load.tilemap('l2', 'assets/levels/l2.csv', null, _phaser2.default.Tilemap.CSV);
+      this.game.load.tilemap('l3', 'assets/levels/l3.csv', null, _phaser2.default.Tilemap.CSV);
+      this.game.load.tilemap('l4', 'assets/levels/l4.csv', null, _phaser2.default.Tilemap.CSV);
       this.game.load.image('tiles', 'assets/images/tiles.png');
+      this.game.load.image('forrest-background', 'assets/images/backgrounds/forrest.png');
+      this.game.load.image('graveyard-background', 'assets/images/backgrounds/graveyard.png');
+      this.game.load.image('clouds-background', 'assets/images/backgrounds/clouds.png');
+      game.load.audio('dream', ['assets/music/dream.mp3']);
     }
   }, {
     key: 'render',
@@ -11887,9 +11893,11 @@ var _class = function (_Phaser$State) {
       console.log('Splash screen state');
 
       //world
+      this.music = game.add.audio('dream');
+      this.music.play();
       this.screenWidth = this.game.width;
       this.screenHeight = this.game.height;
-      this.map = this.game.add.tilemap('tilemap');
+      this.map = this.game.add.tilemap('splashmap');
       this.groundLayer = this.map.createLayer(0);
       this.map.setCollisionBetween(8, 80);
       this.groundLayer.resizeWorld();
@@ -12098,7 +12106,6 @@ var _class = function (_Phaser$State) {
   _createClass(_class, [{
     key: 'init',
     value: async function init() {
-      var _this = this;
       this.worldData = await fetch(this.levelData, {
         method: 'get'
       }).then(function (r) {
@@ -12121,8 +12128,10 @@ var _class = function (_Phaser$State) {
     value: async function create() {
       game.add.tween(game.world).to({ alpha: 1 }, 100, _phaser2.default.Easing.Linear.None, true);
       await this.preload();
-
+      console.log('Starting Level ' + this.levelIndex + ' from ' + this.levelData);
       //world
+      this.background = this.game.add.image(0, 0, this.level.bgAsset);
+      this.background.fixedToCamera = true;
       this.screenWidth = this.game.width;
       this.screenHeight = this.game.height;
       this.map = this.game.add.tilemap(this.level.mapAsset);
@@ -12139,7 +12148,8 @@ var _class = function (_Phaser$State) {
       var activeEffect = effectKeys[Math.floor(Math.random() * effectKeys.length)];
       var activeSpell = spellKeys[Math.floor(Math.random() * spellKeys.length)];
       var bow = Math.round(Math.random()) == 1;
-      console.log(bow);
+      console.log('Randomly generated power: ' + activeSpell + ' ' + activeEffect);
+      console.log('Magic bow: ' + bow);
       //activeSpell = 'boulder'
       //activeEffect = 'wave'
       //bow = true
@@ -12173,7 +12183,6 @@ var _class = function (_Phaser$State) {
       this.fadeOut.onComplete.add(function () {
         this.game.state.states['Level'].levelData = '../assets/levels/index.json';
         this.levelIndex++;
-        console.log(this.worldData);
         if (this.levelIndex < this.worldData.length) {
           this.state.start('Level');
         } else {
@@ -12277,9 +12286,7 @@ var _phaser = __webpack_require__(/*! phaser */ 21);
 
 var _phaser2 = _interopRequireDefault(_phaser);
 
-var _webfontloader = __webpack_require__(/*! webfontloader */ 91);
-
-var _webfontloader2 = _interopRequireDefault(_webfontloader);
+var _utils = __webpack_require__(/*! ../utils */ 92);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -12300,50 +12307,21 @@ var _class = function (_Phaser$State) {
 
   _createClass(_class, [{
     key: 'init',
-    value: function init() {
-      this.stage.backgroundColor = '#000';
-      this.fontsReady = false;
-      this.fontsLoaded = this.fontsLoaded.bind(this);
-    }
+    value: function init() {}
   }, {
     key: 'preload',
-    value: function preload() {
-      _webfontloader2.default.load({
-        google: {
-          families: ['Acme']
-        },
-        active: this.fontsLoaded
-      });
-
-      var text = this.add.text(this.world.centerX, this.world.centerY, 'Orangedrink made this.', { font: '16px Arial', fill: '#dddddd', align: 'center' });
-      text.anchor.setTo(0.5, 0.5);
-
-      this.load.image('loaderBg', './assets/images/loader-bg.png');
-      this.load.image('loaderBar', './assets/images/loader-bar.png');
-      game.load.spritesheet('spark', 'assets/images/spells/spark.png', 64, 64);
-      game.load.spritesheet('spirit', 'assets/images/spells/spirit.png', 64, 64);
-      game.load.spritesheet('slime', 'assets/images/spells/slime.png', 64, 64);
-      game.load.spritesheet('fire', 'assets/images/spells/fire.png', 64, 64);
-      game.load.spritesheet('blood', 'assets/images/spells/blood.png', 64, 64);
-      game.load.spritesheet('rock', 'assets/images/spells/rock.png', 64, 64);
-      game.load.spritesheet('bubble', 'assets/images/spells/bubble.png', 64, 64);
-      game.load.spritesheet('priestess', 'assets/images/priestess.png', 64, 64);
-      this.game.load.tilemap('tilemap', 'assets/levels/splash.csv', null, _phaser2.default.Tilemap.CSV);
-      this.game.load.tilemap('l1', 'assets/levels/l1.csv', null, _phaser2.default.Tilemap.CSV);
-      this.game.load.image('tiles', 'assets/images/tiles.png');
+    value: function preload() {}
+  }, {
+    key: 'create',
+    value: function create() {
+      console.log('Credits');
     }
   }, {
-    key: 'render',
-    value: function render() {
-      if (this.fontsReady) {
-        this.state.start('Splash');
-      }
-    }
+    key: 'update',
+    value: function update() {}
   }, {
-    key: 'fontsLoaded',
-    value: function fontsLoaded() {
-      this.fontsReady = true;
-    }
+    key: 'startGame',
+    value: function startGame() {}
   }]);
 
   return _class;

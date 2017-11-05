@@ -2,12 +2,20 @@
 	"world": "",
 	"levels": [
 		{
-			"tileSet": "assets/images/tileset.png",
+			"bgAsset": "forrest-background",
 			"mapAsset": "l1"
 		},
 		{
-			"tileSet": "assets/images/tileset.png",
+			"bgAsset": "graveyard-background",
 			"mapAsset": "l2"
+		},
+		{
+			"bgAsset": "clouds-background",
+			"mapAsset": "l3"
+		},
+		{
+			"bgAsset": "clouds-background",
+			"mapAsset": "l4"
 		}
 	]
 }

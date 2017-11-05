@@ -3,7 +3,7 @@
  <tileset firstgid="1" source="../../../../../Desktop/untitled.tsx"/>
  <layer name="Tile Layer 1" width="67" height="54" offsetx="-6" offsety="-44">
   <data encoding="base64" compression="zlib">
-   eJzt1G0KwjAQRdEqFvwtfmyg2g2o3f/OjNAwQ5imqVKZ1nvgYUlScV7AqgIAAP/oWLi2VrV6boz9e+bdtfWk58nNbbG6Wxo9/zfzTO3Ok9iBnn/OeXYzfnepzcB6k3x6Uo8fGXUKORs5hFySs5672I7s79Xz0F1fQ259WrVuzeuxi9xdlkTf9yPk2adT60vpIt5lm9lLY519+6QLT///8fd3mb001tn0fGkXntCFoAtBF4IuBF0IuhB0IehC0MVv0QUAAAAAAAAAAADgzwuX2io1
+   eJzt0DEKwkAQBdAUVt5BrdQTqLXkLMYTqNd3CmFCCAtBYzC+B59dmCmGX1UAAADMySXStN7rtOd83GLA7i1yb72PUS6aznLA7jlSv/51afHHrCLrN7L5/smj2UZ2kX1h1k3f7hwcIsfIqTDrpm93DnSRdJF0kXSRdJF0kXSRdJF0AQAAAAAAAP/pCa7jHbI=
   </data>
  </layer>
 </map>

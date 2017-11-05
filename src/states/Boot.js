@@ -29,10 +29,16 @@ export default class extends Phaser.State {
     game.load.spritesheet('rock', 'assets/images/spells/rock.png', 64, 64);
     game.load.spritesheet('bubble', 'assets/images/spells/bubble.png', 64, 64);
     game.load.spritesheet('priestess', 'assets/images/priestess.png', 64, 64);
-    this.game.load.tilemap('tilemap', 'assets/levels/splash.csv', null, Phaser.Tilemap.CSV);0
+    this.game.load.tilemap('splashmap', 'assets/levels/splash.csv', null, Phaser.Tilemap.CSV);0
     this.game.load.tilemap('l1', 'assets/levels/l1.csv', null, Phaser.Tilemap.CSV);
     this.game.load.tilemap('l2', 'assets/levels/l2.csv', null, Phaser.Tilemap.CSV);
+    this.game.load.tilemap('l3', 'assets/levels/l3.csv', null, Phaser.Tilemap.CSV);
+    this.game.load.tilemap('l4', 'assets/levels/l4.csv', null, Phaser.Tilemap.CSV);
     this.game.load.image('tiles', 'assets/images/tiles.png');
+    this.game.load.image('forrest-background', 'assets/images/backgrounds/forrest.png');
+    this.game.load.image('graveyard-background', 'assets/images/backgrounds/graveyard.png');
+    this.game.load.image('clouds-background', 'assets/images/backgrounds/clouds.png');
+    game.load.audio('dream', ['assets/music/dream.mp3']);
   }
 
   render () {

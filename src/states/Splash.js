@@ -13,9 +13,11 @@ export default class extends Phaser.State {
     console.log('Splash screen state')
 
     //world
+    this.music = game.add.audio('dream');
+    this.music.play();
     this.screenWidth = this.game.width;
     this.screenHeight = this.game.height;
-    this.map = this.game.add.tilemap('tilemap');
+    this.map = this.game.add.tilemap('splashmap');
     this.groundLayer = this.map.createLayer(0);
     this.map.setCollisionBetween(8, 80);
     this.groundLayer.resizeWorld();
@@ -77,7 +79,7 @@ export default class extends Phaser.State {
     }
     if (this.priestess.x > 1590) {
       this.startGame();
-      
+
     }
   }
 
