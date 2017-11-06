@@ -64,7 +64,6 @@ export default {
 			this.accuracy = 75;
 			this.animations.add('bubble');
 			this.animations.play('bubble', 30, true);
-			this.x += Math.random() * 50;
 			this.powerUps = {};
 			this.alpha = 1;
 		}
@@ -94,7 +93,6 @@ export default {
 			this.accuracy = 75;
 			this.animations.add('bubble');
 			this.animations.play('bubble', 30, true);
-			this.x += Math.random() * 50;
 			this.powerUps = {};
 		}
 
@@ -123,7 +121,6 @@ export default {
 			this.accuracy = 75;
 			this.animations.add('storm');
 			this.animations.play('storm', 30, true);
-			this.x += Math.random() * 50;
 			this.powerUps = {};
 		}
 
@@ -156,7 +153,6 @@ export default {
 			this.accuracy = 75;
 			this.animations.add('spray');
 			this.animations.play('spray', 30, true);
-			this.x += Math.random() * 50;
 			this.powerUps = {};
 		}
 
@@ -183,7 +179,6 @@ export default {
 			this.accuracy = 75;
 			this.animations.add('tornado');
 			this.animations.play('tornado', 30, true);
-			this.x += Math.random() * 50;
 			this.powerUps = {};
 		}
 
@@ -383,13 +378,13 @@ export default {
 			this.powerUps = {};
 			if (spell.name == 'lightning' || spell.name == 'fire') {
 				this.body.gravity.y += 2000
-				if (spell.name == 'lightning' && Math.random() *  25 < 1) {
-					this.lightning = game.add.sprite(this.x, this.y + 120, 'lightning');
+				if (spell.name == 'lightning' && Math.random() *  65 < 1) {
+					this.lightning = game.add.sprite(this.x, this.y + 150, 'lightning');
 					this.lightning.anchor.setTo(0.5, 0.5);
 					this.lightning.alpha = .5
 					this.anim = this.lightning.animations.add('strike');
-					this.anim.play(50, true);
-					this.game.add.tween(this.lightning).to( { alpha: 0 }, 300, Phaser.Easing.Linear.None, true );
+					this.anim.play(20, true);
+					this.game.add.tween(this.lightning).to( { alpha: 0 }, 500, Phaser.Easing.Linear.None, true );
 				}
 				if (facing == "right") {
 					this.body.gravity.x += 2000;

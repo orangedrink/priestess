@@ -20,13 +20,13 @@ export default class extends Phaser.Sprite {
 		game.physics.enable(this, Phaser.Physics.ARCADE);
 		this.body.bounce.y = 0.2;
 		this.body.collideWorldBounds = true;
-		this.anchor.setTo(0.5, 0.5);
+		this.anchor.setTo(0.25, 0);
 		
 		//set up control keys
 		this.cursors = game.input.keyboard.createCursorKeys();
 		this.jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.UP);
 		this.magicButton = game.input.keyboard.addKey(Phaser.Keyboard.ALT);
-		this.shootButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+		this.shootButton = game.input.keyboard.addKey(Phaser.Keyboard.CONTROL);
 
 		//set up control flags and player data
 		this.facing = 'left';
@@ -177,8 +177,8 @@ export default class extends Phaser.Sprite {
 	}
 
 	magic() {
-		let shots = Math.random() * 10
-		for (let i = 0; i < shots + 5; i++) {
+		let shots = Math.random() * 5 + 3
+		for (let i = 0; i < shots; i++) {
 			let direction = (Math.random() >= .5 ? 'left' : 'right')
 			let delay = (Math.random() * 200) + 300;
 			setTimeout(this.shoot, delay, this, direction);

@@ -114,8 +114,8 @@ export default {
 	lightning: {
 		name: 'lightning',
 		asset: 'spark',
-		count: 70,
-		bowCount: 90,
+		count: 90,
+		bowCount: 110,
 		damage: 3,
 	},
 	air: {

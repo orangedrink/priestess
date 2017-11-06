@@ -28,11 +28,11 @@ export default class extends Phaser.State {
     await this.preload()
     console.log(`Starting Level ${this.levelIndex} from ${this.levelData}`)
     //world
-    if(this.level.musicAsset && this.music && this.music.isPlaying){
+    if (this.level.musicAsset && this.music && this.music.isPlaying) {
       console.log("stopping music")
       this.music.fadeOut(100)
     }
-    if(this.level.musicAsset){
+    if (this.level.musicAsset) {
       this.music = game.add.audio(this.level.musicAsset);
       this.music.loop = true;
       this.music.play();
@@ -51,18 +51,6 @@ export default class extends Phaser.State {
     let spellKeys = Object.keys(Spells)
     let effectKeys = Object.keys(Effects)
 
-
-    let combinations = (spellKeys.length * effectKeys.length) * 2;
-
-    let activeEffect = effectKeys[Math.floor(Math.random() * effectKeys.length)]
-    let activeSpell = spellKeys[Math.floor(Math.random() * spellKeys.length)]
-    let bow = (Math.round(Math.random()) == 1)
-    console.log(`Randomly generated power: ${activeSpell} ${activeEffect}`)
-    console.log(`Magic bow: ${bow}`)
-    //activeSpell = 'boulder'
-    //activeEffect = 'wave'
-    //bow = true
-
     //sprites
     this.priestess = new Priestess({
       game: this.game,
@@ -70,9 +58,6 @@ export default class extends Phaser.State {
       y: 0,
       asset: 'priestess'
     })
-    this.priestess.activeEffect = activeEffect;
-    this.priestess.activeSpell = activeSpell;
-    this.priestess.powerUps.magicBow = bow;
     this.game.add.existing(this.priestess);
     this.game.camera.follow(this.priestess);
 
@@ -80,10 +65,33 @@ export default class extends Phaser.State {
     game.physics.startSystem(Phaser.Physics.ARCADE);
     game.physics.arcade.gravity.y = 650;
 
+    //controls
+
+    //menu
+    let _this = this
+    this.menu = document.getElementById('menu');
+    this.bowMenu = document.getElementById('magicbow');
+    this.bowMenu.onchange = function () {
+      _this.priestess.powerUps.magicBow = this.checked
+    }
+    this.spellMenu = document.getElementById('spell');
+    this.spellMenu.onchange = function () {
+      _this.priestess.activeSpell = this.options[this.selectedIndex].value
+    }
+    this.priestess.activeSpell = this.spellMenu.options[this.spellMenu.selectedIndex].value
+
+    this.effectMenu = document.getElementById('effect');
+    this.effectMenu.onchange = function () {
+      _this.priestess.activeEffect = this.options[this.selectedIndex].value
+    }
+    this.priestess.activeEffect = this.effectMenu.options[this.effectMenu.selectedIndex].value
+    this.menu.style.display = "block"
+    this.priestess.powerUps.magicBow = false;
   }
 
   async update() {
     this.game.physics.arcade.collide(this.priestess, this.groundLayer);
+
   }
 
   nextLevel() {

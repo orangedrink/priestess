@@ -17,6 +17,7 @@
             background-color: #000;
             text-align: center;
         }
+
         canvas {
             padding-left: 0;
             padding-right: 0;
@@ -30,6 +31,47 @@
 <body>
 
     <div id="content"></div>
+    <div id="menu" style="display:none">
+        <select id="spell">
+                <option value="flame">flame</option>
+                <option value="fire">fire</option>
+                <option value="inferno">inferno</option>
+                <option value="bubble">bubble</option>
+                <option value="orb">orb</option>
+                <option value="blood">blood</option>
+                <option value="bile">bile</option>
+                <option value="pebble">pebble</option>
+                <option value="rock">rock</option>
+                <option value="stone">stone</option>
+                <option value="boulder">boulder</option>
+                <option value="goo">goo</option>
+                <option value="slime">slime</option>
+                <option value="ectoplasm">ectoplasm</option>
+                <option value="spark">spark</option>
+                <option value="shock">shock</option>
+                <option value="lightning">lightning</option>
+                <option value="air">air</option>
+                <option value="wind">wind</option>
+                <option value="cloud">cloud</option>
+        </select>
+
+        <select id="effect">
+                <option value="toss">toss</option>
+                <option value="rain">rain</option>
+                <option value="wave">wave</option>
+                <option value="bubble">bubble</option>
+                <option value="storm">storm</option>
+                <option value="spray">spray</option>
+                <option value="tornado">tornado</option>
+                <option value="wall">wall</option>
+                <option value="stream">stream</option>
+                <option value="surge">surge</option>
+                <option value="field">field</option>
+                <option value="swarm">swarm</option>
+                <option value="bolt">bolt</option>
+        </select>
+        <input type="checkbox" id="magicbow">
+    </div>
     <!-- uncomment the line bellow for cordova feature -->
     <!-- <script type="text/javascript" src="cordova.js"></script> -->
 <script type="text/javascript" src="./dist/vendor.bundle.js"></script><script type="text/javascript" src="./dist/bundle.js"></script></body>

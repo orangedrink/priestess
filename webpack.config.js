@@ -40,7 +40,7 @@ module.exports = {
       minify: {
         removeAttributeQuotes: false,
         collapseWhitespace: false,
-        html5: false,
+        html5: true,
         minifyCSS: false,
         minifyJS: false,
         minifyURLs: false,
