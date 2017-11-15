@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="67" height="54" tilewidth="32" tileheight="32" nextobjectid="1">
  <tileset firstgid="1" source="../../../../../Desktop/untitled.tsx"/>
+ <tileset firstgid="257" source="untitled.tsx"/>
  <layer name="Tile Layer 1" width="67" height="54" offsetx="-6" offsety="-44">
   <data encoding="base64" compression="zlib">
-   eJzt1G0KwjAQRdEqCv6WqhuodgPW7n9nRmiYIUxj/KhM6z3wsCSpOC9gVQEAgH9UF64t1VY9N8b+NfPu0nrS8+TmtljdzY2e/5N5Xu3Ok9iBnn/KeTYTfnep1ch6k3x68o3eDiFHI/uQU3LWcxfrJ/s79Tx21+eQy5BWrVvzeuwid5cl0ffdhdyG9Gp9Ll3Eu2wze2mssw/vdOHp/z/+/j6zl8Y6m54v7cITuhB0IehC0IWgC0EXgi4EXQi6+C26AAAAAAAAAAAAAPy5A20OKjQ=
+   eJzt1G0KwjAQRdEqCv4WPzZQ7QbU7n9J7sAIDTOEaZoqlWm9Bx6WJErnBawqAADwjw6Fa0u1Vc+1sX/LfHdpPel5cnNbrO7mRs//zTxju/MkdqDnn3KezYS/XWrVs14nn548+156hGPIycg+5Jyc9dzFemB/p577aruEXLs0at2a12MXubssib7ve8ijS6vW59JFvMsms5fGOvv2SRee/v/j+7eZvTTW2fR8aRee0IWgC0EXgi4EXQi6EHQh6ELQxW/RBQAAAAAAAAAAAODPCzkNKyI=
   </data>
  </layer>
 </map>

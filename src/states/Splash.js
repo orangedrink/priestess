@@ -24,6 +24,11 @@ export default class extends Phaser.State {
     this.groundLayer.resizeWorld();
     this.map.addTilesetImage('tiles');
     this.map.setTileIndexCallback(3, this.startGame, this);
+
+    this.book = this.game.add.sprite(225, 260, 'book');
+    this.turnPages = this.book.animations.add('turn');
+    this.turnPages.play(20, true);
+
     
     this.banner = this.add.text(this.screenWidth / 2, 80, 'Priestess');
     this.banner.font = 'acme'
@@ -42,8 +47,6 @@ export default class extends Phaser.State {
     let activeEffect = effectKeys[Math.floor(Math.random() * effectKeys.length)]
     let activeSpell = spellKeys[Math.floor(Math.random() * spellKeys.length)]
     let bow = (Math.round(Math.random()) == 1)
-    console.log(effectKeys)
-    console.log(bow)
 //    activeSpell = 'lightning'
 //    activeEffect = 'tornado'
     //bow = true

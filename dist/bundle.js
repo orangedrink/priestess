@@ -11801,12 +11801,13 @@ var _class = function (_Phaser$State) {
       game.load.spritesheet('rock', 'assets/images/spells/rock.png', 64, 64);
       game.load.spritesheet('bubble', 'assets/images/spells/bubble.png', 64, 64);
       game.load.spritesheet('priestess', 'assets/images/priestess.png', 64, 64);
-      this.game.load.tilemap('splashmap', 'assets/levels/splash.csv', null, _phaser2.default.Tilemap.CSV);0;
+      this.game.load.tilemap('splashmap', 'assets/levels/splash.csv', null, _phaser2.default.Tilemap.CSV);
       this.game.load.tilemap('l1', 'assets/levels/l1.csv', null, _phaser2.default.Tilemap.CSV);
       this.game.load.tilemap('l2', 'assets/levels/l2.csv', null, _phaser2.default.Tilemap.CSV);
       this.game.load.tilemap('l3', 'assets/levels/l3.csv', null, _phaser2.default.Tilemap.CSV);
       this.game.load.tilemap('l4', 'assets/levels/l4.csv', null, _phaser2.default.Tilemap.CSV);
       this.game.load.image('tiles', 'assets/images/tiles.png');
+      game.load.spritesheet('book', 'assets/images/book.png', 32, 32);
       this.game.load.image('forrest-background', 'assets/images/backgrounds/forrest.png');
       this.game.load.image('graveyard-background', 'assets/images/backgrounds/graveyard.png');
       this.game.load.image('clouds-background', 'assets/images/backgrounds/clouds.png');
@@ -11912,6 +11913,10 @@ var _class = function (_Phaser$State) {
       this.map.addTilesetImage('tiles');
       this.map.setTileIndexCallback(3, this.startGame, this);
 
+      this.book = this.game.add.sprite(225, 260, 'book');
+      this.turnPages = this.book.animations.add('turn');
+      this.turnPages.play(20, true);
+
       this.banner = this.add.text(this.screenWidth / 2, 80, 'Priestess');
       this.banner.font = 'acme';
       this.banner.padding.set(10, 16);
@@ -11928,8 +11933,6 @@ var _class = function (_Phaser$State) {
       var activeEffect = effectKeys[Math.floor(Math.random() * effectKeys.length)];
       var activeSpell = spellKeys[Math.floor(Math.random() * spellKeys.length)];
       var bow = Math.round(Math.random()) == 1;
-      console.log(effectKeys);
-      console.log(bow);
       //    activeSpell = 'lightning'
       //    activeEffect = 'tornado'
       //bow = true
