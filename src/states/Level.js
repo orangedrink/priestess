@@ -58,6 +58,7 @@ export default class extends Phaser.State {
       y: 0,
       asset: 'priestess'
     })
+    this.priestess.powerUps = JSON.parse(localStorage.getItem("powerUps")) || this.priestess.powerUps;
     this.game.add.existing(this.priestess);
     this.game.camera.follow(this.priestess);
 
@@ -86,7 +87,6 @@ export default class extends Phaser.State {
     }
     this.priestess.activeEffect = this.effectMenu.options[this.effectMenu.selectedIndex].value
     this.menu.style.display = "block"
-    this.priestess.powerUps.magicBow = false;
   }
 
   async update() {
@@ -94,11 +94,17 @@ export default class extends Phaser.State {
 
   }
 
+  save() {
+    localStorage.setItem("powerUps", JSON.stringify(this.priestess.powerUps));
+    localStorage.setItem("levelData", this.levelData);
+    localStorage.setItem("levelIndex", this.levelIndex);
+  }
   nextLevel() {
     this.fadeOut = game.add.tween(game.world).to({ alpha: 0 }, 100, Phaser.Easing.Linear.None, true);
     this.fadeOut.onComplete.add(function () {
       this.levelIndex++;
       if (this.levelIndex < this.worldData.length) {
+        this.save()
         this.state.start('Level');
       } else {
         this.state.start('Credits');

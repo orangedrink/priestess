@@ -11911,7 +11911,7 @@ var _class = function (_Phaser$State) {
       this.map.setCollisionBetween(8, 80);
       this.groundLayer.resizeWorld();
       this.map.addTilesetImage('tiles');
-      this.map.setTileIndexCallback(3, this.startGame, this);
+      this.map.setTileIndexCallback(3, this.newGame, this);
 
       this.book = this.game.add.sprite(225, 260, 'book');
       this.turnPages = this.book.animations.add('turn');
@@ -11954,7 +11954,8 @@ var _class = function (_Phaser$State) {
       game.physics.startSystem(_phaser2.default.Physics.ARCADE);
       game.physics.arcade.gravity.y = 650;
 
-      this.instructions = this.add.text(this.screenWidth / 2, this.screenHeight - 100, 'Generating a random power  from ' + combinations + ' possible combinations: ' + activeSpell + ' ' + activeEffect + ' ');
+      //this.instructions = this.add.text(this.screenWidth / 2, this.screenHeight - 100, `Generating a random power  from ${combinations} possible combinations: ${activeSpell} ${activeEffect} `);
+      this.instructions = this.add.text(this.screenWidth / 2, this.screenHeight - 100, 'Walk left to load a saved game. Walk right to start a new game.');
       this.instructions.font = 'acme';
       this.instructions.padding.set(10, 16);
       this.instructions.fontSize = 20;
@@ -11969,10 +11970,24 @@ var _class = function (_Phaser$State) {
       if (this.priestess.y > 1660) {
         this.state.start('Splash');
       }
+      if (this.priestess.x < 260) {
+        this.loadGame();
+      }
     }
   }, {
-    key: 'startGame',
-    value: function startGame() {
+    key: 'loadGame',
+    value: function loadGame() {
+      this.fadeOut = game.add.tween(game.world).to({ alpha: 0 }, 100, _phaser2.default.Easing.Linear.None, true);
+      this.music.fadeOut(100);
+      this.fadeOut.onComplete.add(function () {
+        this.game.state.states['Level'].levelData = localStorage.getItem("levelData") || '../assets/levels/index.json';
+        this.game.state.states['Level'].levelIndex = localStorage.getItem("levelIndex") || 0;
+        this.state.start('Level');
+      }, this);
+    }
+  }, {
+    key: 'newGame',
+    value: function newGame() {
       this.fadeOut = game.add.tween(game.world).to({ alpha: 0 }, 100, _phaser2.default.Easing.Linear.None, true);
       this.music.fadeOut(100);
       this.fadeOut.onComplete.add(function () {
@@ -12171,6 +12186,7 @@ var _class = function (_Phaser$State) {
         y: 0,
         asset: 'priestess'
       });
+      this.priestess.powerUps = JSON.parse(localStorage.getItem("powerUps")) || this.priestess.powerUps;
       this.game.add.existing(this.priestess);
       this.game.camera.follow(this.priestess);
 
@@ -12199,12 +12215,18 @@ var _class = function (_Phaser$State) {
       };
       this.priestess.activeEffect = this.effectMenu.options[this.effectMenu.selectedIndex].value;
       this.menu.style.display = "block";
-      this.priestess.powerUps.magicBow = false;
     }
   }, {
     key: 'update',
     value: async function update() {
       this.game.physics.arcade.collide(this.priestess, this.groundLayer);
+    }
+  }, {
+    key: 'save',
+    value: function save() {
+      localStorage.setItem("powerUps", JSON.stringify(this.priestess.powerUps));
+      localStorage.setItem("levelData", this.levelData);
+      localStorage.setItem("levelIndex", this.levelIndex);
     }
   }, {
     key: 'nextLevel',
@@ -12213,6 +12235,7 @@ var _class = function (_Phaser$State) {
       this.fadeOut.onComplete.add(function () {
         this.levelIndex++;
         if (this.levelIndex < this.worldData.length) {
+          this.save();
           this.state.start('Level');
         } else {
           this.state.start('Credits');

@@ -23,13 +23,13 @@ export default class extends Phaser.State {
     this.map.setCollisionBetween(8, 80);
     this.groundLayer.resizeWorld();
     this.map.addTilesetImage('tiles');
-    this.map.setTileIndexCallback(3, this.startGame, this);
+    this.map.setTileIndexCallback(3, this.newGame, this);
 
     this.book = this.game.add.sprite(225, 260, 'book');
     this.turnPages = this.book.animations.add('turn');
     this.turnPages.play(20, true);
 
-    
+
     this.banner = this.add.text(this.screenWidth / 2, 80, 'Priestess');
     this.banner.font = 'acme'
     this.banner.padding.set(10, 16)
@@ -47,8 +47,8 @@ export default class extends Phaser.State {
     let activeEffect = effectKeys[Math.floor(Math.random() * effectKeys.length)]
     let activeSpell = spellKeys[Math.floor(Math.random() * spellKeys.length)]
     let bow = (Math.round(Math.random()) == 1)
-//    activeSpell = 'lightning'
-//    activeEffect = 'tornado'
+    //    activeSpell = 'lightning'
+    //    activeEffect = 'tornado'
     //bow = true
 
     //sprites
@@ -68,7 +68,8 @@ export default class extends Phaser.State {
     game.physics.startSystem(Phaser.Physics.ARCADE);
     game.physics.arcade.gravity.y = 650;
 
-    this.instructions = this.add.text(this.screenWidth / 2, this.screenHeight - 100, `Generating a random power  from ${combinations} possible combinations: ${activeSpell} ${activeEffect} `);
+    //this.instructions = this.add.text(this.screenWidth / 2, this.screenHeight - 100, `Generating a random power  from ${combinations} possible combinations: ${activeSpell} ${activeEffect} `);
+    this.instructions = this.add.text(this.screenWidth / 2, this.screenHeight - 100, `Walk left to load a saved game. Walk right to start a new game.`);
     this.instructions.font = 'acme'
     this.instructions.padding.set(10, 16)
     this.instructions.fontSize = 20
@@ -83,9 +84,22 @@ export default class extends Phaser.State {
     if (this.priestess.y > 1660) {
       this.state.start('Splash');
     }
+    if (this.priestess.x < 260) {
+      this.loadGame();
+    }
   }
 
-  startGame() {
+  loadGame(){
+    this.fadeOut = game.add.tween(game.world).to({ alpha: 0 }, 100, Phaser.Easing.Linear.None, true);
+    this.music.fadeOut(100);
+    this.fadeOut.onComplete.add(function () {
+      this.game.state.states['Level'].levelData = localStorage.getItem("levelData") ||  '../assets/levels/index.json';
+      this.game.state.states['Level'].levelIndex = localStorage.getItem("levelIndex") || 0;
+      this.state.start('Level');
+    }, this);
+  }
+
+  newGame() {
     this.fadeOut = game.add.tween(game.world).to({ alpha: 0 }, 100, Phaser.Easing.Linear.None, true);
     this.music.fadeOut(100);
     this.fadeOut.onComplete.add(function () {
