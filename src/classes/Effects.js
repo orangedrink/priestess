@@ -8,23 +8,23 @@ export default {
 			game.physics.enable(this, Phaser.Physics.ARCADE);
 			this.body.bounce.y = 0.2;
 			//this.body.gravity.y = -1000
-			this.speed = 600;
+			this.speed = 500;
 			this.arc = -300
 			this.accuracy = 75;
-			this.animations.add('bubble');
-			this.animations.play('bubble', 30, true);
+			this.animations.add('wave');
+			this.animations.play('wave', 30, true);
 			this.powerUps = {};
 			this.alpha = 1;
 		}
 
 		update() {
 			super.update()
-			if (this.powerUps.magicBow) {
-				this.x += this.body.velocity.x * .05;
+			if (this.bowActive) {
+				this.x += this.body.velocity.x * .025;
 				this.body.velocity.x -= Math.random() * (this.body.velocity.x * 2);
 			}
 			else {
-				this.x += this.body.velocity.x * .35;
+				this.x += this.body.velocity.x * .1;
 				this.body.velocity.x -= Math.random() * (this.body.velocity.x * 2);
 			}
 		}
@@ -43,6 +43,7 @@ export default {
 			this.animations.add('toss');
 			this.animations.play('toss', 30, true);
 			this.powerUps = {};
+			this.timeAlive=700
 		}
 
 		update() {
@@ -71,7 +72,7 @@ export default {
 		update() {
 			super.update()
 			this.body.velocity.y -= 1;
-			if (this.powerUps.magicBow) {
+			if (this.bowActive) {
 				this.x += this.body.velocity.x * .05;
 				this.body.velocity.x -= Math.random() * (this.body.velocity.x * 2);
 			}
@@ -98,7 +99,7 @@ export default {
 
 		update() {
 			super.update()
-			if (this.powerUps.magicBow) {
+			if (this.bowActive) {
 				this.x += this.body.velocity.x * .05;
 				this.body.velocity.x -= Math.random() * (this.body.velocity.x * 2);
 			}
@@ -126,12 +127,12 @@ export default {
 
 		update() {
 			super.update()
-			if (this.powerUps.magicBow) {
+			if (this.bowActive) {
 				this.x += this.body.velocity.x * .05;
 				this.body.velocity.x -= Math.random() * (this.body.velocity.x * 2);
 			}
 			else {
-				this.x += this.body.velocity.x * .35;
+				this.x += this.body.velocity.x * .15;
 				this.body.velocity.x -= Math.random() * (this.body.velocity.x * 2);
 			}
 		}
@@ -158,7 +159,7 @@ export default {
 
 		update() {
 			super.update()
-			if (this.powerUps.magicBow) {
+			if (this.bowActive) {
 			}
 			else {
 				if (Math.abs(this.body.velocity.x) > 20) {
@@ -194,7 +195,7 @@ export default {
 			this.body.gravity.x = (500 - (Math.random() * 1000)) * 10
 			this.body.gravity.y = (500 - (Math.random() * 1000)) * 30
 
-			if (this.powerUps.magicBow) {
+			if (this.bowActive) {
 			}
 			else {
 			}
@@ -226,7 +227,7 @@ export default {
 
 			this.body.gravity.y = (500 - (Math.random() * 1000)) * 30
 
-			if (this.powerUps.magicBow) {
+			if (this.bowActive) {
 			}
 			else {
 			}
@@ -250,7 +251,7 @@ export default {
 
 		update() {
 			super.update()
-			if (this.powerUps.magicBow) {
+			if (this.bowActive) {
 				this.x += this.body.velocity.x * .05;
 				this.body.velocity.x -= Math.random() * (this.body.velocity.x * 2);
 			}
@@ -286,7 +287,7 @@ export default {
 			} else {
 				this.body.gravity.x -= Math.random() * 600
 			}
-			if (this.powerUps.magicBow) {
+			if (this.bowActive) {
 				this.x += this.body.velocity.x * .05;
 				this.body.velocity.x -= Math.random() * (this.body.velocity.x * 2);
 			}
@@ -320,7 +321,7 @@ export default {
 			super.update()
 			this.body.velocity.x -= Math.random() * (this.body.velocity.x * 2);
 			this.body.velocity.y -= Math.random() * (this.body.velocity.y * 2);
-			if (this.powerUps.magicBow) {
+			if (this.bowActive) {
 			}
 			else {
 			}
@@ -350,7 +351,7 @@ export default {
 			} else {
 				this.body.gravity.x -= Math.random() * 6 + 50
 			}
-			if (this.powerUps.magicBow) {
+			if (this.bowActive) {
 			}
 			else {
 			}
@@ -399,7 +400,7 @@ export default {
 			if (this.facing == "right") {
 			} else {
 			}
-			if (this.powerUps.magicBow) {
+			if (this.bowActive) {
 			}
 			else {
 			}

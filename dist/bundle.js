@@ -2162,11 +2162,11 @@ exports.default = {
 			game.physics.enable(_this, _phaser2.default.Physics.ARCADE);
 			_this.body.bounce.y = 0.2;
 			//this.body.gravity.y = -1000
-			_this.speed = 600;
+			_this.speed = 500;
 			_this.arc = -300;
 			_this.accuracy = 75;
-			_this.animations.add('bubble');
-			_this.animations.play('bubble', 30, true);
+			_this.animations.add('wave');
+			_this.animations.play('wave', 30, true);
 			_this.powerUps = {};
 			_this.alpha = 1;
 			return _this;
@@ -2176,11 +2176,11 @@ exports.default = {
 			key: 'update',
 			value: function update() {
 				_get(Wave.prototype.__proto__ || Object.getPrototypeOf(Wave.prototype), 'update', this).call(this);
-				if (this.powerUps.magicBow) {
-					this.x += this.body.velocity.x * .05;
+				if (this.bowActive) {
+					this.x += this.body.velocity.x * .025;
 					this.body.velocity.x -= Math.random() * (this.body.velocity.x * 2);
 				} else {
-					this.x += this.body.velocity.x * .35;
+					this.x += this.body.velocity.x * .1;
 					this.body.velocity.x -= Math.random() * (this.body.velocity.x * 2);
 				}
 			}
@@ -2211,6 +2211,7 @@ exports.default = {
 			_this2.animations.add('toss');
 			_this2.animations.play('toss', 30, true);
 			_this2.powerUps = {};
+			_this2.timeAlive = 700;
 			return _this2;
 		}
 
@@ -2258,7 +2259,7 @@ exports.default = {
 			value: function update() {
 				_get(Rain.prototype.__proto__ || Object.getPrototypeOf(Rain.prototype), 'update', this).call(this);
 				this.body.velocity.y -= 1;
-				if (this.powerUps.magicBow) {
+				if (this.bowActive) {
 					this.x += this.body.velocity.x * .05;
 					this.body.velocity.x -= Math.random() * (this.body.velocity.x * 2);
 				} else {
@@ -2300,7 +2301,7 @@ exports.default = {
 			key: 'update',
 			value: function update() {
 				_get(Bubble.prototype.__proto__ || Object.getPrototypeOf(Bubble.prototype), 'update', this).call(this);
-				if (this.powerUps.magicBow) {
+				if (this.bowActive) {
 					this.x += this.body.velocity.x * .05;
 					this.body.velocity.x -= Math.random() * (this.body.velocity.x * 2);
 				} else {
@@ -2343,11 +2344,11 @@ exports.default = {
 			key: 'update',
 			value: function update() {
 				_get(Storme.prototype.__proto__ || Object.getPrototypeOf(Storme.prototype), 'update', this).call(this);
-				if (this.powerUps.magicBow) {
+				if (this.bowActive) {
 					this.x += this.body.velocity.x * .05;
 					this.body.velocity.x -= Math.random() * (this.body.velocity.x * 2);
 				} else {
-					this.x += this.body.velocity.x * .35;
+					this.x += this.body.velocity.x * .15;
 					this.body.velocity.x -= Math.random() * (this.body.velocity.x * 2);
 				}
 			}
@@ -2391,7 +2392,7 @@ exports.default = {
 			key: 'update',
 			value: function update() {
 				_get(Spray.prototype.__proto__ || Object.getPrototypeOf(Spray.prototype), 'update', this).call(this);
-				if (this.powerUps.magicBow) {} else {
+				if (this.bowActive) {} else {
 					if (Math.abs(this.body.velocity.x) > 20) {
 						this.x += this.body.velocity.x * .35;
 						this.body.velocity.x -= Math.random() * this.body.velocity.x;
@@ -2441,7 +2442,7 @@ exports.default = {
 				this.body.gravity.x = (500 - Math.random() * 1000) * 10;
 				this.body.gravity.y = (500 - Math.random() * 1000) * 30;
 
-				if (this.powerUps.magicBow) {} else {}
+				if (this.bowActive) {} else {}
 			}
 		}]);
 
@@ -2486,7 +2487,7 @@ exports.default = {
 
 				this.body.gravity.y = (500 - Math.random() * 1000) * 30;
 
-				if (this.powerUps.magicBow) {} else {}
+				if (this.bowActive) {} else {}
 			}
 		}]);
 
@@ -2523,7 +2524,7 @@ exports.default = {
 			key: 'update',
 			value: function update() {
 				_get(Stream.prototype.__proto__ || Object.getPrototypeOf(Stream.prototype), 'update', this).call(this);
-				if (this.powerUps.magicBow) {
+				if (this.bowActive) {
 					this.x += this.body.velocity.x * .05;
 					this.body.velocity.x -= Math.random() * (this.body.velocity.x * 2);
 				} else {
@@ -2575,7 +2576,7 @@ exports.default = {
 				} else {
 					this.body.gravity.x -= Math.random() * 600;
 				}
-				if (this.powerUps.magicBow) {
+				if (this.bowActive) {
 					this.x += this.body.velocity.x * .05;
 					this.body.velocity.x -= Math.random() * (this.body.velocity.x * 2);
 				} else {
@@ -2626,7 +2627,7 @@ exports.default = {
 				_get(Surge.prototype.__proto__ || Object.getPrototypeOf(Surge.prototype), 'update', this).call(this);
 				this.body.velocity.x -= Math.random() * (this.body.velocity.x * 2);
 				this.body.velocity.y -= Math.random() * (this.body.velocity.y * 2);
-				if (this.powerUps.magicBow) {} else {}
+				if (this.bowActive) {} else {}
 			}
 		}]);
 
@@ -2670,7 +2671,7 @@ exports.default = {
 				} else {
 					this.body.gravity.x -= Math.random() * 6 + 50;
 				}
-				if (this.powerUps.magicBow) {} else {}
+				if (this.bowActive) {} else {}
 			}
 		}]);
 
@@ -2732,7 +2733,7 @@ exports.default = {
 			value: function update() {
 				_get(Surge.prototype.__proto__ || Object.getPrototypeOf(Surge.prototype), 'update', this).call(this);
 				if (this.facing == "right") {} else {}
-				if (this.powerUps.magicBow) {} else {}
+				if (this.bowActive) {} else {}
 			}
 		}]);
 
@@ -5243,11 +5244,11 @@ var _class = function (_Phaser$Sprite) {
 					y: _this.y + 32,
 					asset: _Spells2.default[_this.activeSpell].asset,
 					facing: facing,
-					powerUps: _this.powerUps,
 					spell: _Spells2.default[_this.activeSpell]
 				});
 				effectSprite.frame = Math.random() * 3;
 				effectSprite.powerUps = _this.powerUps;
+				effectSprite.bowActive = _this.bowActive;
 				effectSprite.tint = _Spells2.default[_this.activeSpell].tint || 0xffffff;
 				effectSprite.spell = _Spells2.default[_this.activeSpell].asset;
 				effectSprite.scale.setTo(_Spells2.default[_this.activeSpell].scale || 1);

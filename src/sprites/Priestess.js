@@ -159,11 +159,11 @@ export default class extends Phaser.Sprite {
 				y: _this.y + 32,
 				asset: Spells[_this.activeSpell].asset,
 				facing: facing,
-				powerUps: _this.powerUps,
 				spell: Spells[_this.activeSpell]
 			})
 			effectSprite.frame = Math.random() * 3;
 			effectSprite.powerUps = _this.powerUps;
+			effectSprite.bowActive = _this.bowActive;
 			effectSprite.tint = Spells[_this.activeSpell].tint || 0xffffff
 			effectSprite.spell = Spells[_this.activeSpell].asset
  			effectSprite.scale.setTo(Spells[_this.activeSpell].scale || 1)
