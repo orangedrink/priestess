@@ -1,12 +1,26 @@
 import Phaser from 'phaser'
 
 export default {
+	air: {
+		asset: 'spirit',
+		count: 38,
+		bowCount: 25,
+		damage: 1,
+		scale: .5
+	},
 	flame: {
 		asset: 'fire',
 		count: 30,
 		bowCount: 50,
 		damage: 1,
 		scale: .75,
+	},
+	pebble: {
+		asset: 'rock',
+		count: 35,
+		bowCount: 65,
+		damage: 1,
+		scale: .25  
 	},
 	fire: {
 		name:'fire',
@@ -15,19 +29,19 @@ export default {
 		bowCount: 80,
 		damage: 1,
 	},
-	inferno: {
-		asset: 'fire',
-		count: 100,
-		bowCount: 120,
-		damage: 2,
-		scale: 1,
-	},
 	bubble: {
 		asset: 'bubble',
 		count: 30,
 		bowCount: 40,
 		damage: 1,
 		scale: .5,
+	},
+	inferno: {
+		asset: 'fire',
+		count: 100,
+		bowCount: 120,
+		damage: 2,
+		scale: 1,
 	},
 	orb: {
 		asset: 'bubble',
@@ -51,13 +65,6 @@ export default {
 		damage: 1,
 		scale: 1,
 		tint: 0x50faaa
-	},
-	pebble: {
-		asset: 'rock',
-		count: 35,
-		bowCount: 65,
-		damage: 1,
-		scale: .25  
 	},
 	rock: {
 		asset: 'rock',
@@ -117,13 +124,6 @@ export default {
 		count: 90,
 		bowCount: 110,
 		damage: 3,
-	},
-	air: {
-		asset: 'spirit',
-		count: 18,
-		bowCount: 25,
-		damage: 1,
-		scale: .5
 	},
 	wind: {
 		asset: 'spirit',

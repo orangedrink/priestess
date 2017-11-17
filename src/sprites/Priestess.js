@@ -34,12 +34,13 @@ export default class extends Phaser.Sprite {
 		this.stoppedShooting = true;
 		this.meditating = false;
 		this.stoppedMeditating = false;
-		this.powerUps = {
-			superJump: false,
-			magicBow: false
-		}
-		this.activeSpell = 'boulder';
-		this.activeEffect = 'toss'
+		this.powerUps = {}
+		this.health = 25;
+		this.activeSpell = 'air';
+		this.activeEffect = 'wave';
+		this.bowActive = false;
+		this.availableSpells = ['air'];
+		this.availableEffects = ['wave'];
 	}
 
 	update() {
@@ -106,7 +107,7 @@ export default class extends Phaser.Sprite {
 
 		//handle shooting
 		if (this.shootButton.isDown) {
-			let animPrefix = this.powerUps.magicBow ? 'shoot' : 'throw';
+			let animPrefix = this.bowActive ? 'shoot' : 'throw';
 			let anim
 			if (this.stoppedShooting && !this.shooting) {
 				if (this.facing == 'right') {
@@ -149,7 +150,7 @@ export default class extends Phaser.Sprite {
 	}
 
 	shoot(_this, facing) {
-		let shots = (_this.powerUps.magicBow ? Spells[_this.activeSpell].bowCount :  Math.random() * Spells[_this.activeSpell].count )
+		let shots = (_this.bowActive ? Spells[_this.activeSpell].bowCount :  Math.random() * Spells[_this.activeSpell].count )
 		for (let i = 0; i < shots + 4; i++) {
 			let EffectsSprite = Effects[_this.activeEffect];
 			let effectSprite = new EffectsSprite({
@@ -167,11 +168,11 @@ export default class extends Phaser.Sprite {
 			effectSprite.spell = Spells[_this.activeSpell].asset
  			effectSprite.scale.setTo(Spells[_this.activeSpell].scale || 1)
 			if (facing == 'right') {
-				effectSprite.body.velocity.x = _this.powerUps.magicBow ? effectSprite.speed * 8 : effectSprite.speed;
+				effectSprite.body.velocity.x = _this.bowActive ? effectSprite.speed * 8 : effectSprite.speed;
 			} else {
-				effectSprite.body.velocity.x = _this.powerUps.magicBow ? 0 - effectSprite.speed * 8 : 0 - effectSprite.speed;
+				effectSprite.body.velocity.x = _this.bowActive ? 0 - effectSprite.speed * 8 : 0 - effectSprite.speed;
 			}
-			effectSprite.body.velocity.y = _this.powerUps.magicBow ? (effectSprite.arc) / 2 + Math.random() * (effectSprite.accuracy * .75): effectSprite.arc + Math.random() * (effectSprite.accuracy * 2);
+			effectSprite.body.velocity.y = _this.bowActive ? (effectSprite.arc) / 2 + Math.random() * (effectSprite.accuracy * .75): effectSprite.arc + Math.random() * (effectSprite.accuracy * 2);
 			_this.game.add.existing(effectSprite);
 		}
 	}

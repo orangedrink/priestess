@@ -20,7 +20,7 @@ export default class extends Phaser.State {
     this.screenHeight = this.game.height;
     this.map = this.game.add.tilemap('splashmap');
     this.groundLayer = this.map.createLayer(0);
-    this.map.setCollisionBetween(8, 80);
+    this.map.setCollisionBetween(64, 239);
     this.groundLayer.resizeWorld();
     this.map.addTilesetImage('tiles');
     this.map.setTileIndexCallback(3, this.newGame, this);
@@ -100,6 +100,7 @@ export default class extends Phaser.State {
   }
 
   newGame() {
+    localStorage.clear();
     this.fadeOut = game.add.tween(game.world).to({ alpha: 0 }, 100, Phaser.Easing.Linear.None, true);
     this.music.fadeOut(100);
     this.fadeOut.onComplete.add(function () {

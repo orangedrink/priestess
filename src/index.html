@@ -25,52 +25,22 @@
             margin-right: auto;
             display: block;
         }
+        #flashMessage{
+            color:aliceblue;
+        }
     </style>
 </head>
 
 <body>
-
     <div id="content"></div>
     <div id="menu" style="display:none;">
+        <progress id="health" value="100" max="100"></progress>
         <select id="spell">
-                <option value="flame">flame</option>
-                <option value="fire">fire</option>
-                <option value="inferno">inferno</option>
-                <option value="bubble">bubble</option>
-                <option value="orb">orb</option>
-                <option value="blood">blood</option>
-                <option value="bile">bile</option>
-                <option value="pebble">pebble</option>
-                <option value="rock">rock</option>
-                <option value="stone">stone</option>
-                <option value="boulder">boulder</option>
-                <option value="goo">goo</option>
-                <option value="slime">slime</option>
-                <option value="ectoplasm">ectoplasm</option>
-                <option value="spark">spark</option>
-                <option value="shock">shock</option>
-                <option value="lightning">lightning</option>
-                <option value="air">air</option>
-                <option value="wind">wind</option>
-                <option value="cloud">cloud</option>
         </select>
-
         <select id="effect">
-                <option value="toss">toss</option>
-                <option value="rain">rain</option>
-                <option value="wave">wave</option>
-                <option value="bubble">bubble</option>
-                <option value="storm">storm</option>
-                <option value="spray">spray</option>
-                <option value="tornado">tornado</option>
-                <option value="wall">wall</option>
-                <option value="stream">stream</option>
-                <option value="surge">surge</option>
-                <option value="field">field</option>
-                <option value="swarm">swarm</option>
-                <option value="bolt">bolt</option>
         </select>
-        <input type="checkbox" id="magicbow">
+        <input type="checkbox" id="magicbow" style="display:none;">
+        <p id="flashMessage"></p>
     </div>
     <!-- uncomment the line bellow for cordova feature -->
     <!-- <script type="text/javascript" src="cordova.js"></script> -->

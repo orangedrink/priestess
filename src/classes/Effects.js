@@ -1,6 +1,35 @@
 import Phaser from 'phaser'
 import Effect from './EffectClass.js'
 export default {
+	wave: class Wave extends Effect {
+		constructor({ game, x, y, asset }) {
+			super(game, x, y, asset)
+			this.anchor.setTo(0.5)
+			game.physics.enable(this, Phaser.Physics.ARCADE);
+			this.body.bounce.y = 0.2;
+			//this.body.gravity.y = -1000
+			this.speed = 600;
+			this.arc = -300
+			this.accuracy = 75;
+			this.animations.add('bubble');
+			this.animations.play('bubble', 30, true);
+			this.powerUps = {};
+			this.alpha = 1;
+		}
+
+		update() {
+			super.update()
+			if (this.powerUps.magicBow) {
+				this.x += this.body.velocity.x * .05;
+				this.body.velocity.x -= Math.random() * (this.body.velocity.x * 2);
+			}
+			else {
+				this.x += this.body.velocity.x * .35;
+				this.body.velocity.x -= Math.random() * (this.body.velocity.x * 2);
+			}
+		}
+
+	},
 	toss: class Toss extends Effect {
 		constructor({ game, x, y, asset }) {
 			super(game, x, y, asset)
@@ -51,35 +80,6 @@ export default {
 				this.body.velocity.x -= Math.random() * (this.body.velocity.x * 2);
 			}
 		}
-	},
-	wave: class Wave extends Effect {
-		constructor({ game, x, y, asset }) {
-			super(game, x, y, asset)
-			this.anchor.setTo(0.5)
-			game.physics.enable(this, Phaser.Physics.ARCADE);
-			this.body.bounce.y = 0.2;
-			//this.body.gravity.y = -1000
-			this.speed = 200;
-			this.arc = -300
-			this.accuracy = 75;
-			this.animations.add('bubble');
-			this.animations.play('bubble', 30, true);
-			this.powerUps = {};
-			this.alpha = 1;
-		}
-
-		update() {
-			super.update()
-			if (this.powerUps.magicBow) {
-				this.x += this.body.velocity.x * .05;
-				this.body.velocity.x -= Math.random() * (this.body.velocity.x * 2);
-			}
-			else {
-				this.x += this.body.velocity.x * .35;
-				this.body.velocity.x -= Math.random() * (this.body.velocity.x * 2);
-			}
-		}
-
 	},
 	bubble: class Bubble extends Effect {
 		constructor({ game, x, y, asset }) {
