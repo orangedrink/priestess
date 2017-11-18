@@ -95,6 +95,7 @@ export default {
 			this.animations.add('bubble');
 			this.animations.play('bubble', 30, true);
 			this.powerUps = {};
+			this.timeAlive = 500
 		}
 
 		update() {

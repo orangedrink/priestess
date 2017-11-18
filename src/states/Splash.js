@@ -13,6 +13,10 @@ export default class extends Phaser.State {
     console.log('Splash screen state')
 
     //world
+    this.background = this.game.add.image(0, 0, 'temple-background');
+    this.background.fixedToCamera = true;
+    this.background.alpha = 0
+    game.add.tween(this.background).to({ alpha: 1 }, 16000, Phaser.Easing.Linear.None, true);
     this.music = game.add.audio('stranger');
     this.music.loop = true;
     this.music.play();

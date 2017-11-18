@@ -2294,6 +2294,7 @@ exports.default = {
 			_this4.animations.add('bubble');
 			_this4.animations.play('bubble', 30, true);
 			_this4.powerUps = {};
+			_this4.timeAlive = 500;
 			return _this4;
 		}
 
@@ -11811,6 +11812,7 @@ var _class = function (_Phaser$State) {
       this.game.load.image('tiles', 'assets/images/tiles.png');
       game.load.spritesheet('book', 'assets/images/book.png', 32, 32);
       this.game.load.image('forrest-background', 'assets/images/backgrounds/forrest.png');
+      this.game.load.image('temple-background', 'assets/images/backgrounds/temple.png');
       this.game.load.image('graveyard-background', 'assets/images/backgrounds/graveyard.png');
       this.game.load.image('clouds-background', 'assets/images/backgrounds/clouds.png');
       game.load.audio('dream', ['assets/music/dream.mp3']);
@@ -11903,6 +11905,10 @@ var _class = function (_Phaser$State) {
       console.log('Splash screen state');
 
       //world
+      this.background = this.game.add.image(0, 0, 'temple-background');
+      this.background.fixedToCamera = true;
+      this.background.alpha = 0;
+      game.add.tween(this.background).to({ alpha: 1 }, 16000, _phaser2.default.Easing.Linear.None, true);
       this.music = game.add.audio('stranger');
       this.music.loop = true;
       this.music.play();
