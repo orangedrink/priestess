@@ -11908,7 +11908,7 @@ var _class = function (_Phaser$State) {
       this.background = this.game.add.image(0, 0, 'temple-background');
       this.background.fixedToCamera = true;
       this.background.alpha = 0;
-      game.add.tween(this.background).to({ alpha: 1 }, 16000, _phaser2.default.Easing.Linear.None, true);
+      game.add.tween(this.background).to({ alpha: 1 }, 9000, _phaser2.default.Easing.Linear.None, true);
       this.music = game.add.audio('stranger');
       this.music.loop = true;
       this.music.play();
@@ -11962,8 +11962,24 @@ var _class = function (_Phaser$State) {
       game.physics.startSystem(_phaser2.default.Physics.ARCADE);
       game.physics.arcade.gravity.y = 650;
 
+      this.story1 = this.add.text(this.screenWidth / 2 + 20, this.screenHeight - 225, 'As the dawn approaches the priestess awakens from a dream sent by the Goddess. ');
+      this.story1.font = 'acme';
+      this.story1.padding.set(10, 16);
+      this.story1.fontSize = 18;
+      this.story1.fill = '#ddd';
+      this.story1.smoothed = true;
+      this.story1.anchor.setTo(0.5);
+
+      this.story2 = this.add.text(this.screenWidth / 2 + 20, this.screenHeight - 200, 'A dark force rises in the east. You must gather power and stop this evil entity.');
+      this.story2.font = 'acme';
+      this.story2.padding.set(10, 16);
+      this.story2.fontSize = 18;
+      this.story2.fill = '#ddd';
+      this.story2.smoothed = true;
+      this.story2.anchor.setTo(0.5);
+
       //this.instructions = this.add.text(this.screenWidth / 2, this.screenHeight - 100, `Generating a random power  from ${combinations} possible combinations: ${activeSpell} ${activeEffect} `);
-      this.instructions = this.add.text(this.screenWidth / 2, this.screenHeight - 100, 'Walk left to load a saved game. Walk right to start a new game.');
+      this.instructions = this.add.text(this.screenWidth / 2 + 20, this.screenHeight - 135, 'Walk left to load a saved game. Walk right to start a new game.');
       this.instructions.font = 'acme';
       this.instructions.padding.set(10, 16);
       this.instructions.fontSize = 20;

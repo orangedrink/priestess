@@ -8,4 +8,4 @@ A dark power rises in the east. You must gather power and stop this evil creatur
 https://orangedrink.github.io/preistess/ 
 
 ## Under the hood
-phaser.js + node + webpack + static-server. Good starter kit for game development
+phaser.js + node + webpack + static-server.
