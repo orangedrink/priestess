@@ -112,7 +112,7 @@ export default class extends Phaser.State {
     this.fadeOut = game.add.tween(game.world).to({ alpha: 0 }, 100, Phaser.Easing.Linear.None, true);
     this.music.fadeOut(100);
     this.fadeOut.onComplete.add(function () {
-      this.game.state.states['Level'].levelData = localStorage.getItem("levelData") ||  './assets/levels/index.json';
+      this.game.state.states['Level'].levelData = localStorage.getItem("levelData") ||  'assets/levels/index.json';
       this.game.state.states['Level'].levelIndex = localStorage.getItem("levelIndex") || 0;
       this.state.start('Level');
     }, this);
@@ -123,7 +123,7 @@ export default class extends Phaser.State {
     this.fadeOut = game.add.tween(game.world).to({ alpha: 0 }, 100, Phaser.Easing.Linear.None, true);
     this.music.fadeOut(100);
     this.fadeOut.onComplete.add(function () {
-      this.game.state.states['Level'].levelData = './assets/levels/index.json';
+      this.game.state.states['Level'].levelData = 'assets/levels/index.json';
       this.game.state.states['Level'].levelIndex = 0;
       this.state.start('Level');
     }, this);
